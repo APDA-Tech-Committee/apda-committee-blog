@@ -3,40 +3,47 @@ import { ref, onMounted } from 'vue'
 import BlogCard from '../components/BlogCard.vue'
 import HeroSection from '../components/HeroSection.vue'
 
-// Simulate blog posts data - will be replaced with API calls later
-const blogPosts = ref([
-  {
-    id: 1,
-    title: 'Welcome to APDA Committees Platform',
-    excerpt: 'Introducing our new digital platform for American Parliamentary Debate Association committee work and collaboration.',
-    author: 'APDA Admin',
-    date: '2025-08-18',
-    category: 'Announcement',
-    image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
-  },
-  {
-    id: 2,
-    title: 'Parliamentary Procedure Best Practices',
-    excerpt: 'Learn the essential parliamentary procedures that make APDA debates more effective and engaging.',
-    author: 'Rules Committee',
-    date: '2025-08-17',
-    category: 'Education',
-    image: 'https://images.unsplash.com/photo-1551135049-8a33b5883817?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
-  },
-  {
-    id: 3,
-    title: 'Committee Structure and Organization',
-    excerpt: 'Understanding how APDA committees work together to advance parliamentary debate across the nation.',
-    author: 'Executive Committee',
-    date: '2025-08-16',
-    category: 'Organization',
-    image: 'https://images.unsplash.com/photo-1560472355-536de3962603?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'
+interface Post {
+  id: string
+  title: string
+  excerpt?: string
+  publishedAt?: string
+  author: {
+    name: string
   }
-])
+  category: {
+    name: string
+    color: string
+  }
+  committee?: {
+    name: string
+    slug: string
+  }
+  featuredImage?: string
+  _count: {
+    comments: number
+  }
+}
 
-onMounted(() => {
-  // Future: Load blog posts from API
-  console.log('Home page mounted')
+const blogPosts = ref<Post[]>([])
+const loading = ref(true)
+const error = ref('')
+
+onMounted(async () => {
+  try {
+    const response = await fetch('http://localhost:3000/api/posts?page=1&limit=6&status=PUBLISHED')
+    if (!response.ok) {
+      throw new Error('Failed to fetch blog posts')
+    }
+    const data = await response.json()
+    // Extract just the posts array from the response
+    blogPosts.value = data.posts || data
+  } catch (err) {
+    error.value = err instanceof Error ? err.message : 'An error occurred'
+    console.error('Failed to fetch blog posts:', err)
+  } finally {
+    loading.value = false
+  }
 })
 </script>
 
@@ -53,25 +60,44 @@ onMounted(() => {
             Latest Updates
           </h2>
           <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-            Stay informed about APDA committee activities, parliamentary procedures, and community updates.
+            Stay informed about APDA committee activities, and community updates.
           </p>
         </div>
         
-        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          <BlogCard
-            v-for="post in blogPosts"
-            :key="post.id"
-            :post="post"
-          />
+        <!-- Loading State -->
+        <div v-if="loading" class="flex justify-center">
+          <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-600"></div>
         </div>
-        
-        <div class="text-center mt-12">
-          <RouterLink
-            to="/blog"
-            class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-colors duration-200"
-          >
-            View All Posts
-          </RouterLink>
+
+        <!-- Error State -->
+        <div v-else-if="error" class="text-center">
+          <p class="text-red-600 mb-4">{{ error }}</p>
+          <p class="text-gray-500">Unable to load latest updates. Please try again later.</p>
+        </div>
+
+        <!-- Empty State -->
+        <div v-else-if="blogPosts.length === 0" class="text-center">
+          <p class="text-gray-500">No blog posts available yet.</p>
+        </div>
+
+        <!-- Blog Posts Grid -->
+        <div v-else>
+          <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <BlogCard
+              v-for="post in blogPosts"
+              :key="post.id"
+              :post="post"
+            />
+          </div>
+          
+          <div class="text-center mt-12">
+            <RouterLink
+              to="/blog"
+              class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 transition-colors duration-200"
+            >
+              View All Posts
+            </RouterLink>
+          </div>
         </div>
       </div>
     </section>

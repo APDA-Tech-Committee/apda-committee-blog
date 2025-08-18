@@ -55,6 +55,9 @@ model Post {
   author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  committeeId String?
+  committee   Committee? @relation(fields: [committeeId], references: [id], onDelete: SetNull)
 
   comments Comment[]
   tags     TagsOnPosts[]
@@ -82,6 +85,40 @@ model TagsOnPosts {
 
   @@id([postId, tagId])
   @@map("tags_on_posts")
+}
+
+model Committee {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String
+  mission     String?
+  contact     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members CommitteeMember[]
+  posts   Post[]
+
+  @@map("committees")
+}
+
+model CommitteeMember {
+  id          String   @id @default(cuid())
+  name        String
+  role        String   // Chair, Vice-Chair, Member, etc.
+  bio         String?
+  email       String?
+  imageUrl    String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  committeeId String
+  committee   Committee @relation(fields: [committeeId], references: [id], onDelete: Cascade)
+
+  @@unique([committeeId, name])
+  @@map("committee_members")
 }
 
 model Comment {

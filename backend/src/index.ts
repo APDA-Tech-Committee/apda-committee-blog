@@ -13,6 +13,7 @@ import authRoutes from './routes/auth.js';
 import postsRoutes from './routes/posts.js';
 import categoriesRoutes from './routes/categories.js';
 import tagsRoutes from './routes/tags.js';
+import committeesRoutes from './routes/committees.js';
 
 // Load environment variables
 dotenv.config();
@@ -52,6 +53,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/posts', postsRoutes);
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/tags', tagsRoutes);
+app.use('/api/committees', committeesRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {

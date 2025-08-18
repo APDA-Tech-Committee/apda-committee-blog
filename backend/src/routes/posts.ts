@@ -1,75 +1,104 @@
 import { Router, Request, Response } from 'express';
 import { prisma } from '../index.js';
-import { z } from 'zod';
+import { createLogger } from '../utils/logger.js';
 
 const router = Router();
-
-// Mock data for MVP
-const mockPosts = [
-  {
-    id: '1',
-    title: 'Welcome to APDA Committees Platform',
-    slug: 'welcome-to-apda-committees-platform',
-    excerpt: 'Introducing our new digital platform for American Parliamentary Debate Association committee work and collaboration.',
-    content: 'Full content here...',
-    author: { name: 'APDA Admin' },
-    category: { name: 'Announcement', color: '#3B82F6' },
-    createdAt: '2025-08-18T00:00:00.000Z',
-    featuredImage: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    status: 'PUBLISHED'
-  },
-  {
-    id: '2',
-    title: 'Committee Structure and Organization',
-    slug: 'committee-structure-and-organization',
-    excerpt: 'Understanding how APDA committees work together to advance parliamentary debate across the nation.',
-    content: 'Full content here...',
-    author: { name: 'Executive Committee' },
-    category: { name: 'Organization', color: '#8B5CF6' },
-    createdAt: '2025-08-16T00:00:00.000Z',
-    featuredImage: 'https://images.unsplash.com/photo-1560472355-536de3962603?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
-    status: 'PUBLISHED'
-  }
-];
+const logger = createLogger();
 
 // GET /api/posts - Get all published posts
 router.get('/', async (req: Request, res: Response) => {
   try {
-    const { page = 1, limit = 10, category, search } = req.query;
-    
-    // For MVP, return mock data
-    let filteredPosts = mockPosts.filter(post => post.status === 'PUBLISHED');
-    
+    const { page = 1, limit = 10, category, search, status = 'PUBLISHED' } = req.query;
+    const pageNum = Number(page);
+    const limitNum = Number(limit);
+    const skip = (pageNum - 1) * limitNum;
+
+    // Build where clause
+    const where: any = {
+      status: status as string
+    };
+
     if (category) {
-      filteredPosts = filteredPosts.filter(post => 
-        post.category.name.toLowerCase() === (category as string).toLowerCase()
-      );
-    }
-    
-    if (search) {
-      const searchTerm = (search as string).toLowerCase();
-      filteredPosts = filteredPosts.filter(post =>
-        post.title.toLowerCase().includes(searchTerm) ||
-        post.excerpt.toLowerCase().includes(searchTerm)
-      );
+      where.category = {
+        name: {
+          equals: category as string,
+          mode: 'insensitive'
+        }
+      };
     }
 
-    const startIndex = (Number(page) - 1) * Number(limit);
-    const endIndex = startIndex + Number(limit);
-    const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+    if (search) {
+      const searchTerm = search as string;
+      where.OR = [
+        {
+          title: {
+            contains: searchTerm,
+            mode: 'insensitive'
+          }
+        },
+        {
+          excerpt: {
+            contains: searchTerm,
+            mode: 'insensitive'
+          }
+        },
+        {
+          content: {
+            contains: searchTerm,
+            mode: 'insensitive'
+          }
+        }
+      ];
+    }
+
+    // Fetch posts with relations
+    const [posts, total] = await Promise.all([
+      prisma.post.findMany({
+        where,
+        include: {
+          author: {
+            select: {
+              name: true
+            }
+          },
+          category: {
+            select: {
+              name: true,
+              color: true
+            }
+          },
+          committee: {
+            select: {
+              name: true,
+              slug: true
+            }
+          },
+          _count: {
+            select: {
+              comments: true
+            }
+          }
+        },
+        orderBy: {
+          publishedAt: 'desc'
+        },
+        skip,
+        take: limitNum
+      }),
+      prisma.post.count({ where })
+    ]);
 
     res.json({
-      posts: paginatedPosts,
+      posts,
       pagination: {
-        currentPage: Number(page),
-        totalPages: Math.ceil(filteredPosts.length / Number(limit)),
-        totalPosts: filteredPosts.length,
-        hasNext: endIndex < filteredPosts.length,
-        hasPrev: Number(page) > 1
+        page: pageNum,
+        limit: limitNum,
+        total,
+        pages: Math.ceil(total / limitNum)
       }
     });
   } catch (error) {
-    console.error('Error fetching posts:', error);
+    logger.error('Error fetching posts:', error);
     res.status(500).json({ error: 'Failed to fetch posts' });
   }
 });
@@ -79,7 +108,48 @@ router.get('/:slug', async (req: Request, res: Response) => {
   try {
     const { slug } = req.params;
     
-    const post = mockPosts.find(p => p.slug === slug && p.status === 'PUBLISHED');
+    const post = await prisma.post.findUnique({
+      where: { 
+        slug,
+        status: 'PUBLISHED'
+      },
+      include: {
+        author: {
+          select: {
+            name: true
+          }
+        },
+        category: {
+          select: {
+            name: true,
+            color: true
+          }
+        },
+        committee: {
+          select: {
+            name: true,
+            slug: true
+          }
+        },
+        comments: {
+          include: {
+            author: {
+              select: {
+                name: true
+              }
+            }
+          },
+          orderBy: {
+            createdAt: 'desc'
+          }
+        },
+        _count: {
+          select: {
+            comments: true
+          }
+        }
+      }
+    });
     
     if (!post) {
       return res.status(404).json({ error: 'Post not found' });
@@ -87,7 +157,7 @@ router.get('/:slug', async (req: Request, res: Response) => {
 
     res.json(post);
   } catch (error) {
-    console.error('Error fetching post:', error);
+    logger.error('Error fetching post:', error);
     res.status(500).json({ error: 'Failed to fetch post' });
   }
 });

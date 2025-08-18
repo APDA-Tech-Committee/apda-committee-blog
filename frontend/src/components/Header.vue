@@ -1,16 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
-import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { Bars3Icon, XMarkIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 
 const mobileMenuOpen = ref(false)
+const committeesDropdownOpen = ref(false)
+const committees = ref<Array<{id: string, name: string, slug: string}>>([])
 
 const navigation = [
   { name: 'Home', href: '/' },
-  { name: 'Committees', href: '/committees' },
+  { name: 'Committees', href: '/committees', hasDropdown: true },
   { name: 'Blog', href: '/blog' },
   { name: 'About', href: '/about' },
 ]
+
+// Fetch committees for dropdown
+onMounted(async () => {
+  try {
+    const response = await fetch('http://localhost:3000/api/committees')
+    const data = await response.json()
+    committees.value = data
+  } catch (error) {
+    console.error('Failed to fetch committees:', error)
+  }
+})
 </script>
 
 <template>
@@ -31,14 +44,55 @@ const navigation = [
         
         <!-- Desktop Navigation -->
         <div class="hidden md:flex md:items-center md:space-x-6">
-          <RouterLink
-            v-for="item in navigation"
-            :key="item.name"
-            :to="item.href"
-            class="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md hover:bg-gray-50"
-          >
-            {{ item.name }}
-          </RouterLink>
+          <template v-for="item in navigation" :key="item.name">
+            <!-- Regular navigation item -->
+            <RouterLink
+              v-if="!item.hasDropdown"
+              :to="item.href"
+              class="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md hover:bg-gray-50"
+            >
+              {{ item.name }}
+            </RouterLink>
+            
+            <!-- Committees dropdown -->
+            <div 
+              v-else
+              class="relative"
+              @mouseenter="committeesDropdownOpen = true"
+              @mouseleave="committeesDropdownOpen = false"
+            >
+              <button
+                class="flex items-center text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md hover:bg-gray-50"
+              >
+                {{ item.name }}
+                <ChevronDownIcon class="ml-1 h-4 w-4" />
+              </button>
+              
+              <!-- Dropdown menu -->
+              <div
+                v-show="committeesDropdownOpen"
+                class="absolute left-0 mt-2 w-80 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
+              >
+                <div class="py-1">
+                  <RouterLink
+                    :to="item.href"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  >
+                    All Committees
+                  </RouterLink>
+                  <div class="border-t border-gray-100"></div>
+                  <RouterLink
+                    v-for="committee in committees"
+                    :key="committee.id"
+                    :to="`/committees/${committee.slug}`"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  >
+                    {{ committee.name }}
+                  </RouterLink>
+                </div>
+              </div>
+            </div>
+          </template>
         </div>
 
         <!-- Mobile menu button -->
