@@ -30,21 +30,17 @@ onMounted(async () => {
   <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 border-b border-gray-200/50 shadow-sm">
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Top">
       <div class="flex w-full items-center justify-between py-4">
-        <!-- Logo Section -->
         <div class="flex items-center">
           <RouterLink to="/" class="group flex items-center space-x-3 transition-all duration-300">
-            <!-- Modern APDA Logo -->
-            <div class="relative">
+            <div class="relative" style="clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));">
               <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300 group-hover:scale-105">
                 <div class="text-white font-bold text-lg tracking-tight">
                   <span class="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">A</span>
                 </div>
               </div>
-              <!-- Floating dot indicator -->
-              <div class="absolute -top-1 -right-1 h-3 w-3 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full animate-pulse shadow-lg"></div>
+             
             </div>
             
-            <!-- Brand Text -->
             <div class="hidden sm:block">
               <div class="flex items-baseline space-x-2">
                 <h1 class="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
@@ -61,10 +57,8 @@ onMounted(async () => {
           </RouterLink>
         </div>
         
-        <!-- Desktop Navigation -->
         <div class="hidden md:flex md:items-center md:space-x-1">
           <template v-for="item in navigation" :key="item.name">
-            <!-- Regular navigation item -->
             <RouterLink
               v-if="!item.hasDropdown"
               :to="item.href"
@@ -75,7 +69,6 @@ onMounted(async () => {
               <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-700 group-hover:w-8 transition-all duration-300"></div>
             </RouterLink>
             
-            <!-- Committees dropdown -->
             <div 
               v-else
               class="relative"
@@ -91,12 +84,10 @@ onMounted(async () => {
                 <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-700 group-hover:w-8 transition-all duration-300"></div>
               </button>
               
-              <!-- Enhanced Dropdown menu with bridge -->
               <div
                 v-show="committeesDropdownOpen"
                 class="absolute left-0 mt-1 w-80 z-50"
               >
-                <!-- Invisible bridge to prevent gap issues -->
                 <div class="h-1 bg-transparent"></div>
                 
                 <div class="bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl ring-1 ring-black/5 border border-gray-200/50 focus:outline-none animate-dropdown">
@@ -135,7 +126,6 @@ onMounted(async () => {
           </template>
         </div>
 
-        <!-- Mobile menu button -->
         <div class="md:hidden">
           <button
             type="button"
@@ -148,7 +138,6 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- Enhanced Mobile Navigation -->
       <div 
         v-show="mobileMenuOpen" 
         class="md:hidden bg-white/95 backdrop-blur-lg border-t border-gray-200/50 animate-mobile-menu"
@@ -201,7 +190,6 @@ onMounted(async () => {
   animation: mobile-menu 0.3s ease-out forwards;
 }
 
-/* Router link active states */
 :deep(.router-link-active) {
   color: rgb(37 99 235);
 }

@@ -43,21 +43,18 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex flex-col">
     <div v-if="loading" class="flex justify-center items-center min-h-screen">
       <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
     </div>
 
     <div v-else-if="error" class="text-center py-16">
       <p class="text-red-600">{{ error }}</p>
-      <RouterLink to="/committees" class="text-primary-600 hover:text-primary-700 mt-4 inline-block">
-        ← Back to Committees
-      </RouterLink>
+      <RouterLink to="/committees" class="btn-secondary mt-4 inline-block">← Back to Committees</RouterLink>
     </div>
 
     <div v-else-if="committee">
-      <!-- Committee Header -->
-      <div class="bg-white border-b border-gray-200">
+      <div class="card border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div class="text-center mb-8">
             <nav class="text-sm text-gray-500 mb-4">

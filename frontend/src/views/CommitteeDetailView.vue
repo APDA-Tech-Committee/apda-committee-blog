@@ -72,7 +72,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex flex-col">
     <div v-if="loading" class="flex justify-center items-center min-h-screen">
       <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
     </div>
@@ -85,7 +85,6 @@ onMounted(async () => {
     </div>
 
     <div v-else-if="committee">
-      <!-- Committee Header -->
       <div class="bg-white border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div class="text-center mb-8">
@@ -103,7 +102,6 @@ onMounted(async () => {
             </p>
           </div>
 
-          <!-- Committee Navigation -->
           <div class="flex justify-center space-x-4">
             <RouterLink
               :to="`/committees/${committee.slug}`"
@@ -127,13 +125,9 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-
-      <!-- Main Content -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="grid lg:grid-cols-3 gap-12">
-          <!-- Main Content -->
           <div class="lg:col-span-2">
-            <!-- Mission Section -->
             <div v-if="committee.mission" class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 mb-8">
               <h2 class="text-2xl font-bold text-gray-900 mb-4">Our Mission</h2>
               <p class="text-gray-700 text-lg leading-relaxed">
@@ -141,7 +135,6 @@ onMounted(async () => {
               </p>
             </div>
 
-            <!-- Recent Posts -->
             <div v-if="recentPosts.length > 0" class="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
               <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-bold text-gray-900">Recent Updates</h2>

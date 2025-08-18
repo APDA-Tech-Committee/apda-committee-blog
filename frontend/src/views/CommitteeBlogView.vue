@@ -98,7 +98,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex flex-col">
     <div v-if="loading" class="flex justify-center items-center min-h-screen">
       <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
     </div>

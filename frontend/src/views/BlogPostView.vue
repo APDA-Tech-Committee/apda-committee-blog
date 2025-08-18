@@ -36,27 +36,29 @@
           <span class="text-gray-900">{{ post.title }}</span>
         </nav>
 
-        <!-- Post Header -->
-        <header class="mb-8">
-          <!-- Category Badge -->
-          <div v-if="post.category" class="mb-4">
-            <span 
-              class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
-              :style="{ backgroundColor: post.category.color + '20', color: post.category.color }"
-            >
-              {{ post.category.name }}
-            </span>
-          </div>
-
-          <!-- Title -->
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-            {{ post.title }}
-          </h1>
-
-          <!-- Excerpt -->
-          <p v-if="post.excerpt" class="text-xl text-gray-600 mb-6 leading-relaxed">
-            {{ post.excerpt }}
-          </p>
+    <!-- Post Header -->
+    <header class="mb-8">
+      <div v-if="post.category" class="mb-4">
+        <span
+          class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
+          :class="{
+            'bg-blue-100 text-blue-800': post.category.name === 'Announcement',
+            'bg-green-100 text-green-800': post.category.name === 'Education',
+            'bg-purple-100 text-purple-800': post.category.name === 'Organization',
+            'bg-yellow-100 text-yellow-800': post.category.name === 'Rules',
+            'bg-red-100 text-red-800': post.category.name === 'Events',
+            'bg-gray-100 text-gray-800': !['Announcement','Education','Organization','Rules','Events'].includes(post.category.name)
+          }"
+        >
+          {{ post.category.name }}
+        </span>
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+        {{ post.title }}
+      </h1>
+      <p v-if="post.excerpt" class="text-xl text-gray-600 mb-6 leading-relaxed">
+        {{ post.excerpt }}
+      </p>
 
           <!-- Meta Information -->
           <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 border-b border-gray-200 pb-6">

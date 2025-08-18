@@ -35,30 +35,22 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
-    <!-- Modern Hero Section -->
-    <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-      <!-- Animated background -->
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex flex-col">
+    <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 flex items-center justify-center h-[40vh]">
       <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(4,95,176,0.4),transparent_70%)] animate-pulse"></div>
       <div class="absolute top-0 left-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
       <div class="absolute bottom-0 right-1/4 w-72 h-72 bg-blue-600 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
-      
-      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-        <div class="text-center">
-          <!-- Glass morphism container with floating animation -->
-          <div class="inline-block p-8 lg:p-10 rounded-3xl backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl animate-float">
-            <div class="animate-text-stable">
-              <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight mb-6">
-                APDA
-                <span class="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent animate-gradient block mt-2">
-                  Committees
-                </span>
-              </h1>
-              <p class="text-lg lg:text-xl leading-8 text-gray-200 max-w-2xl mx-auto">
-                Discover the dedicated committees that drive the American Parliamentary Debate Association forward.
-              </p>
-            </div>
-          </div>
+      <div class="relative z-10 text-center w-full">
+        <div class="inline-block p-8 lg:p-10 rounded-3xl backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl animate-float">
+          <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight mb-6">
+            APDA
+            <span class="bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600 bg-clip-text text-transparent animate-gradient block mt-2">
+              Committees
+            </span>
+          </h1>
+          <p class="text-lg lg:text-xl leading-8 text-gray-200 max-w-2xl mx-auto">
+            Discover the dedicated committees that drive the American Parliamentary Debate Association forward.
+          </p>
         </div>
       </div>
     </div>
@@ -88,7 +80,6 @@ onMounted(async () => {
           class="group bg-white rounded-2xl shadow-sm border border-gray-200 hover:shadow-xl hover:shadow-purple-500/10 transition-all duration-300 hover:-translate-y-2 overflow-hidden"
         >
           <div class="p-6">
-            <!-- Committee Header -->
             <div class="mb-4">
               <h3 class="text-xl font-semibold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors duration-200">
                 {{ committee.name }}
@@ -98,7 +89,6 @@ onMounted(async () => {
               </p>
             </div>
             
-            <!-- Stats -->
             <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl mb-6">
               <div class="flex items-center space-x-2 text-sm text-gray-600">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -137,64 +127,3 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-@keyframes blob {
-  0% { transform: translate(0px, 0px) scale(1); }
-  33% { transform: translate(30px, -50px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.9); }
-  100% { transform: translate(0px, 0px) scale(1); }
-}
-
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes float {
-  0%, 100% { 
-    transform: translateY(0px) translateZ(0) perspective(1000px) rotateX(0deg) rotateY(0deg); 
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  }
-  50% { 
-    transform: translateY(-20px) translateZ(15px) perspective(1000px) rotateX(1deg) rotateY(0.5deg); 
-    box-shadow: 0 35px 70px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.15);
-  }
-}
-
-@keyframes text-stable {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-1px); }
-}
-
-.animate-blob {
-  animation: blob 7s infinite;
-}
-
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient 3s ease infinite;
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-  transform-style: preserve-3d;
-}
-
-.animate-text-stable {
-  animation: text-stable 6s ease-in-out infinite;
-}
-</style>
