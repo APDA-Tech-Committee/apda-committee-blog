@@ -1,30 +1,23 @@
 <template>
-  <div class="min-h-screen bg-gray-50">
+  <div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
     <!-- Loading State -->
-    <div v-if="loading" class="container mx-auto px-4 py-8">
-      <div class="max-w-4xl mx-auto">
-        <div class="animate-pulse">
-          <div class="h-8 bg-gray-300 rounded mb-4"></div>
-          <div class="h-4 bg-gray-300 rounded mb-2"></div>
-          <div class="h-4 bg-gray-300 rounded mb-8"></div>
-          <div class="h-64 bg-gray-300 rounded mb-8"></div>
-          <div class="space-y-4">
-            <div class="h-4 bg-gray-300 rounded"></div>
-            <div class="h-4 bg-gray-300 rounded"></div>
-            <div class="h-4 bg-gray-300 rounded w-3/4"></div>
-          </div>
-        </div>
-      </div>
+    <div v-if="loading" class="flex justify-center items-center min-h-screen">
+      <div class="animate-spin rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600"></div>
     </div>
 
     <!-- Error State -->
-    <div v-else-if="error" class="container mx-auto px-4 py-8">
-      <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-2xl font-bold text-gray-900 mb-4">Post Not Found</h1>
-        <p class="text-gray-600 mb-8">{{ error }}</p>
+    <div v-else-if="error" class="container mx-auto px-4 py-16">
+      <div class="max-w-md mx-auto text-center p-8 rounded-2xl bg-red-50 border border-red-200">
+        <div class="w-12 h-12 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+          <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <h1 class="text-xl font-bold text-red-900 mb-4">Post Not Found</h1>
+        <p class="text-red-700 mb-6">{{ error }}</p>
         <router-link 
           to="/blog" 
-          class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-200 font-medium"
         >
           ← Back to Blog
         </router-link>
@@ -145,13 +138,6 @@
           </div>
         </nav>
 
-        <!-- Comments Section (placeholder for future implementation) -->
-        <section class="border-t border-gray-200 pt-8">
-          <h3 class="text-xl font-bold text-gray-900 mb-4">Comments</h3>
-          <div class="bg-gray-100 rounded-lg p-6 text-center">
-            <p class="text-gray-600">Comments coming soon! We're working on building an interactive discussion feature.</p>
-          </div>
-        </section>
       </div>
     </article>
   </div>

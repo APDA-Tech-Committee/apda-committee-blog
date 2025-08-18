@@ -6,7 +6,7 @@ import Header from './components/Header.vue'
 <template>
   <div class="min-h-screen bg-gray-50">
     <Header />
-    <main>
+    <main class="pt-20">
       <RouterView />
     </main>
   </div>

@@ -27,31 +27,52 @@ onMounted(async () => {
 </script>
 
 <template>
-  <header class="bg-white shadow-sm border-b border-gray-200">
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/80 border-b border-gray-200/50 shadow-sm">
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Top">
-      <div class="flex w-full items-center justify-between py-6">
+      <div class="flex w-full items-center justify-between py-4">
+        <!-- Logo Section -->
         <div class="flex items-center">
-          <RouterLink to="/" class="flex items-center space-x-3">
-            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-600">
-              <span class="text-lg font-bold text-white">APDA</span>
+          <RouterLink to="/" class="group flex items-center space-x-3 transition-all duration-300">
+            <!-- Modern APDA Logo -->
+            <div class="relative">
+              <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300 group-hover:scale-105">
+                <div class="text-white font-bold text-lg tracking-tight">
+                  <span class="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">A</span>
+                </div>
+              </div>
+              <!-- Floating dot indicator -->
+              <div class="absolute -top-1 -right-1 h-3 w-3 bg-gradient-to-r from-blue-400 to-blue-500 rounded-full animate-pulse shadow-lg"></div>
             </div>
-            <div>
-              <h1 class="text-xl font-bold text-gray-900">APDA Committees</h1>
-              <p class="text-sm text-gray-600">Parliamentary Debate Association</p>
+            
+            <!-- Brand Text -->
+            <div class="hidden sm:block">
+              <div class="flex items-baseline space-x-2">
+                <h1 class="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                  APDA
+                </h1>
+                <span class="text-sm font-medium text-gray-500 group-hover:text-blue-600 transition-colors duration-300">
+                  Committees
+                </span>
+              </div>
+              <p class="text-xs text-gray-500 mt-0.5 group-hover:text-gray-700 transition-colors duration-300">
+                Parliamentary Debate
+              </p>
             </div>
           </RouterLink>
         </div>
         
         <!-- Desktop Navigation -->
-        <div class="hidden md:flex md:items-center md:space-x-6">
+        <div class="hidden md:flex md:items-center md:space-x-1">
           <template v-for="item in navigation" :key="item.name">
             <!-- Regular navigation item -->
             <RouterLink
               v-if="!item.hasDropdown"
               :to="item.href"
-              class="text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md hover:bg-gray-50"
+              class="group relative px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-all duration-300 rounded-lg overflow-hidden"
             >
-              {{ item.name }}
+              <span class="relative z-10">{{ item.name }}</span>
+              <div class="absolute inset-0 bg-gradient-to-r from-blue-50 to-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-700 group-hover:w-8 transition-all duration-300"></div>
             </RouterLink>
             
             <!-- Committees dropdown -->
@@ -62,33 +83,52 @@ onMounted(async () => {
               @mouseleave="committeesDropdownOpen = false"
             >
               <button
-                class="flex items-center text-gray-700 hover:text-primary-600 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md hover:bg-gray-50"
+                class="group relative flex items-center px-4 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-all duration-300 rounded-lg overflow-hidden"
               >
-                {{ item.name }}
-                <ChevronDownIcon class="ml-1 h-4 w-4" />
+                <span class="relative z-10">{{ item.name }}</span>
+                <ChevronDownIcon class="relative z-10 ml-1 h-4 w-4 transform group-hover:rotate-180 transition-transform duration-300" />
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-50 to-blue-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-700 group-hover:w-8 transition-all duration-300"></div>
               </button>
               
-              <!-- Dropdown menu -->
+              <!-- Enhanced Dropdown menu with bridge -->
               <div
                 v-show="committeesDropdownOpen"
-                class="absolute left-0 mt-2 w-80 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50"
+                class="absolute left-0 mt-1 w-80 z-50"
               >
-                <div class="py-1">
-                  <RouterLink
-                    :to="item.href"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                  >
-                    All Committees
-                  </RouterLink>
-                  <div class="border-t border-gray-100"></div>
-                  <RouterLink
-                    v-for="committee in committees"
-                    :key="committee.id"
-                    :to="`/committees/${committee.slug}`"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                  >
-                    {{ committee.name }}
-                  </RouterLink>
+                <!-- Invisible bridge to prevent gap issues -->
+                <div class="h-1 bg-transparent"></div>
+                
+                <div class="bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl ring-1 ring-black/5 border border-gray-200/50 focus:outline-none animate-dropdown">
+                  <div class="p-2">
+                    <RouterLink
+                      :to="item.href"
+                      class="flex items-center px-4 py-3 text-sm font-medium text-gray-900 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 hover:text-blue-700 rounded-xl transition-all duration-200 group"
+                    >
+                      <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 mr-3 group-hover:scale-110 transition-transform duration-200">
+                        <svg class="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                        </svg>
+                      </div>
+                      All Committees
+                    </RouterLink>
+                    
+                    <div class="my-2 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+                    
+                    <div class="max-h-64 overflow-y-auto">
+                      <RouterLink
+                        v-for="committee in committees"
+                        :key="committee.id"
+                        :to="`/committees/${committee.slug}`"
+                        class="flex items-center px-4 py-2.5 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 hover:text-blue-700 rounded-lg transition-all duration-200 group"
+                      >
+                        <div class="flex h-6 w-6 items-center justify-center rounded-md bg-gray-100 group-hover:bg-blue-100 mr-3 transition-colors duration-200">
+                          <div class="h-2 w-2 rounded-full bg-gray-400 group-hover:bg-blue-500 transition-colors duration-200"></div>
+                        </div>
+                        <span class="truncate">{{ committee.name }}</span>
+                      </RouterLink>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -99,25 +139,29 @@ onMounted(async () => {
         <div class="md:hidden">
           <button
             type="button"
-            class="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+            class="group inline-flex items-center justify-center rounded-xl p-2.5 text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 hover:text-blue-600 transition-all duration-300"
             @click="mobileMenuOpen = !mobileMenuOpen"
           >
-            <Bars3Icon v-if="!mobileMenuOpen" class="h-6 w-6" />
-            <XMarkIcon v-else class="h-6 w-6" />
+            <Bars3Icon v-if="!mobileMenuOpen" class="h-6 w-6 transform group-hover:scale-110 transition-transform duration-200" />
+            <XMarkIcon v-else class="h-6 w-6 transform group-hover:rotate-90 transition-transform duration-200" />
           </button>
         </div>
       </div>
 
-      <!-- Mobile Navigation -->
-      <div v-show="mobileMenuOpen" class="md:hidden">
-        <div class="space-y-1 pb-3 pt-2">
+      <!-- Enhanced Mobile Navigation -->
+      <div 
+        v-show="mobileMenuOpen" 
+        class="md:hidden bg-white/95 backdrop-blur-lg border-t border-gray-200/50 animate-mobile-menu"
+      >
+        <div class="space-y-1 px-2 pb-4 pt-4">
           <RouterLink
             v-for="item in navigation"
             :key="item.name"
             :to="item.href"
-            class="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+            class="flex items-center rounded-xl px-4 py-3 text-base font-medium text-gray-700 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 hover:text-blue-700 transition-all duration-200 group"
             @click="mobileMenuOpen = false"
           >
+            <div class="mr-3 h-2 w-2 rounded-full bg-gray-300 group-hover:bg-blue-500 transition-colors duration-200"></div>
             {{ item.name }}
           </RouterLink>
         </div>
@@ -125,3 +169,44 @@ onMounted(async () => {
     </nav>
   </header>
 </template>
+
+<style scoped>
+@keyframes dropdown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes mobile-menu {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-dropdown {
+  animation: dropdown 0.2s ease-out forwards;
+}
+
+.animate-mobile-menu {
+  animation: mobile-menu 0.3s ease-out forwards;
+}
+
+/* Router link active states */
+:deep(.router-link-active) {
+  color: rgb(37 99 235);
+}
+
+:deep(.router-link-active .absolute) {
+  width: 2rem;
+}
+</style>
