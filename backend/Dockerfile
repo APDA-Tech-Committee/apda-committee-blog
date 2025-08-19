@@ -11,7 +11,7 @@ RUN npx prisma generate --schema=prisma/schema.postgres.prisma
 
 # Build TypeScript
 RUN npm run build
-RUN apk add --no-cache openssl1.1-compat
+RUN apk add --no-cache openssl1.1
 
 
 EXPOSE 3000
