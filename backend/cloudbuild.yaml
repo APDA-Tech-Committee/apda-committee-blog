@@ -22,7 +22,7 @@ steps:
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
-      [ 'run', 'deploy', 'apda-backend',
+      [ 'run', 'deploy', 'apda-committee-blog',
         '--image', 'gcr.io/$PROJECT_ID/apda-backend:$COMMIT_SHA',
         '--region', 'us-east4',
         '--platform', 'managed',
