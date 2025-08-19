@@ -147,7 +147,7 @@ const committees = [
   }
 ];
 
-async function seedCommittees() {
+export async function seedCommittees() {
   console.log('Seeding committees...');
 
   for (const committeeData of committees) {

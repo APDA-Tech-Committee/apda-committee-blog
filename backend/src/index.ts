@@ -102,11 +102,11 @@ const server = app.listen(port, host, () => {
     const postCount = await prisma.post.count();
     if (committeeCount === 0) {
       logger.info('No committees found, seeding committees...');
-      await import('./scripts/seed-committees.js').then(mod => mod.default?.() ?? mod.seedCommittees?.());
+      await import('./scripts/seed-committees.js').then(mod => mod.seedCommittees());
     }
     if (postCount === 0) {
       logger.info('No posts found, seeding blog posts...');
-      await import('./scripts/seed-blog-posts.js').then(mod => mod.default?.() ?? mod.seedBlogPosts?.());
+      await import('./scripts/seed-blog-posts.js').then(mod => mod.seedBlogPosts());
     }
   } catch (e) {
     logger.error('Prisma failed to connect or seed:', e);

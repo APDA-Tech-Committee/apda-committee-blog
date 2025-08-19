@@ -2,7 +2,7 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function seedBlogPosts() {
+export async function seedBlogPosts() {
   console.log('Seeding blog posts...');
 
   // Get all committees and categories
