@@ -147,6 +147,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { apiFetch } from '../utils/api'
 import { useRoute, useRouter } from 'vue-router'
 
 interface Author {
@@ -196,11 +197,7 @@ const fetchPost = async () => {
     loading.value = true
     error.value = null
     
-    const API_URL =
-      import.meta.env.PROD
-        ? '/api'
-        : (import.meta.env.VITE_API_URL ?? 'http://localhost:3000');
-    const response = await fetch(`${API_URL}/posts/${route.params.slug}`)
+    const response = await apiFetch(`/posts/${route.params.slug}`)
     
     if (!response.ok) {
       if (response.status === 404) {

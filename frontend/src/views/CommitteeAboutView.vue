@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { apiFetch } from '../utils/api'
 import { useRoute, RouterLink } from 'vue-router'
 
 interface CommitteeMember {
@@ -27,16 +28,9 @@ const committee = ref<Committee | null>(null)
 const loading = ref(true)
 const error = ref('')
 
-const API_URL =
-  import.meta.env.PROD
-    ? '/api'
-    : (import.meta.env.VITE_API_URL ?? 'http://localhost:3000');
 onMounted(async () => {
   try {
-    const response = await fetch(`${API_URL}/api/committees/${route.params.slug}`)
-    if (!response.ok) {
-      throw new Error('Committee not found')
-    }
+    const response = await apiFetch(`/committees/${route.params.slug}`)
     committee.value = await response.json()
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'An error occurred'

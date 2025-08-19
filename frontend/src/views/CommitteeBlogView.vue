@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { apiFetch } from '../utils/api'
 import { useRoute, RouterLink } from 'vue-router'
 import BlogCard from '../components/BlogCard.vue'
 
@@ -52,11 +53,7 @@ const currentPage = ref(1)
 
 const fetchCommittee = async () => {
   try {
-    const API_URL =
-      import.meta.env.PROD
-        ? '/api'
-        : (import.meta.env.VITE_API_URL ?? 'http://localhost:3000');
-    const response = await fetch(`${API_URL}/committees/${route.params.slug}`)
+    const response = await apiFetch(`/committees/${route.params.slug}`)
     if (!response.ok) {
       throw new Error('Committee not found')
     }
@@ -74,10 +71,8 @@ const fetchCommittee = async () => {
 
 const fetchPosts = async (page: number = 1) => {
   try {
-    const response = await fetch(`${API_URL}/committees/${route.params.slug}/posts?page=${page}&limit=10`)
-    if (!response.ok) {
-      throw new Error('Failed to fetch posts')
-    }
+    const response = await apiFetch(`/committees/${route.params.slug}/posts?page=${page}&limit=10`)
+    if (!response.ok) throw new Error('Failed to fetch posts')
     const data: BlogResponse = await response.json()
     posts.value = data.posts
     pagination.value = data.pagination

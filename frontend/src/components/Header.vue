@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { apiFetch } from '../utils/api'
 import { RouterLink } from 'vue-router'
 import { Bars3Icon, XMarkIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 
@@ -17,11 +18,7 @@ const navigation = [
 // Fetch committees for dropdown
 onMounted(async () => {
   try {
-    const API_URL =
-      import.meta.env.PROD
-        ? '/api'
-        : (import.meta.env.VITE_API_URL ?? 'http://localhost:3000');
-    const response = await fetch(`${API_URL}/committees`)
+    const response = await apiFetch('/committees')
     const data = await response.json()
     committees.value = data
   } catch (error) {

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import apiFetch from '../utils/api' // Import apiFetch for API calls
 
 interface BlogPost {
   id: string | number
