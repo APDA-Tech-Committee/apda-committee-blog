@@ -1,29 +1,28 @@
 import winston from 'winston';
 
-export const createLogger = () => {
-  const logger = winston.createLogger({
-    level: process.env.NODE_ENV === 'development' ? 'debug' : 'info',
+const toFile = process.env.LOG_TO_FILE === '1';
+const logDir = process.env.LOG_DIR || '/tmp/logs';
+const level = process.env.LOG_LEVEL || 'info';
+
+const transports: winston.transport[] = [
+  new winston.transports.Console({ level })
+];
+
+if (toFile) {
+  transports.push(
+    new winston.transports.File({
+      filename: `${logDir}/app.log`,
+      level
+    })
+  );
+}
+
+export const createLogger = () =>
+  winston.createLogger({
+    level,
     format: winston.format.combine(
       winston.format.timestamp(),
-      winston.format.errors({ stack: true }),
       winston.format.json()
     ),
-    defaultMeta: { service: 'apda-backend' },
-    transports: [
-      new winston.transports.File({ filename: 'logs/error.log', level: 'error' }),
-      new winston.transports.File({ filename: 'logs/combined.log' }),
-    ],
+    transports
   });
-
-  // Add console transport in development
-  if (process.env.NODE_ENV === 'development') {
-    logger.add(new winston.transports.Console({
-      format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.simple()
-      )
-    }));
-  }
-
-  return logger;
-};
