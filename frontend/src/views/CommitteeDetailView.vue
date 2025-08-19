@@ -47,17 +47,13 @@ const committee = ref<Committee | null>(null)
 const loading = ref(true)
 const error = ref('')
 
-const API_URL =
-  import.meta.env.DEV
-    ? 'http://localhost:3000'
-    : 'https://apda-committee-blog-568718017696.us-east4.run.app';
 
 const recentPosts = computed(() => committee.value?.posts.slice(0, 3) || [])
 const chairMembers = computed(() => committee.value?.members.filter(m => m.role.toLowerCase().includes('chair')).slice(0, 3) || [])
 
 onMounted(async () => {
   try {
-    const response = await fetch(`${API_URL}/api/committees/${route.params.slug}`)
+    const response = await apiFetch(`/api/committees/${route.params.slug}`)
     committee.value = await response.json()
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'An error occurred'
