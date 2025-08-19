@@ -27,7 +27,6 @@ steps:
         '--region', 'us-east4',
         '--platform', 'managed',
         '--allow-unauthenticated',
-        '--set-env-vars', 'DATABASE_URL=${_DATABASE_URL}'
       ]
     env:
       - 'CLOUDSDK_CORE_PROJECT=$PROJECT_ID'
