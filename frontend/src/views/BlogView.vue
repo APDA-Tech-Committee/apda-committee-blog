@@ -42,7 +42,8 @@ const currentPage = ref(1)
 
 const fetchPosts = async (page: number = 1) => {
   try {
-    const response = await fetch(`http://localhost:3000/api/posts?page=${page}&limit=12&status=PUBLISHED`)
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    const response = await fetch(`${API_URL}/api/posts?page=${page}&limit=12&status=PUBLISHED`)
     if (!response.ok) throw new Error('Failed to fetch posts')
     const data: BlogResponse = await response.json()
     posts.value = data.posts

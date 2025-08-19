@@ -17,7 +17,8 @@ const navigation = [
 // Fetch committees for dropdown
 onMounted(async () => {
   try {
-    const response = await fetch('http://localhost:3000/api/committees')
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    const response = await fetch(`${API_URL}/api/committees`)
     const data = await response.json()
     committees.value = data
   } catch (error) {
