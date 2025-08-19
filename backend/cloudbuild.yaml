@@ -26,5 +26,8 @@ steps:
 images:
   - 'gcr.io/$PROJECT_ID/apda-backend:$COMMIT_SHA'
 
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 substitutions:
   _DATABASE_URL: ""
