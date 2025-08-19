@@ -27,7 +27,10 @@ const committee = ref<Committee | null>(null)
 const loading = ref(true)
 const error = ref('')
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const API_URL =
+  import.meta.env.PROD
+    ? '/api'
+    : (import.meta.env.VITE_API_URL ?? 'http://localhost:3000');
 onMounted(async () => {
   try {
     const response = await fetch(`${API_URL}/api/committees/${route.params.slug}`)

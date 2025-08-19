@@ -52,8 +52,11 @@ const currentPage = ref(1)
 
 const fetchCommittee = async () => {
   try {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-    const response = await fetch(`${API_URL}/api/committees/${route.params.slug}`)
+    const API_URL =
+      import.meta.env.PROD
+        ? '/api'
+        : (import.meta.env.VITE_API_URL ?? 'http://localhost:3000');
+    const response = await fetch(`${API_URL}/committees/${route.params.slug}`)
     if (!response.ok) {
       throw new Error('Committee not found')
     }
@@ -71,7 +74,7 @@ const fetchCommittee = async () => {
 
 const fetchPosts = async (page: number = 1) => {
   try {
-    const response = await fetch(`${API_URL}/api/committees/${route.params.slug}/posts?page=${page}&limit=10`)
+    const response = await fetch(`${API_URL}/committees/${route.params.slug}/posts?page=${page}&limit=10`)
     if (!response.ok) {
       throw new Error('Failed to fetch posts')
     }

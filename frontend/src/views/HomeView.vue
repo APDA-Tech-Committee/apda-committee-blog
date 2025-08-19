@@ -33,8 +33,11 @@ const error = ref('')
 
 onMounted(async () => {
   try {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-    const response = await fetch(`${API_URL}/api/posts?page=1&limit=4&status=PUBLISHED`)
+    const API_URL =
+      import.meta.env.PROD
+        ? '/api'
+        : (import.meta.env.VITE_API_URL ?? 'http://localhost:3000');
+    const response = await fetch(`${API_URL}/posts?page=1&limit=4&status=PUBLISHED`)
     if (!response.ok) {
       throw new Error('Failed to fetch blog posts')
     }

@@ -21,8 +21,11 @@ const error = ref('')
 
 onMounted(async () => {
   try {
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
-    const response = await fetch(`${API_URL}/api/committees`)
+    const API_URL =
+      import.meta.env.PROD
+        ? '/api'
+        : (import.meta.env.VITE_API_URL ?? 'http://localhost:3000');
+    const response = await fetch(`${API_URL}/committees`)
     if (!response.ok) throw new Error('Failed to fetch committees')
     committees.value = await response.json()
   } catch (err) {
