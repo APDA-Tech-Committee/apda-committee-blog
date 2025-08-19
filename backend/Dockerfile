@@ -3,10 +3,11 @@ FROM node:22-alpine
 
 WORKDIR /app
 
+
 COPY package.json package-lock.json ./
 RUN npm ci
-RUN npx prisma generate --schema=prisma/schema.postgres.prisma
 COPY . .
+RUN npx prisma generate --schema=prisma/schema.postgres.prisma
 
 # Build TypeScript
 RUN npm run build
