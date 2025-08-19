@@ -84,8 +84,8 @@ process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 // Start server
-server = app.listen(port, () => {
-  logger.info(`🚀 Server running on port ${PORT}`);
+const server = app.listen(port, () => {
+  logger.info(`🚀 Server running on port ${port}`);
   logger.info(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
   logger.info(`🌐 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
 });
