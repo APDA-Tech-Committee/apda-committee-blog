@@ -8,8 +8,8 @@ steps:
     args:
       [ 'push', 'gcr.io/$PROJECT_ID/apda-backend:$COMMIT_SHA' ]
 
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: 'bash'
+  - name: 'node:22-alpine'
+    entrypoint: 'sh'
     args:
       - '-c'
       - |
