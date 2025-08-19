@@ -26,7 +26,7 @@ const logger = createLogger();
 
 // Create Express app
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = process.env.PORT ? Number(process.env.PORT) : 3000;
 
 // Middleware
 app.use(helmet());
@@ -84,7 +84,7 @@ process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 // Start server
-const server = app.listen(PORT, () => {
+server = app.listen(port, () => {
   logger.info(`🚀 Server running on port ${PORT}`);
   logger.info(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
   logger.info(`🌐 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:5173'}`);
