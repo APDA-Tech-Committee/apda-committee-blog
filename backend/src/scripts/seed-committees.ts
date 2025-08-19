@@ -56,13 +56,6 @@ const committees = [
         email: 'example@email.com',
         order: 1
       },
-      {
-        name: 'Riley Johnson',
-        role: 'Vice-Chair',
-        bio: 'Full-stack developer passionate about improving debate accessibility through technology.',
-        email: 'example@email.com',
-        order: 2
-      }
     ]
   },
   {
