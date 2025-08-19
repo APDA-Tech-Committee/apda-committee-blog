@@ -14,7 +14,9 @@ function getApiBase() {
 
 export async function apiFetch(path: string, options?: RequestInit) {
   const API_BASE = getApiBase();
-  const url = `${API_BASE}${path.startsWith('/') ? path : '/' + path}`;
+  // Ensure /api is always present in the path
+  const apiPath = path.startsWith('/api') ? path : `/api${path.startsWith('/') ? path : '/' + path}`;
+  const url = `${API_BASE}${apiPath}`;
   const response = await fetch(url, options);
   if (!response.ok) {
     throw new Error(`API error: ${response.status} ${response.statusText}`);
