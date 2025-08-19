@@ -18,7 +18,10 @@ const host = '0.0.0.0';
 app.use(helmet());
 app.use(compression());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: [
+    'http://localhost:5173',
+    'https://apda-committee-blog-frontend-568718017696.us-east4.run.app'
+  ],
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
