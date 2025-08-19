@@ -8,7 +8,7 @@ import { createLogger } from './utils/logger.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { requestLogger } from './middleware/requestLogger.js';
 
-// Route modules (these should NOT instantiate Prisma at import-time)
+// Route modules
 import authRoutes from './routes/auth.js';
 import postsRoutes from './routes/posts.js';
 import categoriesRoutes from './routes/categories.js';
@@ -23,8 +23,8 @@ const logger = createLogger();
 
 // ---------- Express ----------
 const app = express();
-const port = Number(process.env.PORT) || 8080;     // Cloud Run expects this
-const host = '0.0.0.0';                            // listen on all interfaces
+const port = Number(process.env.PORT) || 8080; // Cloud Run default
+const host = '0.0.0.0';
 
 // ---------- Middleware ----------
 app.use(helmet());
@@ -46,27 +46,23 @@ app.get('/health', (_req, res) => {
   });
 });
 
-// Quiet down the common favicon probe so it doesn't 404 spam logs
 app.get('/favicon.ico', (_req, res) => res.status(204).end());
-
 
 app.get('/', (_req, res) => {
   res.status(200).json({ service: 'apda-committee-blog', ok: true });
 });
 
-// ---------- Prisma (lazy) ----------
-// Do NOT create Prisma at top-level; Cloud Run must see the port open first.
-let prisma: PrismaClient | null = null;
+// ---------- Prisma (lazy, post-listen) ----------
+// Definite-assignment so route files can `import { prisma }` without TS errors.
+export let prisma!: PrismaClient;
 
-// Helper to access prisma where needed in route handlers (if you refactor routes)
+// Optional helper if you want to move routes to a lazy getter later.
 export const getPrisma = () => {
   if (!prisma) prisma = new PrismaClient();
   return prisma;
 };
 
-export { prisma };
-
-// ---------- API routes (safe to attach before Prisma connects) ----------
+// ---------- API routes ----------
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postsRoutes);
 app.use('/api/categories', categoriesRoutes);
@@ -98,7 +94,7 @@ const server = app.listen(port, host, () => {
     await prisma.$connect();
     logger.info('Prisma connected');
   } catch (err) {
-    // Important: don't exit — keep container healthy so you can inspect /health and logs
+    // Keep process alive so Cloud Run sees the port open
     logger.error('Prisma failed to start:', err);
   }
 })();
@@ -115,7 +111,6 @@ const gracefulShutdown = async (signal: string) => {
       logger.info('HTTP server closed.');
       process.exit(0);
     });
-    // Fallback if server doesn't close in time
     setTimeout(() => {
       logger.warn('Forcing shutdown after timeout.');
       process.exit(0);
@@ -129,7 +124,6 @@ const gracefulShutdown = async (signal: string) => {
 process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
-// Catch unhandled errors without killing the process before listen
 process.on('uncaughtException', (err) => {
   logger.error('Uncaught exception:', err);
 });
