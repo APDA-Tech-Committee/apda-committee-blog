@@ -9,6 +9,16 @@ steps:
       [ 'push', 'gcr.io/$PROJECT_ID/apda-backend:$COMMIT_SHA' ]
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cd backend
+        npx prisma migrate deploy
+    env:
+      - 'DATABASE_URL=${_DATABASE_URL}'
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
       [ 'run', 'deploy', 'apda-backend',
