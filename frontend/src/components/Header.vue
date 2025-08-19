@@ -32,7 +32,7 @@ onMounted(async () => {
       <div class="flex w-full items-center justify-between py-4">
         <div class="flex items-center">
           <RouterLink to="/" class="group flex items-center space-x-3 transition-all duration-300">
-            <div class="relative" style="clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));">
+            <div class="relative clipped-16">
               <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 shadow-lg group-hover:shadow-blue-500/25 transition-all duration-300 group-hover:scale-105">
                 <div class="text-white font-bold text-lg tracking-tight">
                   <span class="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">A</span>

@@ -100,125 +100,127 @@ onMounted(async () => {
 <template>
   <div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex flex-col">
     <div v-if="loading" class="flex justify-center items-center min-h-screen">
-      <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+      <div class="w-16 h-16 border-4 border-blue-600 border-t-transparent animate-spin rounded-full"></div>
     </div>
 
-    <div v-else-if="error" class="text-center py-16">
-      <p class="text-red-600">{{ error }}</p>
-      <RouterLink to="/committees" class="text-primary-600 hover:text-primary-700 mt-4 inline-block">
-        ← Back to Committees
-      </RouterLink>
+    <div v-else-if="error" class="text-center py-20">
+      <div class="w-20 h-20 bg-red-500 mx-auto mb-6 clip-hexagon"></div>
+      <p class="text-red-600 mb-4 font-bold text-xl uppercase">{{ error }}</p>
+      <RouterLink to="/committees" class="text-blue-600 hover:text-blue-700 font-semibold">← Back to Committees</RouterLink>
     </div>
 
     <div v-else-if="committee">
-      <!-- Committee Header -->
-      <div class="bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div class="text-center mb-8">
-            <nav class="text-sm text-gray-500 mb-4">
-              <RouterLink to="/committees" class="hover:text-gray-700">Committees</RouterLink>
+      <!-- Hero -->
+      <div class="relative bg-white border-b border-gray-200">
+        <div class="relative flex items-center justify-center px-6 py-12">
+          <div class="relative max-w-4xl w-full mx-auto px-8 py-10 text-center backdrop-blur-md bg-white border border-gray-200 shadow-lg animate-float clipped-24">
+
+            <div class="absolute top-0 left-0 w-6 h-6 bg-blue-600 opacity-20"></div>
+            <div class="absolute top-0 right-0 w-5 h-5 bg-cyan-500 opacity-30"></div>
+            <div class="absolute bottom-0 left-0 w-5 h-5 bg-indigo-600 opacity-25"></div>
+            <div class="absolute bottom-0 right-0 w-6 h-6 bg-blue-500 opacity-20"></div>
+
+            <nav class="mb-3 text-sm text-gray-500">
+              <RouterLink to="/committees" class="hover:text-blue-600">Committees</RouterLink>
               <span class="mx-2">›</span>
-              <RouterLink :to="`/committees/${committee.slug}`" class="hover:text-gray-700">{{ committee.name }}</RouterLink>
+              <RouterLink :to="`/committees/${committee.slug}`" class="hover:text-blue-600">{{ committee.name }}</RouterLink>
               <span class="mx-2">›</span>
-              <span class="text-gray-900">Blog</span>
+              <span class="text-blue-700 font-semibold">Blog</span>
             </nav>
-            
-            <h1 class="text-4xl font-bold text-gray-900 sm:text-5xl mb-4">
-              {{ committee.name }} Blog
+
+            <h1 class="text-4xl font-black tracking-tight text-blue-700 mb-4 leading-tight relative z-10">
+              {{ committee.name }}
             </h1>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p class="text-base text-gray-600 max-w-2xl mx-auto relative z-10">
               Stay updated with the latest news, insights, and activities from our committee.
             </p>
-          </div>
 
-          <!-- Committee Navigation -->
-          <div class="flex justify-center space-x-4">
-            <RouterLink
-              :to="`/committees/${committee.slug}`"
-              class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
-            >
-              Overview
-            </RouterLink>
-            <RouterLink
-              :to="`/committees/${committee.slug}/about`"
-              class="px-6 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-colors"
-            >
-              Members
-            </RouterLink>
-            <RouterLink
-              :to="`/committees/${committee.slug}/blog`"
-              class="px-6 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition-colors"
-            >
-              Blog
-            </RouterLink>
+            <!-- Tabs -->
+            <div class="flex justify-center gap-4 mt-8 relative z-10">
+              <RouterLink
+                :to="`/committees/${committee.slug}`"
+                class="px-5 py-2 font-bold uppercase tracking-wide text-blue-700 bg-white border-2 border-gray-200 hover:border-blue-400 hover:text-blue-600 transition-all duration-300 clipped-10"
+                
+              >
+                Overview
+              </RouterLink>
+              <RouterLink
+                :to="`/committees/${committee.slug}/about`"
+                class="px-5 py-2 font-bold uppercase tracking-wide text-blue-700 bg-white border-2 border-gray-200 hover:border-blue-400 hover:text-blue-600 transition-all duration-300 clipped-10"
+                
+              >
+                Members
+              </RouterLink>
+              <RouterLink
+                :to="`/committees/${committee.slug}/blog`"
+                class="px-5 py-2 font-bold uppercase tracking-wide text-white bg-gradient-to-r from-blue-600 to-indigo-600 border-2 border-blue-600 shadow-md transition-all duration-300 hover:translate-x-1 hover:-translate-y-1 clipped-10"
+                
+              >
+                Blog
+              </RouterLink>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Blog Posts -->
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div v-if="posts.length === 0" class="text-center py-12">
-          <div class="max-w-md mx-auto">
-            <h3 class="text-lg font-medium text-gray-900 mb-2">No posts yet</h3>
-            <p class="text-gray-500">
-              This committee hasn't published any blog posts yet. Check back soon for updates!
-            </p>
-          </div>
+      <div class="max-w-7xl mx-auto px-6 py-16">
+        <div v-if="posts.length === 0" class="text-center py-16">
+          <div class="w-20 h-20 bg-gray-400 mx-auto mb-6 transform rotate-45"></div>
+          <p class="text-gray-500 text-xl font-bold uppercase tracking-wider">No posts yet</p>
         </div>
 
         <div v-else>
-          <!-- Posts Grid -->
-          <div class="grid gap-8 lg:grid-cols-2 xl:grid-cols-3 mb-12">
-            <BlogCard
-              v-for="post in posts"
-              :key="post.id"
-              :post="post"
-            />
+          <div class="grid gap-10 lg:grid-cols-2 xl:grid-cols-3 mb-16">
+            <BlogCard v-for="post in posts" :key="post.id" :post="post" />
           </div>
 
           <!-- Pagination -->
-          <div v-if="pagination.pages > 1" class="flex justify-center items-center space-x-4">
-            <button
-              @click="loadPage(currentPage - 1)"
-              :disabled="currentPage <= 1"
-              class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Previous
-            </button>
+          <div v-if="pagination.pages > 1" class="flex flex-col items-center space-y-6">
+            <div class="flex items-center space-x-2">
+              <button
+                @click="loadPage(currentPage - 1)"
+                :disabled="currentPage <= 1"
+                class="px-5 py-3 bg-blue-600 text-white font-bold uppercase tracking-wide border-2 border-blue-600 relative transition-all duration-300 disabled:opacity-40 clipped-12"
+                
+              >
+                Prev
+              </button>
 
-            <div class="flex space-x-2">
               <button
                 v-for="page in pagination.pages"
                 :key="page"
                 @click="loadPage(page)"
-                class="px-3 py-2 text-sm font-medium rounded-md transition-colors"
+                class="px-5 py-3 font-bold uppercase tracking-wide border-2 relative transition-all duration-300 clipped-12"
                 :class="[
                   page === currentPage
-                    ? 'bg-primary-600 text-white'
-                    : 'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50'
+                    ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-600 shadow-lg shadow-blue-500/30'
+                    : 'bg-white text-gray-700 border-gray-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-400'
                 ]"
+                
               >
                 {{ page }}
               </button>
+
+              <button
+                @click="loadPage(currentPage + 1)"
+                :disabled="currentPage >= pagination.pages"
+                class="px-5 py-3 bg-blue-600 text-white font-bold uppercase tracking-wide border-2 border-blue-600 relative transition-all duration-300 disabled:opacity-40 clipped-12"
+                
+              >
+                Next
+              </button>
             </div>
 
-            <button
-              @click="loadPage(currentPage + 1)"
-              :disabled="currentPage >= pagination.pages"
-              class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Next
-            </button>
-          </div>
-
-          <!-- Results summary -->
-          <div class="text-center mt-8 text-sm text-gray-600">
-            Showing {{ (currentPage - 1) * pagination.limit + 1 }} to 
-            {{ Math.min(currentPage * pagination.limit, pagination.total) }} 
-            of {{ pagination.total }} posts
+            <div class="text-center px-6 py-3 bg-white/60 backdrop-blur-md rounded-xl border border-gray-200 shadow-sm">
+              <span class="text-sm font-semibold text-gray-800 tracking-wide">
+                Showing {{ (currentPage - 1) * pagination.limit + 1 }}–{{ Math.min(currentPage * pagination.limit, pagination.total) }} of {{ pagination.total }}
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+

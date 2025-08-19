@@ -63,8 +63,7 @@ onMounted(async () => {
       <div class="absolute bottom-0 left-1/3 w-72 h-72 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob-enhanced animation-delay-4000"></div>
       <div class="absolute top-1/2 right-0 w-64 h-64 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-25 animate-blob-enhanced animation-delay-6000"></div>
       
-      <div class="relative z-10 max-w-xl mx-auto px-8 text-center backdrop-blur-xl bg-white/10 border border-white/20 p-10 lg:p-12 animate-float shadow-2xl before:absolute before:inset-0 before:bg-gradient-to-br before:from-blue-500/10 before:via-blue-400/5 before:to-transparent before:backdrop-blur-sm"
-        style="box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2); clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px));"
+      <div class="relative z-10 max-w-xl mx-auto px-8 text-center backdrop-blur-xl bg-white/10 border border-white/20 p-10 lg:p-12 animate-float shadow-2xl before:absolute before:inset-0 before:bg-gradient-to-br before:from-blue-500/10 before:via-blue-400/5 before:to-transparent before:backdrop-blur-sm clipped-30"
       >
 
         <div class="absolute top-0 left-0 w-8 h-8 bg-blue-600 opacity-20"></div>
@@ -85,15 +84,13 @@ onMounted(async () => {
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <RouterLink
               to="/committees"
-              class="group relative bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600 px-8 py-4 text-base font-bold text-white shadow-xl hover:shadow-blue-500/30 transition-all duration-500 overflow-hidden transform-gpu uppercase tracking-wider before:absolute before:inset-0 before:bg-gradient-to-r before:from-indigo-600 before:via-blue-600 before:to-cyan-600 before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500"
-              style="clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); transform: perspective(1000px);"
+              class="group relative bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600 px-8 py-4 text-base font-bold text-white shadow-xl hover:shadow-blue-500/30 transition-all duration-500 overflow-hidden transform-gpu uppercase tracking-wider before:absolute before:inset-0 before:bg-gradient-to-r before:from-indigo-600 before:via-blue-600 before:to-cyan-600 before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500 clipped-12" style="transform: perspective(1000px);"
             >
               <span class="relative z-10 flex items-center justify-center">
                 <div class="w-0 h-0 border-t-[6px] border-t-white border-r-[6px] border-r-transparent border-b-[6px] border-b-white border-l-[6px] border-l-transparent mr-3 group-hover:rotate-45 transition-transform duration-300"></div>
                 Explore Committees
               </span>
-              <div class="absolute top-2 left-2 w-full h-full bg-blue-900/50 -z-10" 
-                style="clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));">
+              <div class="absolute top-2 left-2 w-full h-full bg-blue-900/50 -z-10 clipped-12">
               </div>
             </RouterLink>
             <RouterLink
@@ -163,8 +160,7 @@ onMounted(async () => {
               to="/blog"
               class="group relative inline-block"
             >
-              <div class="relative bg-blue-600 text-white px-10 py-5 font-black uppercase tracking-widest transition-all duration-300 group-hover:translate-x-2 group-hover:-translate-y-2 border-2 border-blue-600"
-                style="clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));"
+              <div class="relative bg-blue-600 text-white px-10 py-5 font-black uppercase tracking-widest transition-all duration-300 group-hover:translate-x-2 group-hover:-translate-y-2 border-2 border-blue-600 clipped-16"
               >
                 <span class="relative z-10 flex items-center justify-center">
                   View All Posts
@@ -173,9 +169,7 @@ onMounted(async () => {
                 <div class="absolute top-0 left-0 w-4 h-4 bg-cyan-400"></div>
                 <div class="absolute bottom-0 right-0 w-3 h-3 bg-indigo-700"></div>
               </div>
-              <div class="absolute top-2 left-2 w-full h-full bg-blue-800 -z-10 border-2 border-blue-800"
-                style="clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));"
-              ></div>
+              <div class="absolute top-2 left-2 w-full h-full bg-blue-800 -z-10 border-2 border-blue-800 clipped-16"></div>
             </RouterLink>
           </div>
         </div>
