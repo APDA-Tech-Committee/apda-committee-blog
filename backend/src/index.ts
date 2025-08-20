@@ -12,7 +12,9 @@ if (process.env.NODE_ENV === 'production') {
   const instance = process.env.INSTANCE_CONNECTION_NAME;
   if (user && pass && db && instance) {
     // Use Unix socket for Cloud SQL
-    process.env.DATABASE_URL = `postgresql://${user}:${pass}@/${db}?host=/cloudsql/${instance}`;
+      const encodedPass = encodeURIComponent(pass);
+      process.env.DATABASE_URL =
+        `postgresql://${user}:${encodedPass}@/${db}?host=/cloudsql/${instance}`;
   }
 }
 import { createLogger } from './utils/logger.js';
