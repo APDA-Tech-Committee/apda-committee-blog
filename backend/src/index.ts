@@ -4,12 +4,14 @@ import helmet from 'helmet';
 import compression from 'compression';
 import dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
-if (process.env.NODE_ENV === 'production' && !process.env.DATABASE_URL) {
+// In production on Cloud Run, build DATABASE_URL for Prisma using Unix socket
+if (process.env.NODE_ENV === 'production') {
   const user = process.env.DB_USER;
   const pass = process.env.DB_PASS;
   const db = process.env.DB_NAME;
   const instance = process.env.INSTANCE_CONNECTION_NAME;
   if (user && pass && db && instance) {
+    // Use Unix socket for Cloud SQL
     process.env.DATABASE_URL = `postgresql://${user}:${pass}@localhost/${db}?host=/cloudsql/${instance}`;
   }
 }
