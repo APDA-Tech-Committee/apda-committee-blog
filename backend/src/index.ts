@@ -104,6 +104,7 @@ const server = app.listen(port, host, () => {
   }
 
   try {
+    logger.info(`DATABASE_URL: ${process.env.DATABASE_URL}`);
     prisma = new PrismaClient();
     await prisma.$connect();
     logger.info('Prisma connected');
