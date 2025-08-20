@@ -10,12 +10,11 @@ if (process.env.NODE_ENV === 'production') {
   const pass = process.env.DB_PASS;
   const db = process.env.DB_NAME;
   const instance = process.env.INSTANCE_CONNECTION_NAME;
-  if (user && pass && db && instance) {
-    // Use Unix socket for Cloud SQL
-      const encodedPass = encodeURIComponent(pass);
-      process.env.DATABASE_URL =
-        `postgresql://${user}:${encodedPass}@/${db}?host=/cloudsql/${instance}`;
-  }
+if (user && pass && db && instance) {
+  const encodedPass = encodeURIComponent(pass);
+  process.env.DATABASE_URL =
+    `postgresql://${user}:${encodedPass}@localhost:5432/${db}?host=/cloudsql/${instance}`;
+}
 }
 import { createLogger } from './utils/logger.js';
 import { errorHandler } from './middleware/errorHandler.js';
