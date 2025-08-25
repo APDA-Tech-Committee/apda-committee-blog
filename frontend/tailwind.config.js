@@ -7,39 +7,40 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+        blueprint: {
+          blue: '#0057FF',
+          orange: '#FF7A45',
+          grid: '#ECECEC',
         },
-        secondary: {
-          50: '#fdf2f8',
-          100: '#fce7f3',
-          200: '#fbcfe8',
-          300: '#f9a8d4',
-          400: '#f472b6',
-          500: '#ec4899',
-          600: '#db2777',
-          700: '#be185d',
-          800: '#9d174d',
-          900: '#831843',
+        text: {
+          primary: 'rgba(0, 0, 0, 0.9)',
+          secondary: '#6B7280',
+          muted: '#9CA3AF',
+        },
+        bg: {
+          primary: '#FAFAFA',
+          grid: '#ECECEC',
         }
       },
       fontFamily: {
         'sans': ['Inter', 'ui-sans-serif', 'system-ui'],
-        'serif': ['Merriweather', 'ui-serif', 'Georgia'],
+        'mono': ['IBM Plex Mono', 'JetBrains Mono', 'monospace'],
+      },
+      backgroundImage: {
+        'grid': "url(\"data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 0H0v12h12V0z' fill='none' stroke='%23ECECEC' stroke-opacity='0.4' stroke-width='1'/%3E%3C/svg%3E\")",
       },
       typography: {
         DEFAULT: {
           css: {
             maxWidth: 'none',
+            color: 'rgba(0, 0, 0, 0.9)',
+            a: {
+              color: '#0057FF',
+              textDecoration: 'none',
+              '&:hover': {
+                textDecoration: 'underline',
+              },
+            },
           },
         },
       },

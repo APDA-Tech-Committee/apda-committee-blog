@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { apiFetch } from '../utils/api'
-import BlogCard from '../components/BlogCard.vue'
-import { RouterLink } from 'vue-router'
-import backgroundImage from '../assets/background.jpg'
 
 interface Post {
   id: string
@@ -13,24 +10,56 @@ interface Post {
   publishedAt?: string
   author: {
     name: string
+    position?: string
   }
   category: {
     name: string
     color: string
   }
-  committee?: {
-    name: string
-    slug: string
-  }
   featuredImage?: string
+  projectUrl?: string
+  githubUrl?: string
   _count: {
     comments: number
   }
 }
 
+interface Update {
+  date: string
+  tag: string
+  title: string
+  description: string
+  link?: string
+}
+
 const blogPosts = ref<Post[]>([])
 const loading = ref(true)
 const error = ref('')
+
+// Sample updates
+const updates = ref<Update[]>([
+  {
+    date: 'August 24',
+    tag: 'RFC:',
+    title: 'Tech Committee 2025–2026 Roadmap',
+    description: 'Stay informed about the upcoming debate season, including new tools and infrastructure improvements.',
+    link: '/blog/tech-committee-roadmap'
+  },
+  {
+    date: 'August 18',
+    tag: 'Update:',
+    title: 'Mit-Tab v3.4 Released',
+    description: 'New features include improved judge allocation algorithm and real-time statistics dashboard.',
+    link: '/projects/tabulator'
+  },
+  {
+    date: 'August 10',
+    tag: 'Guide:',
+    title: 'Setting Up APDA Tech for Your Tournament',
+    description: 'Step-by-step guide for tournament directors to set up and use our technology stack.',
+    link: '/blog/tournament-tech-setup'
+  }
+])
 
 onMounted(async () => {
   try {
@@ -47,131 +76,103 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="h-screen flex flex-col lg:flex-row">
-    <div class="lg:w-1/2 lg:fixed lg:left-0 lg:top-0 relative overflow-hidden h-screen flex items-center justify-center z-30">
-      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" :style="`background-image: url(${backgroundImage})`"></div>
-      <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+  <div class="p-8 md:p-12">
+    <!-- Page Title + Tagline -->
+    <div class="mb-16">
+      <h1 class="text-3xl font-bold mb-3">APDA Tech Committee</h1>
+      <p class="text-text-secondary max-w-[70ch] text-lg font-light mb-6">
+        Building technology solutions for the American Parliamentary Debate Association.
+      </p>
       
-
-      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(59,130,246,0.2),transparent_50%),radial-gradient(ellipse_at_bottom_right,rgba(99,102,241,0.15),transparent_50%),radial-gradient(ellipse_at_center,rgba(4,95,176,0.2),transparent_60%)] animate-mesh-morph"></div>
+      <!-- Inline Stats Row -->
+      <div class="font-mono text-text-secondary text-sm">
+        Tools: 12  ·  Rounds Tabbed: 1.3k  ·  API P95: 38ms
+      </div>
+    </div>
+    
+    <!-- Latest Updates Section -->
+    <div class="mb-16">
+      <h2 class="text-blueprint-blue font-bold text-xl mb-6">Latest Updates</h2>
       
-      <div class="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full mix-blend-multiply filter blur-xl opacity-25 animate-blob-enhanced"></div>
-      <div class="absolute top-0 right-1/4 w-80 h-80 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob-enhanced animation-delay-2000"></div>
-      <div class="absolute bottom-0 left-1/3 w-72 h-72 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob-enhanced animation-delay-4000"></div>
-      <div class="absolute top-1/2 right-0 w-64 h-64 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-25 animate-blob-enhanced animation-delay-6000"></div>
+      <div v-if="loading" class="animate-pulse space-y-8">
+        <div v-for="i in 3" :key="i" class="flex">
+          <div class="w-24 h-4 bg-gray-200 rounded"></div>
+          <div class="ml-4 flex-1">
+            <div class="h-5 bg-gray-300 rounded w-3/4 mb-4"></div>
+            <div class="h-4 bg-gray-200 rounded w-full"></div>
+          </div>
+        </div>
+      </div>
       
-      <div class="relative z-10 max-w-xl mx-auto px-8 text-center backdrop-blur-xl bg-white/10 border border-white/20 p-10 lg:p-12 animate-float shadow-2xl before:absolute before:inset-0 before:bg-gradient-to-br before:from-blue-500/10 before:via-blue-400/5 before:to-transparent before:backdrop-blur-sm clipped-30"
-      >
-
-        <div class="absolute top-0 left-0 w-8 h-8 bg-blue-600 opacity-20"></div>
-        <div class="absolute top-0 right-0 w-6 h-6 bg-cyan-500 opacity-30"></div>
-        <div class="absolute bottom-0 left-0 w-6 h-6 bg-indigo-600 opacity-25"></div>
-        <div class="absolute bottom-0 right-0 w-8 h-8 bg-blue-500 opacity-20"></div>
-        
-        <div class="animate-text-stable relative z-10">
-          <h1 class="text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-white leading-tight mb-6 drop-shadow-lg">
-            American Parliamentary
-            <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent animate-gradient-enhanced block mt-2 bg-[length:300%_300%]">
-              Committees
-            </span>
-          </h1>
-          <p class="text-lg lg:text-xl leading-8 text-gray-200 mb-8 max-w-lg mx-auto">
-            Home page for all the committees working to make American Parliamentary Debate better.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <RouterLink
-              to="/committees"
-              class="group relative bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600 px-8 py-4 text-base font-bold text-white shadow-xl hover:shadow-blue-500/30 transition-all duration-500 overflow-hidden transform-gpu uppercase tracking-wider before:absolute before:inset-0 before:bg-gradient-to-r before:from-indigo-600 before:via-blue-600 before:to-cyan-600 before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500 clipped-12" style="transform: perspective(1000px);"
-            >
-              <span class="relative z-10 flex items-center justify-center">
-                <div class="w-0 h-0 border-t-[6px] border-t-white border-r-[6px] border-r-transparent border-b-[6px] border-b-white border-l-[6px] border-l-transparent mr-3 group-hover:rotate-45 transition-transform duration-300"></div>
-                Explore Committees
-              </span>
-              <div class="absolute top-2 left-2 w-full h-full bg-blue-900/50 -z-10 clipped-12">
-              </div>
-            </RouterLink>
-            <RouterLink
-              to="/about"
-              class="text-base font-bold leading-6 text-gray-200 hover:text-white transition-all duration-300 group flex items-center justify-center py-4 relative overflow-hidden uppercase tracking-wider before:absolute before:bottom-0 before:left-0 before:w-0 before:h-1 before:bg-gradient-to-r before:from-cyan-400 before:to-blue-400 hover:before:w-full before:transition-all before:duration-300"
-            >
-              Learn more 
-              <div class="ml-3 w-0 h-0 border-l-[8px] border-l-white border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent group-hover:translate-x-2 group-hover:scale-110 transition-all duration-200"></div>
-            </RouterLink>
+      <div v-else-if="error" class="text-red-500">
+        {{ error }}
+      </div>
+      
+      <div v-else class="space-y-8">
+        <div v-for="update in updates" :key="update.title" class="group">
+          <div class="flex items-start">
+            <div class="w-24 font-mono text-text-secondary text-sm">
+              {{ update.date }}
+            </div>
+            <div class="flex-1">
+              <h3 class="text-blueprint-blue font-bold mb-2">
+                <span class="mr-2">{{ update.tag }}</span>
+                <router-link :to="update.link || '#'" class="hover:underline">
+                  {{ update.title }}
+                </router-link>
+              </h3>
+              <p class="text-text-secondary text-sm ml-4 max-w-[60ch]">
+                {{ update.description }}
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="lg:w-1/2 lg:ml-auto fixed top-1/4">
-      <div class="fixed top-[5%] left-1/2 z-50 bg-white w-full lg:w-1/2">
-
+    
+    <!-- Featured Project Section -->
+    <div>
+      <h2 class="font-bold text-xl mb-6">Featured Project</h2>
+      
+      <div class="flex flex-col md:flex-row gap-8 items-center">
+        <div class="flex-1">
+          <h3 class="font-medium text-xl mb-4">Mit-Tab Version 3.4</h3>
+          <p class="text-text-secondary mb-4">
+            Our flagship tournament management system has been updated with automatic judge assignments for outrounds.
+          </p>
+          <router-link to="/projects/tabulator" class="text-blueprint-blue font-light inline-flex items-center group">
+            View the latest features and improvements 
+            <span class="ml-1 text-blueprint-orange transition-transform duration-200 group-hover:translate-x-1">→</span>
+          </router-link>
+        </div>
         
-        <div class="relative z-50 p-8 lg:p-12">
-          <div class="flex items-start justify-between">
-            <div>
-              <div class="flex items-center space-x-4 mb-6">
-                <div class="w-2 h-20 bg-blue-600 transform skew-x-12"></div>
-                <div>
-                  <h2 class="text-3xl font-black text-gray-900 tracking-tight uppercase">
-                    Latest Updates
-                  </h2>
-                  <div class="w-24 h-2 bg-blue-600 mt-2 transform skew-x-12"></div>
-                </div>
+        <div class="flex-1 max-w-md">
+          <!-- Blueprint style wireframe illustration -->
+          <div class="border border-blueprint-blue/60 rounded-md p-1">
+            <div class="border-b border-blueprint-blue/60 pb-2 px-2 flex items-center">
+              <div class="flex space-x-1 mr-2">
+                <div class="w-2 h-2 rounded-full bg-blueprint-blue/30"></div>
+                <div class="w-2 h-2 rounded-full bg-blueprint-blue/30"></div>
+                <div class="w-2 h-2 rounded-full bg-blueprint-blue/30"></div>
               </div>
-              <p class="text-lg text-gray-700 font-bold max-w-md uppercase tracking-wide">
-                Stay informed about APDA committee activities and developments.
-              </p>
+              <div class="h-4 bg-blueprint-blue/10 rounded w-full"></div>
             </div>
-            <div class="hidden lg:block w-16 h-16 bg-gradient-to-br from-blue-600 to-indigo-600 clip-pentagon"></div>
-          </div>
-        </div>
-      </div>
-      </div>
-
-      <div class="lg:w-1/2 lg:ml-auto relative inset-y-[17%]">
-        <div class="p-8 lg:p-12 space-y-8 z-0">
-        <div v-if="loading" class="flex justify-center items-center h-64">
-          <div class="w-16 h-16 border-4 border-blue-600 border-t-transparent animate-spin"></div>
-        </div>
-
-        <div v-else-if="error" class="text-center py-16">
-          <div class="w-20 h-20 bg-red-500 mx-auto mb-6 clip-hexagon"></div>
-          <p class="text-red-600 mb-2 text-xl font-bold uppercase tracking-wider">{{ error }}</p>
-          <p class="text-gray-500 font-semibold">Unable to load updates.</p>
-        </div>
-
-        <div v-else-if="blogPosts.length === 0" class="text-center py-16">
-          <div class="w-20 h-20 bg-gray-400 mx-auto mb-6 transform rotate-45"></div>
-          <p class="text-gray-500 text-xl font-bold uppercase tracking-wider">No posts available yet.</p>
-        </div>
-
-        <div v-else class="space-y-8">
-          <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
-            <div v-for="post in blogPosts" :key="post.id">
-              <BlogCard :post="post" />
+            <div class="p-4 space-y-4">
+              <div class="flex justify-between">
+                <div class="h-4 bg-blueprint-blue/10 w-1/4 rounded"></div>
+                <div class="h-4 bg-blueprint-orange/10 w-1/6 rounded"></div>
+              </div>
+              <div class="h-24 bg-blueprint-blue/5 w-full rounded"></div>
+              <div class="h-6 bg-blueprint-blue/10 w-3/4 rounded mx-auto"></div>
+              <div class="flex justify-around">
+                <div class="h-12 w-12 rounded-full bg-blueprint-blue/10"></div>
+                <div class="h-12 w-12 rounded-full bg-blueprint-orange/10"></div>
+                <div class="h-12 w-12 rounded-full bg-blueprint-blue/10"></div>
+              </div>
             </div>
           </div>
-          
-          <div class="text-center pt-8">
-            <RouterLink
-              to="/blog"
-              class="group relative inline-block"
-            >
-              <div class="relative bg-blue-600 text-white px-10 py-5 font-black uppercase tracking-widest transition-all duration-300 group-hover:translate-x-2 group-hover:-translate-y-2 border-2 border-blue-600 clipped-16"
-              >
-                <span class="relative z-10 flex items-center justify-center">
-                  View All Posts
-                  <div class="ml-4 w-0 h-0 border-l-[8px] border-l-white border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent group-hover:translate-x-2 transition-transform duration-200"></div>
-                </span>
-                <div class="absolute top-0 left-0 w-4 h-4 bg-cyan-400"></div>
-                <div class="absolute bottom-0 right-0 w-3 h-3 bg-indigo-700"></div>
-              </div>
-              <div class="absolute top-2 left-2 w-full h-full bg-blue-800 -z-10 border-2 border-blue-800 clipped-16"></div>
-            </RouterLink>
-          </div>
-        </div>
         </div>
       </div>
-
+    </div>
   </div>
 </template>

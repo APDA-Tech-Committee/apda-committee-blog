@@ -15,24 +15,14 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
-      path: '/committees',
-      name: 'committees',
-      component: () => import('../views/CommitteesView.vue'),
+      path: '/projects',
+      name: 'projects',
+      component: () => import('../views/ProjectsView.vue'),
     },
     {
-      path: '/committees/:slug',
-      name: 'committee-detail',
-      component: () => import('../views/CommitteeDetailView.vue'),
-    },
-    {
-      path: '/committees/:slug/about',
-      name: 'committee-about',
-      component: () => import('../views/CommitteeAboutView.vue'),
-    },
-    {
-      path: '/committees/:slug/blog',
-      name: 'committee-blog',
-      component: () => import('../views/CommitteeBlogView.vue'),
+      path: '/team',
+      name: 'team',
+      component: () => import('../views/TeamView.vue'),
     },
     {
       path: '/blog',

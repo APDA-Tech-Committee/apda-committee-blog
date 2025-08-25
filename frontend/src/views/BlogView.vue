@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { apiFetch } from '../utils/api'
-import BlogCard from '../components/BlogCard.vue'
 
 interface Post {
   id: string
@@ -11,15 +10,14 @@ interface Post {
   publishedAt?: string
   author: {
     name: string
+    position?: string
   }
   category: {
     name: string
     color: string
   }
-  committee?: {
-    name: string
-    slug: string
-  }
+  projectUrl?: string
+  githubUrl?: string
   _count: {
     comments: number
   }
@@ -60,6 +58,17 @@ const loadPage = async (page: number) => {
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
+// Format date to display in our monospace style
+const formatDate = (dateString?: string): string => {
+  if (!dateString) return 'No date'
+  const date = new Date(dateString)
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  })
+}
+
 onMounted(async () => {
   await fetchPosts()
   loading.value = false
@@ -67,93 +76,105 @@ onMounted(async () => {
 </script>
 
 <template>
-   <div class="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-white to-blue-50">
-    <div class="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(4,95,176,0.4),transparent_70%)] animate-pulse"></div>
-      <div class="absolute top-0 right-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
-      <div class="absolute bottom-0 left-1/4 w-72 h-72 bg-blue-600 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
+  <div class="p-12">
+    <!-- Page Title + Tagline -->
+    <div class="mb-16">
+      <h1 class="text-3xl font-bold mb-3">Blog</h1>
+      <p class="text-text-secondary max-w-[70ch] text-lg font-light mb-6">
+        Updates and articles from the APDA Tech Committee
+      </p>
+    </div>
 
-      <!-- Frosted centered hero block -->
-      <div class="relative flex items-center justify-center px-6 py-12">
-        <div class="relative max-w-3xl w-full mx-auto px-10 py-12 text-center backdrop-blur-xl bg-white/10 border clipped-30 border-white/20 shadow-2xl animate-float">
-          
-          <!-- Corner accents -->
-          <div class="absolute top-0 left-0 w-8 h-8 bg-blue-600 opacity-20"></div>
-          <div class="absolute top-0 right-0 w-6 h-6 bg-cyan-500 opacity-30"></div>
-          <div class="absolute bottom-0 left-0 w-6 h-6 bg-indigo-600 opacity-25"></div>
-          <div class="absolute bottom-0 right-0 w-8 h-8 bg-blue-500 opacity-20"></div>
-
-          <h1 class="text-5xl font-black tracking-tight text-white mb-6 animate-text-stable leading-tight relative z-10">
-            APDA
-            <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 bg-clip-text text-transparent animate-gradient block mt-2 bg-[length:300%_300%]">
-              Blog
-            </span>
-          </h1>
-          <p class="text-lg text-gray-200 font-semibold uppercase tracking-wide relative z-10">
-            Updates from APDA Committees
-          </p>
-        </div>
+    <div v-if="loading" class="space-y-8">
+      <div v-for="i in 3" :key="i" class="animate-pulse">
+        <div class="h-6 bg-gray-200 w-1/4 mb-3"></div>
+        <div class="h-4 bg-gray-100 w-3/4 mb-10"></div>
       </div>
     </div>
 
+    <div v-else-if="error" class="text-red-500 mb-8">
+      {{ error }}
+      <p class="text-text-secondary mt-2">Unable to load blog posts.</p>
+    </div>
 
+    <div v-else-if="posts.length === 0" class="text-text-secondary">
+      <p>No posts available.</p>
+    </div>
 
-    <div class="max-w-7xl mx-auto px-8 py-16">
-      <div v-if="loading" class="flex justify-center items-center h-64">
-        <div class="w-16 h-16 border-4 border-blue-600 border-t-transparent animate-spin rounded-full"></div>
-      </div>
-
-      <div v-else-if="error" class="text-center py-16">
-        <div class="w-20 h-20 bg-red-500 mx-auto mb-6 clip-hexagon"></div>
-        <p class="text-red-600 mb-2 text-xl font-bold uppercase tracking-wider">{{ error }}</p>
-        <p class="text-gray-500 font-semibold">Unable to load posts.</p>
-      </div>
-
-      <div v-else-if="posts.length === 0" class="text-center py-16">
-        <div class="w-20 h-20 bg-gray-400 mx-auto mb-6 transform rotate-45"></div>
-        <p class="text-gray-500 text-xl font-bold uppercase tracking-wider">No posts available</p>
-      </div>
-
-      <div v-else>
-        <div class="grid gap-8 lg:grid-cols-2 xl:grid-cols-3 mb-16">
-          <BlogCard v-for="post in posts" :key="post.id" :post="post" />
+    <div v-else>
+      <!-- Blog Posts Grid -->
+      <div class="space-y-16 mb-16">
+        <div v-for="post in posts" :key="post.id" class="border-b border-blueprint-blue/10 pb-12">
+          <div class="flex flex-col">
+            <div class="mb-2 font-mono text-text-secondary text-sm">
+              {{ formatDate(post.publishedAt) }}
+            </div>
+            
+            <router-link :to="`/blog/${post.slug}`" class="group">
+              <h2 class="text-2xl font-bold mb-4 text-blueprint-blue group-hover:underline decoration-2">
+                {{ post.title }}
+              </h2>
+            </router-link>
+            
+            <p class="text-text-secondary mb-4 max-w-[70ch]">
+              {{ post.excerpt || 'No excerpt available' }}
+            </p>
+            
+            <div class="flex items-center gap-4">
+              <div class="font-mono text-sm text-text-secondary">
+                By {{ post.author.name }}
+              </div>
+              
+              <div class="text-xs border border-blueprint-blue/30 text-blueprint-blue px-2 py-1">
+                {{ post.category.name }}
+              </div>
+              
+              <div class="font-mono text-xs text-text-secondary">
+                {{ post._count.comments }} comments
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div v-if="pagination.pages > 1" class="flex flex-col items-center space-y-6">
-          <div class="flex items-center space-x-2">
-            <button
-              @click="loadPage(currentPage - 1)"
-              :disabled="currentPage <= 1"
-              class="px-4 py-3 bg-blue-600 text-white font-black uppercase tracking-widest border-2 border-blue-600 relative transition-all duration-300 disabled:opacity-40 clipped-12"
-            >
-              Prev
-            </button>
-            <button
-              v-for="page in pagination.pages"
-              :key="page"
-              @click="loadPage(page)"
-              class="px-5 py-3 font-bold uppercase tracking-wide border-2 relative transition-all duration-300 clipped-12"
-              :class="[
-                page === currentPage
-                  ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-blue-600 shadow-lg shadow-blue-500/30'
-                  : 'bg-white text-gray-700 border-gray-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-400'
-              ]"
-            >
-              {{ page }}
-            </button>
-            <button
-              @click="loadPage(currentPage + 1)"
-              :disabled="currentPage >= pagination.pages"
-              class="px-4 py-3 bg-blue-600 text-white font-black uppercase tracking-widest border-2 border-blue-600 relative transition-all duration-300 disabled:opacity-40 clipped-12"
-            >
-              Next
-            </button>
-          </div>
-          <div class="text-center px-6 py-3 bg-white/60 backdrop-blur-md rounded-xl border border-gray-200 shadow-sm">
-            <span class="text-sm font-semibold text-gray-800 tracking-wide">
-              Showing {{ (currentPage - 1) * pagination.limit + 1 }}–{{ Math.min(currentPage * pagination.limit, pagination.total) }} of {{ pagination.total }}
-            </span>
-          </div>
+      <!-- Pagination -->
+      <div v-if="pagination.pages > 1" class="flex justify-between items-center pt-8 border-t border-blueprint-blue/10">
+        <div class="font-mono text-sm text-text-secondary">
+          Page {{ currentPage }} of {{ pagination.pages }}
+        </div>
+        
+        <div class="flex gap-2">
+          <button
+            @click="loadPage(currentPage - 1)"
+            :disabled="currentPage <= 1"
+            class="px-4 py-2 border border-blueprint-blue text-blueprint-blue disabled:opacity-50 disabled:border-gray-300 disabled:text-gray-300"
+          >
+            Previous
+          </button>
+          
+          <button
+            v-for="page in pagination.pages"
+            :key="page"
+            @click="loadPage(page)"
+            class="px-3 py-2 font-mono"
+            :class="page === currentPage ? 
+              'border-b-2 border-blueprint-blue text-blueprint-blue' : 
+              'text-text-secondary hover:text-blueprint-blue'"
+          >
+            {{ page }}
+          </button>
+          
+          <button
+            @click="loadPage(currentPage + 1)"
+            :disabled="currentPage >= pagination.pages"
+            class="px-4 py-2 border border-blueprint-blue text-blueprint-blue disabled:opacity-50 disabled:border-gray-300 disabled:text-gray-300"
+          >
+            Next
+          </button>
+        </div>
+        
+        <div class="font-mono text-xs text-text-secondary">
+          {{ (currentPage - 1) * pagination.limit + 1 }}–{{ Math.min(currentPage * pagination.limit, pagination.total) }} of {{ pagination.total }}
         </div>
       </div>
     </div>

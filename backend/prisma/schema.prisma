@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+provider = "sqlite"
+url      = env("DATABASE_URL")
 }
 
 model User {
@@ -18,6 +18,9 @@ model User {
   role      String   @default("MEMBER") // ADMIN, EDITOR, MEMBER
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  bio       String?
+  imageUrl  String?
+  position  String?  // Position in Tech Committee
 
   posts Post[]
   comments Comment[]
@@ -40,24 +43,23 @@ model Category {
 }
 
 model Post {
-  id          String      @id @default(cuid())
-  title       String
-  slug        String      @unique
-  excerpt     String?
-  content     String
-  status      String      @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
+  id            String    @id @default(cuid())
+  title         String
+  slug          String    @unique
+  excerpt       String?
+  content       String
+  status        String    @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
   featuredImage String?
-  publishedAt DateTime?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  publishedAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  projectUrl    String?   // For tech projects
+  githubUrl     String?   // For open source projects
 
   authorId   String
   author     User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   categoryId String
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  
-  committeeId String?
-  committee   Committee? @relation(fields: [committeeId], references: [id], onDelete: SetNull)
 
   comments Comment[]
   tags     TagsOnPosts[]
@@ -87,38 +89,15 @@ model TagsOnPosts {
   @@map("tags_on_posts")
 }
 
-model Committee {
+model TechTeam {
   id          String   @id @default(cuid())
-  name        String   @unique
-  slug        String   @unique
   description String
-  mission     String?
-  contact     String?
+  mission     String
+  contact     String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  members CommitteeMember[]
-  posts   Post[]
-
-  @@map("committees")
-}
-
-model CommitteeMember {
-  id          String   @id @default(cuid())
-  name        String
-  role        String   // Chair, Vice-Chair, Member, etc.
-  bio         String?
-  email       String?
-  imageUrl    String?
-  order       Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  committeeId String
-  committee   Committee @relation(fields: [committeeId], references: [id], onDelete: Cascade)
-
-  @@unique([committeeId, name])
-  @@map("committee_members")
+  @@map("tech_team")
 }
 
 model Comment {

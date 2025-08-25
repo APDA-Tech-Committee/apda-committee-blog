@@ -19,11 +19,10 @@ router.get('/', async (req: Request, res: Response) => {
     };
 
     if (category) {
+      // Log for debugging
+      logger.info(`Filtering by category: ${category}`);
       where.category = {
-        name: {
-          equals: category as string,
-          mode: 'insensitive'
-        }
+        name: category as string
       };
     }
 
@@ -56,26 +55,21 @@ router.get('/', async (req: Request, res: Response) => {
       prisma.post.findMany({
         where,
         include: {
-          author: {
-            select: {
-              name: true
-            }
-          },
+          author: true, // Include all author fields
           category: {
             select: {
               name: true,
               color: true
             }
           },
-          committee: {
-            select: {
-              name: true,
-              slug: true
-            }
-          },
           _count: {
             select: {
               comments: true
+            }
+          },
+          tags: {
+            include: {
+              tag: true
             }
           }
         },
@@ -98,8 +92,16 @@ router.get('/', async (req: Request, res: Response) => {
       }
     });
   } catch (error) {
-    logger.error('Error fetching posts:', error);
-    res.status(500).json({ error: 'Failed to fetch posts' });
+    // Better error logging with more details
+    if (error instanceof Error) {
+      logger.error(`Error fetching posts: ${error.message}`, {
+        stack: error.stack,
+        query: req.query
+      });
+    } else {
+      logger.error('Unknown error fetching posts', { error });
+    }
+    res.status(500).json({ error: 'Failed to fetch posts', details: error instanceof Error ? error.message : 'Unknown error' });
   }
 });
 
@@ -123,12 +125,6 @@ router.get('/:slug', async (req: Request, res: Response) => {
           select: {
             name: true,
             color: true
-          }
-        },
-        committee: {
-          select: {
-            name: true,
-            slug: true
           }
         },
         comments: {

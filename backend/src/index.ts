@@ -29,11 +29,18 @@ const host = '0.0.0.0';
 
 app.use(helmet());
 app.use(compression());
+const allowedOrigins = [
+  /^http:\/\/localhost:\d+$/,
+  'https://apda-committee-blog-frontend-568718017696.us-east4.run.app'
+];
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'https://apda-committee-blog-frontend-568718017696.us-east4.run.app'
-  ],
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.some(o => typeof o === 'string' ? o === origin : o.test(origin))) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
@@ -79,20 +86,20 @@ const server = app.listen(port, host, () => {
       postsRoutesMod,
       categoriesRoutesMod,
       tagsRoutesMod,
-      committeesRoutesMod,
+      techTeamMod,
     ] = await Promise.all([
       import('./routes/auth.js'),
       import('./routes/posts.js'),
       import('./routes/categories.js'),
       import('./routes/tags.js'),
-      import('./routes/committees.js'),
+      import('./routes/tech-team.js'),
     ]);
 
     app.use('/api/auth', authRoutesMod.default);
     app.use('/api/posts', postsRoutesMod.default);
     app.use('/api/categories', categoriesRoutesMod.default);
     app.use('/api/tags', tagsRoutesMod.default);
-    app.use('/api/committees', committeesRoutesMod.default);
+    app.use('/api/tech-team', techTeamMod.default);
 
     app.use('*', notFound);
     app.use(errorHandler);
@@ -111,15 +118,15 @@ const server = app.listen(port, host, () => {
     logger.info('Prisma connected');
 
     // Check for objects in DB and seed if empty
-    const committeeCount = await prisma.committee.count();
+    const techTeamCount = await prisma.techTeam.count();
     const postCount = await prisma.post.count();
-    if (committeeCount === 0) {
-      logger.info('No committees found, seeding committees...');
-      await import('./scripts/seed-committees.js').then(mod => mod.seedCommittees());
+    if (techTeamCount === 0) {
+      logger.info('No tech team info found, seeding tech team...');
+      await import('./scripts/seed-tech-team.js').then(mod => mod.seedTechTeam());
     }
     if (postCount === 0) {
       logger.info('No posts found, seeding blog posts...');
-      await import('./scripts/seed-blog-posts.js').then(mod => mod.seedBlogPosts());
+      await import('./scripts/seed-tech-posts.js').then(mod => mod.seedTechPosts());
     }
   } catch (e) {
     logger.error('Prisma failed to connect or seed:', e);
