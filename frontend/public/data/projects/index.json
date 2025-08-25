@@ -1,0 +1,94 @@
+{
+  "projects": [
+    {
+      "id": "1",
+      "title": "Mit-Tab Tournament Management System",
+      "slug": "mit-tab-project",
+      "excerpt": "APDA's flagship technology solution for running debate tournaments with automated pairings, judge allocation, and results management.",
+      "publishedAt": "2025-08-25T00:00:00.000Z",
+      "author": {
+        "name": "Joey Rubas",
+        "position": "Tech Committee Chair",
+        "email": "joeymrubas@gmail.com"
+      },
+      "category": {
+        "id": "3",
+        "name": "Tech",
+        "color": "green"
+      },
+      "tags": [
+        {
+          "id": "10",
+          "name": "Mit-Tab"
+        },
+        {
+          "id": "13",
+          "name": "Project"
+        }
+      ],
+      "committeeId": "tech-committee",
+      "projectUrl": "https://apda.org/mit-tab",
+      "githubUrl": "https://github.com/APDA-Tech-Committee/mit-tab"
+    },
+    {
+      "id": "2",
+      "title": "APDA Website",
+      "slug": "apda-website",
+      "excerpt": "The official website of the American Parliamentary Debate Association with tournament information, rankings, and resources.",
+      "publishedAt": "2025-07-15T00:00:00.000Z",
+      "author": {
+        "name": "Maya Patel",
+        "position": "Tech Committee Webmaster",
+        "email": "maya@apdadebate.org"
+      },
+      "category": {
+        "id": "3",
+        "name": "Tech",
+        "color": "green"
+      },
+      "tags": [
+        {
+          "id": "14",
+          "name": "Website"
+        },
+        {
+          "id": "13",
+          "name": "Project"
+        }
+      ],
+      "committeeId": "tech-committee",
+      "projectUrl": "https://apda.org",
+      "githubUrl": "https://github.com/APDA-Tech-Committee/apda-website"
+    },
+    {
+      "id": "3",
+      "title": "APDA Tournament Calendar",
+      "slug": "tournament-calendar",
+      "excerpt": "A comprehensive calendar tool for tracking and managing debate tournament schedules across the league.",
+      "publishedAt": "2025-06-10T00:00:00.000Z",
+      "author": {
+        "name": "Jordan Smith",
+        "position": "Rules Committee Chair",
+        "email": "jordan@apdadebate.org"
+      },
+      "category": {
+        "id": "3",
+        "name": "Tech",
+        "color": "green"
+      },
+      "tags": [
+        {
+          "id": "15",
+          "name": "Calendar"
+        },
+        {
+          "id": "13",
+          "name": "Project"
+        }
+      ],
+      "committeeId": "rules-committee",
+      "projectUrl": "https://apda.org/calendar",
+      "githubUrl": "https://github.com/APDA-Tech-Committee/tournament-calendar"
+    }
+  ]
+}

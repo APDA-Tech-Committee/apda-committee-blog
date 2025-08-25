@@ -54,56 +54,69 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="p-12">
-    <!-- Page Title + Tagline -->
-    <div class="mb-16">
-      <h1 class="text-3xl font-bold mb-3">Blog</h1>
-      <p class="text-text-secondary max-w-[70ch] text-lg font-light mb-6">
+  <div class="blueprint-grid">
+    <!-- Page Title + Tagline with top divider -->
+    <hr class="content-divider" />
+    <div class="px-12 py-10">
+      <h1 class="text-3xl font-bold mb-3 text-blueprint-blue">Blog</h1>
+      <p class="max-w-[70ch] text-lg leading-relaxed">
         Updates and articles from the APDA Tech Committee
       </p>
     </div>
+    <hr class="content-divider" />
 
-    <div v-if="loading" class="space-y-8">
-      <div v-for="i in 3" :key="i" class="animate-pulse">
+    <div v-if="loading" class="px-12 py-8">
+      <div v-for="i in 3" :key="i" class="animate-pulse mb-12">
         <div class="h-6 bg-gray-200 w-1/4 mb-3"></div>
-        <div class="h-4 bg-gray-100 w-3/4 mb-10"></div>
+        <div class="h-4 bg-gray-100 w-3/4 mb-6"></div>
+        <hr class="border-t border-gray-200" />
       </div>
     </div>
 
-    <div v-else-if="error" class="text-red-500 mb-8">
-      {{ error }}
-      <p class="text-text-secondary mt-2">Unable to load blog posts.</p>
+    <div v-else-if="error" class="px-12 py-8">
+      <hr class="content-divider" />
+      <div class="py-8">
+        <p class="text-red-500 font-bold">{{ error }}</p>
+        <p class="text-text-secondary mt-2">Unable to load blog posts.</p>
+      </div>
+      <hr class="content-divider" />
     </div>
 
-    <div v-else-if="posts.length === 0" class="text-text-secondary">
-      <p>No posts available.</p>
+    <div v-else-if="posts.length === 0" class="px-12 py-8">
+      <hr class="content-divider" />
+      <div class="py-8">
+        <p class="text-text-secondary">No posts available.</p>
+      </div>
+      <hr class="content-divider" />
     </div>
 
     <div v-else>
-      <!-- Blog Posts Grid -->
-      <div class="space-y-16 mb-16">
-        <div v-for="post in posts" :key="post.id" class="border-b border-blueprint-blue/10 pb-12">
-          <div class="flex flex-col">
-            <div class="mb-2 font-mono text-text-secondary text-sm">
+      <!-- Blog Posts with structured line dividers -->
+      <div>
+        <div v-for="post in posts" :key="post.id">
+          <!-- Each post has its own divider lines -->
+          <hr class="content-divider" />
+          <div class="px-12 py-8">
+            <div class="font-mono text-text-secondary text-sm mb-4">
               {{ formatDate(post.publishedAt) }}
             </div>
             
             <router-link :to="`/blog/${post.slug}`" class="group">
-              <h2 class="text-2xl font-bold mb-4 text-blueprint-blue group-hover:underline decoration-2">
+              <h2 class="text-2xl font-bold mb-4 group-hover:text-blueprint-blue">
                 {{ post.title }}
               </h2>
             </router-link>
             
-            <p class="text-text-secondary mb-4 max-w-[70ch]">
+            <p class="text-text-secondary mb-6 max-w-[70ch]">
               {{ post.excerpt || 'No excerpt available' }}
             </p>
             
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-6">
               <div class="font-mono text-sm text-text-secondary">
                 By {{ post.author.name }}
               </div>
               
-              <div class="text-xs border border-blueprint-blue/30 text-blueprint-blue px-2 py-1">
+              <div class="text-xs text-black">
                 {{ post.category.name }}
               </div>
               
@@ -115,8 +128,9 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- Pagination -->
-      <div v-if="pagination.pages > 1" class="flex justify-between items-center pt-8 border-t border-blueprint-blue/10">
+      <!-- Pagination with horizontal rule above -->
+      <hr class="content-divider" />
+      <div v-if="pagination.pages > 1" class="px-12 py-8 flex justify-between items-center">
         <div class="font-mono text-sm text-text-secondary">
           Page {{ currentPage }} of {{ pagination.pages }}
         </div>
@@ -125,7 +139,7 @@ onMounted(async () => {
           <button
             @click="loadPage(currentPage - 1)"
             :disabled="currentPage <= 1"
-            class="px-4 py-2 border border-blueprint-blue text-blueprint-blue disabled:opacity-50 disabled:border-gray-300 disabled:text-gray-300"
+            class="px-4 py-2 border border-black text-black disabled:opacity-50 disabled:border-gray-300 disabled:text-gray-300"
           >
             Previous
           </button>
@@ -136,8 +150,8 @@ onMounted(async () => {
             @click="loadPage(page)"
             class="px-3 py-2 font-mono"
             :class="page === currentPage ? 
-              'border-b-2 border-blueprint-blue text-blueprint-blue' : 
-              'text-text-secondary hover:text-blueprint-blue'"
+              'border-b-2 border-black text-black' : 
+              'text-text-secondary hover:text-black'"
           >
             {{ page }}
           </button>
@@ -145,16 +159,15 @@ onMounted(async () => {
           <button
             @click="loadPage(currentPage + 1)"
             :disabled="currentPage >= pagination.pages"
-            class="px-4 py-2 border border-blueprint-blue text-blueprint-blue disabled:opacity-50 disabled:border-gray-300 disabled:text-gray-300"
+            class="px-4 py-2 border border-black text-black disabled:opacity-50 disabled:border-gray-300 disabled:text-gray-300"
           >
             Next
           </button>
         </div>
-        
-        <div class="font-mono text-xs text-text-secondary">
-          {{ (currentPage - 1) * pagination.limit + 1 }}–{{ Math.min(currentPage * pagination.limit, pagination.total) }} of {{ pagination.total }}
-        </div>
       </div>
+      
+      <!-- Bottom divider -->
+      <hr class="content-divider" />
     </div>
   </div>
 </template>

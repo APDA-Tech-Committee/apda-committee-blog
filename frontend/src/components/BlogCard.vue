@@ -42,32 +42,38 @@ const commentCount = computed(() => {
 </script>
 
 <template>
-  <article class="border-b border-blueprint-blue/10 pb-8 mb-8">
-    <div class="font-mono text-text-secondary text-sm mb-2">
-      {{ formattedDate }}
-    </div>
+  <article>
+    <!-- Top divider line -->
+    <hr class="content-divider" />
     
-    <RouterLink :to="postUrl" class="group">
-      <h2 class="text-xl font-bold mb-3 text-blueprint-blue group-hover:underline decoration-2">
-        {{ post.title }}
-      </h2>
-    </RouterLink>
-    
-    <p v-if="post.excerpt" class="text-text-secondary mb-4 max-w-[70ch]">
-      {{ post.excerpt }}
-    </p>
-    
-    <div class="flex items-center gap-4">
-      <div class="font-mono text-sm text-text-secondary">
-        By {{ authorName }}
+    <!-- Post content with consistent spacing -->
+    <div class="py-8">
+      <div class="font-mono text-text-secondary text-sm mb-4">
+        {{ formattedDate }}
       </div>
       
-      <div class="text-xs border border-blueprint-blue/30 text-blueprint-blue px-2 py-1">
-        {{ categoryName }}
-      </div>
+      <RouterLink :to="postUrl" class="group">
+        <h2 class="text-xl font-bold mb-4 group-hover:text-blueprint-blue">
+          {{ post.title }}
+        </h2>
+      </RouterLink>
       
-      <div class="font-mono text-xs text-text-secondary">
-        {{ commentCount }} comments
+      <p v-if="post.excerpt" class="text-text-secondary mb-6 max-w-[70ch]">
+        {{ post.excerpt }}
+      </p>
+      
+      <div class="flex items-center gap-6">
+        <div class="font-mono text-sm text-text-secondary">
+          By {{ authorName }}
+        </div>
+        
+        <div class="text-xs text-black">
+          {{ categoryName }}
+        </div>
+        
+        <div class="font-mono text-xs text-text-secondary">
+          {{ commentCount }} comments
+        </div>
       </div>
     </div>
   </article>

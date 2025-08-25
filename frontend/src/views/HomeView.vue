@@ -20,10 +20,11 @@ const updates = computed<Update[]>(() =>
     // Extract tag from category or first tag
     let tag = post.category?.name || '';
     if (post.tags && post.tags.length > 0) {
-      tag = post.tags[0].name + ':';
+      // Format tag nicely without colon - we'll add styling instead
+      tag = post.tags[0].name;
     }
     
-    // Format date
+    // Format date as "August 24" format for display
     const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
       month: 'long',
       day: 'numeric'
@@ -53,28 +54,30 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="p-8 md:p-12">
-    <!-- Page Title + Tagline -->
-    <div class="mb-16">
-      <h1 class="text-3xl font-bold mb-3">APDA Tech Committee</h1>
-      <p class="text-text-secondary max-w-[70ch] text-lg font-light mb-6">
+  <div>
+    <!-- Page Title + Tagline with top divider -->
+    <hr class="content-divider" />
+    <div class="px-12 py-12">
+      <h1 class="text-4xl font-bold mb-4 text-blueprint-blue">APDA Tech Committee</h1>
+      <p class="max-w-[70ch] text-lg leading-relaxed mb-8">
         Building technology solutions for the American Parliamentary Debate Association.
       </p>
       
       <!-- Inline Stats Row -->
-      <div class="font-mono text-text-secondary text-sm">
+      <div class="font-mono text-text-secondary text-sm bg-gray-50 py-3 px-4 inline-block border-l-4 border-blueprint-blue">
         Tools: 12  ·  Rounds Tabbed: 1.3k  ·  API P95: 38ms
       </div>
     </div>
     
-    <!-- Latest Updates Section -->
-    <div class="mb-16">
-      <h2 class="text-blueprint-blue font-bold text-xl mb-6">Latest Updates</h2>
+    <!-- Latest Updates Section with divider -->
+    <hr class="content-divider" />
+    <div class="px-12 py-10">
+      <h2 class="font-bold text-xl mb-8">Latest Updates</h2>
       
       <div v-if="loading" class="animate-pulse space-y-8">
         <div v-for="i in 3" :key="i" class="flex">
-          <div class="w-24 h-4 bg-gray-200 rounded"></div>
-          <div class="ml-4 flex-1">
+          <div class="w-32 h-4 bg-gray-200 rounded"></div>
+          <div class="ml-6 flex-1">
             <div class="h-5 bg-gray-300 rounded w-3/4 mb-4"></div>
             <div class="h-4 bg-gray-200 rounded w-full"></div>
           </div>
@@ -85,20 +88,21 @@ onMounted(async () => {
         {{ error }}
       </div>
       
-      <div v-else class="space-y-8">
-        <div v-for="update in updates" :key="update.title" class="group">
-          <div class="flex items-start">
-            <div class="w-24 font-mono text-text-secondary text-sm">
+      <div v-else class="space-y-12">
+        <div v-for="(update, index) in updates" :key="update.title" class="group">
+          <hr v-if="index > 0" class="my-12 border-t border-black/20" />
+          <div class="flex flex-col md:flex-row md:items-start gap-6">
+            <div class="font-mono text-text-secondary text-sm pt-1 min-w-[120px] flex-shrink-0">
               {{ update.date }}
             </div>
             <div class="flex-1">
-              <h3 class="text-blueprint-blue font-bold mb-2">
-                <span class="mr-2">{{ update.tag }}</span>
-                <router-link :to="update.link || '#'" class="hover:underline">
+              <h3 class="font-bold text-lg mb-3">
+                <router-link :to="update.link || '#'" class="hover:text-blueprint-blue">
+                  <span class="mr-2 text-blueprint-blue">{{ update.tag }}:</span>
                   {{ update.title }}
                 </router-link>
               </h3>
-              <p class="text-text-secondary text-sm ml-4 max-w-[60ch]">
+              <p class="text-text-secondary text-base max-w-[70ch] leading-relaxed">
                 {{ update.description }}
               </p>
             </div>
@@ -107,49 +111,58 @@ onMounted(async () => {
       </div>
     </div>
     
-    <!-- Featured Project Section -->
-    <div>
-      <h2 class="font-bold text-xl mb-6">Featured Project</h2>
+    <!-- Featured Project Section with divider -->
+    <hr class="content-divider" />
+    <div class="px-12 py-10">
+      <h2 class="font-bold text-xl mb-8">Featured Project</h2>
       
-      <div class="flex flex-col md:flex-row gap-8 items-center">
+      <div class="flex flex-col md:flex-row gap-12 items-start">
         <div class="flex-1">
-          <h3 class="font-medium text-xl mb-4">Mit-Tab Version 3.4</h3>
-          <p class="text-text-secondary mb-4">
+          <h3 class="text-xl font-bold text-blueprint-blue mb-4">Mit-Tab Version 3.4</h3>
+          <p class="text-text-secondary mb-6 leading-relaxed">
             Our flagship tournament management system has been updated with automatic judge assignments for outrounds.
           </p>
-          <router-link to="/projects/tabulator" class="text-blueprint-blue font-light inline-flex items-center group">
+          <router-link to="/projects/tabulator" class="text-blueprint-blue inline-flex items-center group font-medium">
             View the latest features and improvements 
-            <span class="ml-1 text-blueprint-orange transition-transform duration-200 group-hover:translate-x-1">→</span>
+            <span class="ml-1 transition-transform duration-200 group-hover:translate-x-1">→</span>
           </router-link>
         </div>
         
         <div class="flex-1 max-w-md">
-          <!-- Blueprint style wireframe illustration -->
-          <div class="border border-blueprint-blue/60 rounded-md p-1">
-            <div class="border-b border-blueprint-blue/60 pb-2 px-2 flex items-center">
-              <div class="flex space-x-1 mr-2">
-                <div class="w-2 h-2 rounded-full bg-blueprint-blue/30"></div>
-                <div class="w-2 h-2 rounded-full bg-blueprint-blue/30"></div>
-                <div class="w-2 h-2 rounded-full bg-blueprint-blue/30"></div>
+          <!-- Line-centric wireframe illustration -->
+          <div class="border-2 border-black p-1 shadow-md bg-white">
+            <div class="border-b-2 border-black pb-2 px-2 flex items-center bg-blueprint-blue/5">
+              <div class="flex space-x-2 mr-3">
+                <div class="w-3 h-3 bg-blueprint-orange rounded-full"></div>
+                <div class="w-3 h-3 bg-blueprint-blue rounded-full"></div>
+                <div class="w-3 h-3 bg-black rounded-full"></div>
               </div>
-              <div class="h-4 bg-blueprint-blue/10 rounded w-full"></div>
+              <div class="h-4 bg-gray-100 w-full"></div>
             </div>
-            <div class="p-4 space-y-4">
+            <div class="p-4 space-y-6">
+              <hr class="border-t-2 border-black" />
               <div class="flex justify-between">
-                <div class="h-4 bg-blueprint-blue/10 w-1/4 rounded"></div>
-                <div class="h-4 bg-blueprint-orange/10 w-1/6 rounded"></div>
+                <div class="h-4 bg-gray-100 w-1/4"></div>
+                <div class="h-4 bg-gray-100 w-1/6"></div>
               </div>
-              <div class="h-24 bg-blueprint-blue/5 w-full rounded"></div>
-              <div class="h-6 bg-blueprint-blue/10 w-3/4 rounded mx-auto"></div>
+              <hr class="border-t-2 border-black" />
+              <div class="h-24 bg-gray-50 w-full flex items-center justify-center">
+                <div class="text-blueprint-blue font-mono text-sm">mit-tab v3.4</div>
+              </div>
+              <hr class="border-t-2 border-black" />
+              <div class="h-6 bg-gray-100 w-3/4"></div>
+              <hr class="border-t-2 border-black" />
               <div class="flex justify-around">
-                <div class="h-12 w-12 rounded-full bg-blueprint-blue/10"></div>
-                <div class="h-12 w-12 rounded-full bg-blueprint-orange/10"></div>
-                <div class="h-12 w-12 rounded-full bg-blueprint-blue/10"></div>
+                <div class="h-10 w-10 border-2 border-blueprint-blue"></div>
+                <div class="h-10 w-10 border-2 border-blueprint-orange"></div>
+                <div class="h-10 w-10 border-2 border-black"></div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- Bottom divider -->
+    <hr class="content-divider" />
   </div>
 </template>

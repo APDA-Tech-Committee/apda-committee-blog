@@ -23,8 +23,9 @@ export default {
         }
       },
       fontFamily: {
-        'sans': ['Inter', 'ui-sans-serif', 'system-ui'],
-        'mono': ['IBM Plex Mono', 'JetBrains Mono', 'monospace'],
+        'sans': ['Space Grotesk', 'ui-sans-serif', 'system-ui'],
+        'body': ['Inter', 'ui-sans-serif', 'system-ui'],
+        'mono': ['Space Mono', 'monospace'],
       },
       backgroundImage: {
         'grid': "url(\"data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 0H0v12h12V0z' fill='none' stroke='%23ECECEC' stroke-opacity='0.4' stroke-width='1'/%3E%3C/svg%3E\")",

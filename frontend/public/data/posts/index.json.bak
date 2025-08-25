@@ -1,0 +1,187 @@
+{
+  "posts": [
+    {
+      "id": "0",
+      "title": "Mit-Tab Tournament Management System",
+      "slug": "mit-tab-project",
+      "excerpt": "APDA's flagship technology solution for running debate tournaments with automated pairings, judge allocation, and results management.",
+      "publishedAt": "2025-08-25T00:00:00.000Z",
+      "author": {
+        "name": "APDA Tech Committee",
+        "position": "Developer"
+      },
+      "category": {
+        "id": "3",
+        "name": "Tech",
+        "color": "green"
+      },
+      "tags": [
+        {
+          "id": "10",
+          "name": "Mit-Tab"
+        },
+        {
+          "id": "13",
+          "name": "Project"
+        }
+      ],
+      "committeeId": "tech-committee",
+      "projectUrl": "https://apda.org/mit-tab",
+      "githubUrl": "https://github.com/APDA-Tech-Committee/mit-tab",
+      "_count": {
+        "comments": 0
+      }
+    },
+    {
+      "id": "1",
+      "title": "Tech Committee 2025–2026 Roadmap",
+      "slug": "tech-committee-roadmap",
+      "excerpt": "Stay informed about the upcoming debate season, including new tools and infrastructure improvements.",
+      "publishedAt": "2025-08-24T00:00:00.000Z",
+      "author": {
+        "name": "APDA Tech Committee",
+        "position": "Chair"
+      },
+      "category": {
+        "id": "3",
+        "name": "Tech",
+        "color": "green"
+      },
+      "tags": [
+        {
+          "id": "7",
+          "name": "RFC"
+        },
+        {
+          "id": "8",
+          "name": "Roadmap"
+        }
+      ],
+      "committeeId": "tech-committee",
+      "_count": {
+        "comments": 0
+      }
+    },
+    {
+      "id": "2",
+      "title": "Mit-Tab v3.4 Released",
+      "slug": "mit-tab-v3-4-released",
+      "excerpt": "New features include improved judge allocation algorithm and real-time statistics dashboard.",
+      "publishedAt": "2025-08-18T00:00:00.000Z",
+      "author": {
+        "name": "APDA Tech Committee",
+        "position": "Developer"
+      },
+      "category": {
+        "id": "3",
+        "name": "Tech",
+        "color": "green"
+      },
+      "tags": [
+        {
+          "id": "9",
+          "name": "Update"
+        },
+        {
+          "id": "10",
+          "name": "Mit-Tab"
+        }
+      ],
+      "committeeId": "tech-committee",
+      "projectUrl": "/projects/tabulator",
+      "_count": {
+        "comments": 0
+      }
+    },
+    {
+      "id": "3",
+      "title": "Setting Up APDA Tech for Your Tournament",
+      "slug": "tournament-tech-setup",
+      "excerpt": "Step-by-step guide for tournament directors to set up and use our technology stack.",
+      "publishedAt": "2025-08-10T00:00:00.000Z",
+      "author": {
+        "name": "APDA Tech Committee",
+        "position": "Support Lead"
+      },
+      "category": {
+        "id": "2",
+        "name": "Guide",
+        "color": "purple"
+      },
+      "tags": [
+        {
+          "id": "11",
+          "name": "Guide"
+        },
+        {
+          "id": "12",
+          "name": "Tournament"
+        }
+      ],
+      "committeeId": "tech-committee",
+      "_count": {
+        "comments": 0
+      }
+    },
+    {
+      "id": "4",
+      "title": "Welcome to the APDA Committee Blog",
+      "slug": "welcome-to-apda-committee-blog",
+      "excerpt": "An introduction to the American Parliamentary Debate Association's Committee Blog",
+      "publishedAt": "2025-08-01T00:00:00.000Z",
+      "author": {
+        "name": "APDA Tech Committee",
+        "position": "Webmaster"
+      },
+      "category": {
+        "id": "1",
+        "name": "Announcement",
+        "color": "blue"
+      },
+      "tags": [
+        {
+          "id": "1",
+          "name": "Introduction"
+        },
+        {
+          "id": "2",
+          "name": "Welcome"
+        }
+      ],
+      "committeeId": "tech-committee",
+      "_count": {
+        "comments": 0
+      }
+    },
+    {
+      "id": "5",
+      "title": "New Rules for the 2025-2026 Season",
+      "slug": "new-rules-2025-2026",
+      "excerpt": "Updates to the APDA rulebook for the upcoming debate season",
+      "publishedAt": "2025-07-23T00:00:00.000Z",
+      "author": {
+        "name": "APDA Rules Committee",
+        "position": "Chair"
+      },
+      "category": {
+        "id": "4",
+        "name": "Rules",
+        "color": "yellow"
+      },
+      "tags": [
+        {
+          "id": "3",
+          "name": "Rules"
+        },
+        {
+          "id": "4",
+          "name": "Season"
+        }
+      ],
+      "committeeId": "rules-committee",
+      "_count": {
+        "comments": 0
+      }
+    }
+  ]
+}

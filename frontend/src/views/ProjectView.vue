@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
-import { getPost, type Post } from '../utils/staticData'
+import { getProject, type Project } from '../utils/staticData'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()
 const router = useRouter()
 
-const project = ref<Post | null>(null)
+const project = ref<Project | null>(null)
 const loading = ref(true)
 const error = ref<string | null>(null)
 
@@ -16,7 +16,7 @@ const fetchProject = async () => {
     error.value = null
     
     const slug = route.params.slug as string
-    const data = await getPost(slug)
+    const data = await getProject(slug)
     project.value = data
   } catch (err) {
     console.error('Error fetching project:', err)
@@ -91,74 +91,75 @@ watch(() => route.params.slug, () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
+  <div class="blueprint-grid min-h-screen">
     <!-- Loading State -->
     <div v-if="loading" class="flex justify-center items-center min-h-screen">
       <div class="animate-spin rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600"></div>
     </div>
 
     <!-- Error State -->
-    <div v-else-if="error" class="container mx-auto px-4 py-16">
-      <div class="max-w-md mx-auto text-center p-8 rounded-2xl bg-red-50 border border-red-200">
-        <div class="w-12 h-12 mx-auto mb-4 bg-red-100 rounded-full flex items-center justify-center">
+    <div v-else-if="error" class="px-12 py-8">
+      <hr class="content-divider" />
+      <div class="py-8 text-center">
+        <div class="w-12 h-12 mx-auto mb-4 flex items-center justify-center">
           <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
           </svg>
         </div>
-        <h1 class="text-xl font-bold text-red-900 mb-4">Project Not Found</h1>
-        <p class="text-red-700 mb-6">{{ error }}</p>
+        <h1 class="text-xl font-bold mb-4">Project Not Found</h1>
+        <p class="mb-6">{{ error }}</p>
         <router-link 
           to="/projects" 
-          class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-200 font-medium"
+          class="inline-flex items-center px-6 py-3 border border-black"
         >
           ← Back to Projects
         </router-link>
       </div>
+      <hr class="content-divider" />
     </div>
 
     <!-- Project Content -->
-    <article v-else-if="project" class="container mx-auto px-4 py-8">
-      <div class="max-w-4xl mx-auto">
+    <article v-else-if="project">
+      <!-- Top divider -->
+      <hr class="content-divider" />
+      
+      <div class="px-12 py-8">
         <!-- Breadcrumb -->
-        <nav class="flex items-center space-x-2 text-sm text-gray-600 mb-8">
-          <router-link to="/" class="hover:text-blue-600">Home</router-link>
+        <nav class="flex items-center space-x-2 text-sm text-text-secondary mb-8">
+          <router-link to="/" class="hover:text-black">Home</router-link>
           <span>→</span>
-          <router-link to="/projects" class="hover:text-blue-600">Projects</router-link>
+          <router-link to="/projects" class="hover:text-black">Projects</router-link>
           <span>→</span>
-          <span class="text-gray-900">{{ project.title }}</span>
+          <span class="text-black">{{ project.title }}</span>
         </nav>
 
-        <!-- Project Header -->
+        <!-- Project Header with line-centric design -->
         <header class="mb-8">
           <div v-if="project.category" class="mb-4">
-            <span
-              class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
-              :class="{
-                'bg-blue-100 text-blue-800': project.category.name === 'Announcement',
-                'bg-green-100 text-green-800': project.category.name === 'Tech',
-                'bg-purple-100 text-purple-800': project.category.name === 'Guide',
-                'bg-yellow-100 text-yellow-800': project.category.name === 'Rules',
-                'bg-red-100 text-red-800': project.category.name === 'Events',
-                'bg-gray-100 text-gray-800': !['Announcement','Tech','Guide','Rules','Events'].includes(project.category.name)
-              }"
-            >
+            <span class="text-xs font-medium text-black">
               {{ project.category.name }}
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+          <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
             {{ project.title }}
           </h1>
-          <p v-if="project.excerpt" class="text-xl text-gray-600 mb-6 leading-relaxed">
+          <p v-if="project.excerpt" class="text-xl text-text-secondary mb-6 leading-relaxed">
             {{ project.excerpt }}
           </p>
 
           <!-- Meta Information -->
-          <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 border-b border-gray-200 pb-6">
+          <div class="flex flex-wrap items-center gap-4 text-sm text-text-secondary pb-6">
+            <!-- Author with position and email if available -->
             <div class="flex items-center gap-2">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
               </svg>
-              <span>{{ project.author.name }}</span>
+              <span>
+                {{ project.author.name }}
+                <span v-if="project.author.position" class="text-xs opacity-75">
+                  ({{ project.author.position }})
+                </span>
+              </span>
             </div>
             
             <div v-if="project.publishedAt" class="flex items-center gap-2">
@@ -166,6 +167,16 @@ watch(() => route.params.slug, () => {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
               </svg>
               <time :datetime="project.publishedAt">{{ formatDate(project.publishedAt) }}</time>
+            </div>
+            
+            <!-- Email if available -->
+            <div v-if="project.author.email" class="flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              <a :href="`mailto:${project.author.email}`" class="hover:underline">
+                {{ project.author.email }}
+              </a>
             </div>
           </div>
         </header>
@@ -177,7 +188,7 @@ watch(() => route.params.slug, () => {
             :href="project.projectUrl"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-md hover:from-blue-600 hover:to-blue-700 transition-colors"
+            class="inline-flex items-center px-4 py-2 border border-black hover:bg-black hover:text-white transition-colors"
           >
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -189,7 +200,7 @@ watch(() => route.params.slug, () => {
             :href="project.githubUrl"
             target="_blank"
             rel="noopener noreferrer" 
-            class="inline-flex items-center px-4 py-2 bg-gray-800 text-white rounded-md hover:bg-gray-900 transition-colors"
+            class="inline-flex items-center px-4 py-2 border border-black hover:bg-black hover:text-white transition-colors"
           >
             <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
               <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
@@ -198,36 +209,41 @@ watch(() => route.params.slug, () => {
           </a>
         </div>
 
-        <!-- Project Content -->
-        <div class="prose prose-lg max-w-none mb-12">
-          <div v-html="formatContent(project.content || '')"></div>
-        </div>
+        <!-- Content divider -->
+        <hr class="content-divider" />
 
-        <!-- Tags -->
-        <div v-if="project.tags && project.tags.length > 0" class="mb-8">
-          <h3 class="text-sm font-medium text-gray-900 mb-3">Tags:</h3>
-          <div class="flex flex-wrap gap-2">
+        <!-- Project Content -->
+        <div class="px-12 py-10 prose prose-lg max-w-none">
+          <div v-html="formatContent(project.content || '')" class="leading-relaxed"></div>
+        </div>
+        
+        <!-- Tags with divider -->
+        <hr class="content-divider" />
+        <div v-if="project.tags && project.tags.length > 0" class="px-12 py-8">
+          <h3 class="text-sm font-medium mb-4">Tags:</h3>
+          <div class="flex flex-wrap gap-4">
             <span 
               v-for="tag in project.tags" 
               :key="tag.id"
-              class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors"
+              class="text-xs font-medium text-black"
             >
               {{ tag.name }}
             </span>
           </div>
         </div>
 
-        <!-- Navigation -->
-        <nav class="border-t border-gray-200 pt-8 mb-8">
+        <!-- Navigation with divider -->
+        <hr class="content-divider" />
+        <div class="px-12 py-8">
           <div class="flex justify-between items-center">
             <router-link 
               to="/projects" 
-              class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
+              class="inline-flex items-center px-4 py-2 border border-black hover:bg-black hover:text-white transition-colors"
             >
               ← Back to Projects
             </router-link>
           </div>
-        </nav>
+        </div>
       </div>
     </article>
   </div>

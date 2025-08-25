@@ -9,36 +9,15 @@
       "members": [
         {
           "id": "1",
-          "name": "Alex Johnson",
+          "name": "Joey Rubas",
           "position": "Chair",
-          "imageUrl": "/images/team/alex-johnson.jpg"
+          "imageUrl": "/images/joey.png"
         },
         {
           "id": "2",
-          "name": "Maya Patel",
-          "position": "Webmaster",
+          "name": "Raina Batra",
+          "position": "Liason",
           "imageUrl": "/images/team/maya-patel.jpg"
-        }
-      ]
-    },
-    {
-      "id": "rules-committee",
-      "name": "Rules Committee",
-      "slug": "rules-committee",
-      "description": "Maintains and updates the official APDA rules",
-      "logoUrl": "/images/committees/rules-committee-logo.png",
-      "members": [
-        {
-          "id": "3",
-          "name": "Jordan Smith",
-          "position": "Chair",
-          "imageUrl": "/images/team/jordan-smith.jpg"
-        },
-        {
-          "id": "4",
-          "name": "Taylor Wong",
-          "position": "Secretary",
-          "imageUrl": "/images/team/taylor-wong.jpg"
         }
       ]
     }

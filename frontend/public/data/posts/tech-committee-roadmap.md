@@ -4,30 +4,30 @@ This document outlines the APDA Tech Committee's plans and priorities for the up
 
 ## Key Initiatives
 
-### 1. Tournament Management System Upgrades
+### 1. Software Reliability and Maintainability Upgrades
 
-We're planning significant improvements to the Mit-Tab system, including:
+Last season's focus on migrating software towards newer versions with less security vunerabilities continues, as we seek to make APDA's software as durable, and readily maintainable as possible. Our targets for this season are as follows:
+- Refactor to remove or update any dependencies that will not still be in long term service by 2028
+- Create robust deployment pipelines for all essential software to prevent downtime from new changes
+- Move all data storage onto dedicated enterprise database services
+- Migrate services to containerized, scalable, stateless instances to lower costs
+- Better data anayltics to catch bugs and downtime before they cause damage
+- Performance optimization on all services
 
-- Enhanced judge allocation algorithm for better round-to-round consistency
-- Real-time statistics dashboard for tournament directors
-- Mobile-friendly interface for all users
-- Integration with the APDA membership database
+### 2. New Features
 
-### 2. APDA Website Redesign
+As our softare becomes more agile, so does out ability to push out new and exciting features to make our software better at what it does. Here are some of the big targets on our list:
 
-Our main website is due for a refresh:
-
-- Modern, responsive design
-- Improved tournament calendar and registration system
-- Integrated blog platform for committee updates (you're looking at it!)
-- Enhanced member school profiles
+- Connect Mit-Tab and standings with APIs to minimize manual data entry by admins and schools
+- More ways to tell Mit-Tab what you want pairings to look like, such as setting up accessabile rooms to be automatically paired correctly
+- More options to collect and aggregate speaks data
 
 ### 3. Infrastructure Improvements
 
 Behind the scenes, we're working on:
 
-- Migration to cloud-based hosting for better reliability
-- Improved backup and disaster recovery systems
+- Modern style refreshes of all services
+- Improve data communication on Mit-Tab with more options to make results visible, and display brackets in an outround format
 - Enhanced security measures for all APDA digital assets
 - Performance optimizations across all our platforms
 
@@ -42,6 +42,6 @@ Behind the scenes, we're working on:
 
 ## Get Involved
 
-We're always looking for tech-savvy debaters to join the committee! If you're interested in contributing, please reach out to techcommittee@apda.org.
+We're always looking for tech-savvy debaters to join the committee! If you're interested in contributing, please reach out to joeymrubas@gmail.com
 
 *Posted by the APDA Tech Committee*

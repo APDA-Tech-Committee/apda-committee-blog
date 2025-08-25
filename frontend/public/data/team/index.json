@@ -2,43 +2,32 @@
   "members": [
     {
       "id": "1",
-      "name": "Alex Johnson",
+      "name": "Joey Rubas",
       "position": "Tech Committee Chair",
-      "bio": "Alex has been involved with APDA for 4 years and has a background in computer science.",
-      "email": "alex@apdadebate.org",
-      "imageUrl": "/images/team/alex-johnson.jpg",
+      "bio": "Joey is the chair and founder of the APDA tech committee",
+      "email": "joeymrubas@gmail/com",
+      "imageUrl": "/assets/joey.png",
       "socialLinks": {
-        "twitter": "https://twitter.com/alexjohnson",
-        "github": "https://github.com/alexjohnson",
-        "linkedin": "https://linkedin.com/in/alexjohnson",
-        "website": "https://alexjohnson.dev"
+        "github": "https://github.com/JoeyRubas",
+        "linkedin": "https://www.linkedin.com/in/joeymrubas/",
+        "website": "joeyrubas.com"
       }
     },
     {
       "id": "2",
-      "name": "Maya Patel",
-      "position": "Tech Committee Webmaster",
-      "bio": "Maya specializes in web development and has been working on APDA's digital presence since 2024.",
-      "email": "maya@apdadebate.org",
-      "imageUrl": "/images/team/maya-patel.jpg",
+      "name": "Raina Batra",
+      "position": "Board Liason",
+      "bio": "Raina is a member at large on the APDA board, and serves as the liason between the tech committee and APDA board. She is currently a junior at Amherst College in Massachusetts.",
+      "imageUrl": "/assets/raina.jpg",
       "socialLinks": {
-        "github": "https://github.com/mayatech",
-        "linkedin": "https://linkedin.com/in/mayapatel"
+        "linkedin": "https://www.linkedin.com/in/raina-batra/"
       }
     },
     {
       "id": "3",
-      "name": "Jordan Smith",
-      "position": "Rules Committee Chair",
-      "bio": "Jordan has been debating in APDA for 3 years and previously served as a tournament director.",
-      "email": "jordan@apdadebate.org",
-      "imageUrl": "/images/team/jordan-smith.jpg"
-    },
-    {
-      "id": "4",
-      "name": "Taylor Wong",
-      "position": "Rules Committee Secretary",
-      "bio": "Taylor has been documenting APDA rules and procedures since 2023.",
+      "name": "Ian McVann",
+      "position": "Contributor",
+      "bio": "Ian has been one of Tech Committees most active members since 2024..",
       "email": "taylor@apdadebate.org",
       "imageUrl": "/images/team/taylor-wong.jpg",
       "socialLinks": {
