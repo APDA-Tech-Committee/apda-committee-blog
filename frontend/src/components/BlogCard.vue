@@ -1,27 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
+import { type Post } from '../utils/staticData'
 
-interface BlogPost {
-  id: string | number
-  title: string
-  slug: string
-  excerpt?: string
-  author: { name: string; position?: string } | string
-  publishedAt?: string
-  date?: string
-  category: { name: string; color?: string } | string
-  image?: string
-  featuredImage?: string
-  projectUrl?: string
-  githubUrl?: string
-  _count?: { comments: number }
-}
+// Use Post type from staticData
+interface BlogPost extends Post {}
 
 const props = defineProps<{ post: BlogPost }>()
 
 const formattedDate = computed(() => {
-  const dateStr = props.post.publishedAt || props.post.date
+  const dateStr = props.post.publishedAt
   if (!dateStr) return ''
   return new Date(dateStr).toLocaleDateString('en-US', {
     year: 'numeric', month: 'short', day: 'numeric'
@@ -29,15 +17,11 @@ const formattedDate = computed(() => {
 })
 
 const authorName = computed(() => {
-  return typeof props.post.author === 'string'
-    ? props.post.author
-    : props.post.author.name
+  return props.post.author.name
 })
 
 const categoryName = computed(() => {
-  return typeof props.post.category === 'string'
-    ? props.post.category
-    : props.post.category.name
+  return props.post.category.name
 })
 
 // Simplified category styling that matches our blueprint design

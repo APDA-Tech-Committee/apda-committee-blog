@@ -1,0 +1,59 @@
+{
+  "tags": [
+    {
+      "id": "1",
+      "name": "Introduction",
+      "slug": "introduction"
+    },
+    {
+      "id": "2",
+      "name": "Welcome",
+      "slug": "welcome"
+    },
+    {
+      "id": "3",
+      "name": "Rules",
+      "slug": "rules"
+    },
+    {
+      "id": "4",
+      "name": "Season",
+      "slug": "season"
+    },
+    {
+      "id": "7",
+      "name": "RFC",
+      "slug": "rfc"
+    },
+    {
+      "id": "8",
+      "name": "Roadmap",
+      "slug": "roadmap"
+    },
+    {
+      "id": "9",
+      "name": "Update",
+      "slug": "update"
+    },
+    {
+      "id": "10",
+      "name": "Mit-Tab",
+      "slug": "mit-tab"
+    },
+    {
+      "id": "11",
+      "name": "Guide",
+      "slug": "guide"
+    },
+    {
+      "id": "12",
+      "name": "Tournament",
+      "slug": "tournament"
+    },
+    {
+      "id": "13",
+      "name": "Project",
+      "slug": "project"
+    }
+  ]
+}

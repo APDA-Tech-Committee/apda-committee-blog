@@ -1,31 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { apiFetch } from '../utils/api'
+import { ref, onMounted, computed } from 'vue'
+import { getPosts, type Post } from '../utils/staticData'
 import { RouterLink } from 'vue-router'
 
-interface Project {
-  id: string
-  title: string
-  slug: string
-  excerpt?: string
-  publishedAt?: string
-  featuredImage?: string
-  projectUrl?: string
-  githubUrl?: string
-  author: {
-    name: string
-  }
-  category: {
-    name: string
-    color: string
-  }
-  tags: Array<{
-    tag: {
-      name: string
-      slug: string
-    }
-  }>
-}
+// We'll reuse the Post type for projects with category "Tech"
+type Project = Post;
 
 const projects = ref<Project[]>([])
 const loading = ref(true)
@@ -33,9 +12,21 @@ const error = ref('')
 
 onMounted(async () => {
   try {
-    const response = await apiFetch('/posts?category=Projects&status=PUBLISHED')
-    const data = await response.json()
-    projects.value = data.posts || []
+    // We'll filter posts by the Tech category or posts with "project" tag
+    const response = await getPosts(1, 50, 'PUBLISHED')
+    
+    // Filter for posts that are projects
+    // (has Tech category or project tag or has projectUrl)
+    projects.value = response.posts.filter(post => {
+      const hasTechCategory = post.category?.name === 'Tech';
+      const hasProjectTag = post.tags?.some(tag => 
+        tag.name.toLowerCase() === 'project' || 
+        tag.name.toLowerCase().includes('mit-tab')
+      );
+      const hasProjectUrl = !!post.projectUrl;
+      
+      return hasTechCategory || hasProjectTag || hasProjectUrl;
+    });
   } catch (err) {
     console.error('Error fetching projects:', err)
     error.value = err instanceof Error ? err.message : 'An error occurred'
@@ -45,7 +36,7 @@ onMounted(async () => {
 })
 
 function getTagList(project: Project): string[] {
-  return project.tags?.map(t => t.tag.name) || []
+  return project.tags?.map(tag => tag.name) || []
 }
 
 // Format date to display in our monospace style

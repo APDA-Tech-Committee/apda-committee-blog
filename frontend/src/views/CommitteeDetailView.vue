@@ -1,61 +1,27 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-import { apiFetch } from '../utils/api'
+import { getCommittee, getPosts, type Committee, type Post } from '../utils/staticData'
 import { useRoute, RouterLink } from 'vue-router'
 import BlogCard from '../components/BlogCard.vue'
 
-interface CommitteeMember {
-  id: string
-  name: string
-  role: string
-  bio?: string
-  email?: string
-  imageUrl?: string
-  order: number
-}
-
-interface Post {
-  id: string
-  slug: string
-  title: string
-  excerpt?: string
-  publishedAt?: string
-  author: {
-    name: string
-  }
-  category: {
-    name: string
-    color: string
-  }
-  _count: {
-    comments: number
-  }
-}
-
-interface Committee {
-  id: string
-  name: string
-  slug: string
-  description: string
-  mission?: string
-  contact?: string
-  members: CommitteeMember[]
-  posts: Post[]
-}
-
 const route = useRoute()
 const committee = ref<Committee | null>(null)
+const posts = ref<Post[]>([])
 const loading = ref(true)
 const error = ref('')
 
 
-const recentPosts = computed(() => committee.value?.posts.slice(0, 3) || [])
-const chairMembers = computed(() => committee.value?.members.filter(m => m.role.toLowerCase().includes('chair')).slice(0, 3) || [])
+const recentPosts = computed(() => posts.value.slice(0, 3) || [])
+const chairMembers = computed(() => committee.value?.members.filter(m => m.position.toLowerCase().includes('chair')).slice(0, 3) || [])
 
 onMounted(async () => {
   try {
-    const response = await apiFetch(`/api/committees/${route.params.slug}`)
-    committee.value = await response.json()
+    const slug = route.params.slug as string
+    committee.value = await getCommittee(slug)
+    
+    // Fetch posts for this committee
+    const postsData = await getPosts(1, 100, 'PUBLISHED', committee.value.id)
+    posts.value = postsData.posts
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'An error occurred'
   } finally {
@@ -131,9 +97,9 @@ onMounted(async () => {
       <!-- Content (unchanged from last version, still clipped glass/white cards) -->
       <div class="max-w-7xl mx-auto px-6 py-16 grid lg:grid-cols-3 gap-12">
         <div class="lg:col-span-2 space-y-12">
-          <div v-if="committee.mission" class="relative p-10 bg-white/70 backdrop-blur-lg border border-gray-200 shadow-lg clipped-20">
-            <h2 class="text-2xl font-black text-blue-700 mb-4 uppercase tracking-tight">Our Mission</h2>
-            <p class="text-gray-700 text-lg leading-relaxed">{{ committee.mission }}</p>
+          <div v-if="committee.aboutContent" class="relative p-10 bg-white/70 backdrop-blur-lg border border-gray-200 shadow-lg clipped-20">
+            <h2 class="text-2xl font-black text-blue-700 mb-4 uppercase tracking-tight">About Our Committee</h2>
+            <p class="text-gray-700 text-lg leading-relaxed">{{ committee.aboutContent }}</p>
           </div>
 
           <div v-if="recentPosts.length > 0" class="relative p-10 bg-white/70 backdrop-blur-lg border border-gray-200 shadow-lg clipped-20">
@@ -160,20 +126,13 @@ onMounted(async () => {
                 </div>
                 <div>
                   <p class="font-bold text-gray-900">{{ member.name }}</p>
-                  <p class="text-sm text-gray-600">{{ member.role }}</p>
+                  <p class="text-sm text-gray-600">{{ member.position }}</p>
                 </div>
               </div>
             </div>
             <RouterLink :to="`/committees/${committee.slug}/about`" class="block mt-6 text-blue-600 hover:text-indigo-600 font-bold uppercase tracking-wide text-sm">
               View All Members →
             </RouterLink>
-          </div>
-
-          <div v-if="committee.contact" class="relative p-8 bg-white/70 backdrop-blur-lg border border-gray-200 shadow-lg clipped-20">
-            <h3 class="text-xl font-black text-blue-700 mb-4 uppercase tracking-tight">Contact</h3>
-            <a :href="`mailto:${committee.contact}`" class="text-blue-600 hover:text-indigo-600 font-semibold">
-              {{ committee.contact }}
-            </a>
           </div>
         </div>
       </div>

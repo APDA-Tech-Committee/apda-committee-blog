@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "APDA Committee Blog Static Data Schemas",
+  "description": "JSON schemas for the static data files of the APDA Committee Blog",
+  
+  "definitions": {
+    "Post": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "slug": { "type": "string" },
+        "excerpt": { "type": "string" },
+        "publishedAt": { "type": "string", "format": "date-time" },
+        "author": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "position": { "type": "string" }
+          },
+          "required": ["name"]
+        },
+        "category": {
+          "type": "object", 
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" },
+            "color": { "type": "string" }
+          },
+          "required": ["id", "name"]
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" }
+            },
+            "required": ["id", "name"]
+          }
+        },
+        "committeeId": { "type": "string" },
+        "projectUrl": { "type": "string" },
+        "githubUrl": { "type": "string" }
+      },
+      "required": ["id", "title", "slug", "publishedAt", "author", "category"]
+    },
+    
+    "Committee": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "description": { "type": "string" },
+        "aboutContent": { "type": "string" },
+        "logoUrl": { "type": "string" },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "position": { "type": "string" },
+              "imageUrl": { "type": "string" }
+            },
+            "required": ["id", "name", "position"]
+          }
+        }
+      },
+      "required": ["id", "name", "slug", "description", "members"]
+    },
+    
+    "TeamMember": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "position": { "type": "string" },
+        "bio": { "type": "string" },
+        "email": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "socialLinks": {
+          "type": "object",
+          "properties": {
+            "twitter": { "type": "string" },
+            "github": { "type": "string" },
+            "linkedin": { "type": "string" },
+            "website": { "type": "string" }
+          }
+        }
+      },
+      "required": ["id", "name", "position"]
+    },
+    
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "color": { "type": "string" }
+      },
+      "required": ["id", "name", "slug"]
+    },
+    
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "slug": { "type": "string" }
+      },
+      "required": ["id", "name"]
+    }
+  },
+  
+  "type": "object",
+  "properties": {
+    "posts": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Post" }
+    },
+    "committees": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Committee" }
+    },
+    "members": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/TeamMember" }
+    },
+    "categories": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Category" }
+    },
+    "tags": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/Tag" }
+    }
+  }
+}

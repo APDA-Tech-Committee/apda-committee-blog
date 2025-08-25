@@ -36,29 +36,29 @@
           <span class="text-gray-900">{{ post.title }}</span>
         </nav>
 
-    <!-- Post Header -->
-    <header class="mb-8">
-      <div v-if="post.category" class="mb-4">
-        <span
-          class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
-          :class="{
-            'bg-blue-100 text-blue-800': post.category.name === 'Announcement',
-            'bg-green-100 text-green-800': post.category.name === 'Education',
-            'bg-purple-100 text-purple-800': post.category.name === 'Organization',
-            'bg-yellow-100 text-yellow-800': post.category.name === 'Rules',
-            'bg-red-100 text-red-800': post.category.name === 'Events',
-            'bg-gray-100 text-gray-800': !['Announcement','Education','Organization','Rules','Events'].includes(post.category.name)
-          }"
-        >
-          {{ post.category.name }}
-        </span>
-      </div>
-      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-        {{ post.title }}
-      </h1>
-      <p v-if="post.excerpt" class="text-xl text-gray-600 mb-6 leading-relaxed">
-        {{ post.excerpt }}
-      </p>
+        <!-- Post Header -->
+        <header class="mb-8">
+          <div v-if="post.category" class="mb-4">
+            <span
+              class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
+              :class="{
+                'bg-blue-100 text-blue-800': post.category.name === 'Announcement',
+                'bg-green-100 text-green-800': post.category.name === 'Education',
+                'bg-purple-100 text-purple-800': post.category.name === 'Organization',
+                'bg-yellow-100 text-yellow-800': post.category.name === 'Rules',
+                'bg-red-100 text-red-800': post.category.name === 'Events',
+                'bg-gray-100 text-gray-800': !['Announcement','Education','Organization','Rules','Events'].includes(post.category.name)
+              }"
+            >
+              {{ post.category.name }}
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+            {{ post.title }}
+          </h1>
+          <p v-if="post.excerpt" class="text-xl text-gray-600 mb-6 leading-relaxed">
+            {{ post.excerpt }}
+          </p>
 
           <!-- Meta Information -->
           <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 border-b border-gray-200 pb-6">
@@ -75,23 +75,12 @@
               </svg>
               <time :datetime="post.publishedAt">{{ formatDate(post.publishedAt) }}</time>
             </div>
-
-
           </div>
         </header>
 
-        <!-- Featured Image -->
-        <div v-if="post.featuredImage" class="mb-8">
-          <img 
-            :src="post.featuredImage" 
-            :alt="post.title"
-            class="w-full h-64 md:h-96 object-cover rounded-lg shadow-lg"
-          />
-        </div>
-
         <!-- Post Content -->
         <div class="prose prose-lg max-w-none mb-12">
-          <div v-html="formatContent(post.content)"></div>
+          <div v-html="formatContent(post.content || '')"></div>
         </div>
 
         <!-- Tags -->
@@ -100,10 +89,10 @@
           <div class="flex flex-wrap gap-2">
             <span 
               v-for="tag in post.tags" 
-              :key="tag.tag.id"
+              :key="tag.id"
               class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors"
             >
-              {{ tag.tag.name }}
+              {{ tag.name }}
             </span>
           </div>
         </div>
@@ -163,45 +152,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { apiFetch } from '../utils/api'
+import { ref, onMounted, watch } from 'vue'
+import { getPost, type Post } from '../utils/staticData'
 import { useRoute, useRouter } from 'vue-router'
-
-interface Author {
-  name: string
-}
-
-interface Category {
-  name: string
-  color: string
-}
-
-interface Tag {
-  tag: {
-    id: string
-    name: string
-  }
-}
-
-interface BlogPost {
-  id: string
-  title: string
-  slug: string
-  excerpt: string | null
-  content: string
-  featuredImage: string | null
-  publishedAt: string
-  projectUrl?: string
-  githubUrl?: string
-  author: Author
-  category: Category | null
-  tags: Tag[]
-}
 
 const route = useRoute()
 const router = useRouter()
 
-const post = ref<BlogPost | null>(null)
+const post = ref<Post | null>(null)
 const loading = ref(true)
 const error = ref<string | null>(null)
 
@@ -210,16 +168,8 @@ const fetchPost = async () => {
     loading.value = true
     error.value = null
     
-    const response = await apiFetch(`/posts/${route.params.slug}`)
-    
-    if (!response.ok) {
-      if (response.status === 404) {
-        throw new Error('Blog post not found')
-      }
-      throw new Error(`Failed to fetch post: ${response.statusText}`)
-    }
-    
-    const data = await response.json()
+    const slug = route.params.slug as string
+    const data = await getPost(slug)
     post.value = data
   } catch (err) {
     console.error('Error fetching post:', err)
@@ -239,11 +189,46 @@ const formatDate = (dateString: string) => {
 }
 
 const formatContent = (content: string) => {
+  // This is a simplified markdown renderer - for production, consider using a library like marked or markdown-it
+  
+  // Process headings (## Heading) - up to h6
+  let formatted = content
+    .replace(/^# (.*$)/gm, '<h1 class="text-3xl font-bold mt-8 mb-4">$1</h1>')
+    .replace(/^## (.*$)/gm, '<h2 class="text-2xl font-bold mt-6 mb-3">$1</h2>')
+    .replace(/^### (.*$)/gm, '<h3 class="text-xl font-bold mt-5 mb-2">$1</h3>')
+    .replace(/^#### (.*$)/gm, '<h4 class="text-lg font-bold mt-4 mb-2">$1</h4>')
+    .replace(/^##### (.*$)/gm, '<h5 class="text-base font-bold mt-3 mb-1">$1</h5>')
+    .replace(/^###### (.*$)/gm, '<h6 class="text-sm font-bold mt-2 mb-1">$1</h6>');
+  
+  // Process bold and italic text
+  formatted = formatted
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/_([^_]+)_/g, '<em>$1</em>');
+  
+  // Process lists
+  formatted = formatted
+    .replace(/^\- (.*$)/gm, '<li>$1</li>')
+    .replace(/<\/li>\n<li>/g, '</li><li>');
+  
+  // Wrap lists in <ul>
+  formatted = formatted
+    .replace(/(<li>.*<\/li>)/gs, '<ul class="list-disc pl-6 my-4">$1</ul>');
+  
   // Convert line breaks to paragraphs for better readability
-  return content
-    .split('\n\n')
-    .map(paragraph => `<p class="mb-4">${paragraph.replace(/\n/g, '<br>')}</p>`)
-    .join('')
+  // Split by double newlines first to separate paragraphs
+  const paragraphs = formatted.split(/\n\n+/);
+  
+  return paragraphs
+    .map(paragraph => {
+      // Skip wrapping if already has HTML tags
+      if (paragraph.trim().startsWith('<')) {
+        return paragraph;
+      }
+      // Otherwise wrap in paragraph tags
+      return `<p class="mb-4">${paragraph.replace(/\n/g, '<br>')}</p>`;
+    })
+    .join('');
 }
 
 onMounted(() => {
@@ -251,7 +236,6 @@ onMounted(() => {
 })
 
 // Watch for route changes to handle navigation between different posts
-import { watch } from 'vue'
 watch(() => route.params.slug, () => {
   if (route.name === 'blog-post') {
     fetchPost()

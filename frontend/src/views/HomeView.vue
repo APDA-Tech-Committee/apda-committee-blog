@@ -1,28 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { apiFetch } from '../utils/api'
-
-interface Post {
-  id: string
-  title: string
-  slug: string
-  excerpt?: string
-  publishedAt?: string
-  author: {
-    name: string
-    position?: string
-  }
-  category: {
-    name: string
-    color: string
-  }
-  featuredImage?: string
-  projectUrl?: string
-  githubUrl?: string
-  _count: {
-    comments: number
-  }
-}
+import { ref, onMounted, computed } from 'vue'
+import { getPosts, type Post } from '../utils/staticData'
 
 interface Update {
   date: string
@@ -32,40 +10,39 @@ interface Update {
   link?: string
 }
 
-const blogPosts = ref<Post[]>([])
+const posts = ref<Post[]>([])
 const loading = ref(true)
 const error = ref('')
 
-// Sample updates
-const updates = ref<Update[]>([
-  {
-    date: 'August 24',
-    tag: 'RFC:',
-    title: 'Tech Committee 2025–2026 Roadmap',
-    description: 'Stay informed about the upcoming debate season, including new tools and infrastructure improvements.',
-    link: '/blog/tech-committee-roadmap'
-  },
-  {
-    date: 'August 18',
-    tag: 'Update:',
-    title: 'Mit-Tab v3.4 Released',
-    description: 'New features include improved judge allocation algorithm and real-time statistics dashboard.',
-    link: '/projects/tabulator'
-  },
-  {
-    date: 'August 10',
-    tag: 'Guide:',
-    title: 'Setting Up APDA Tech for Your Tournament',
-    description: 'Step-by-step guide for tournament directors to set up and use our technology stack.',
-    link: '/blog/tournament-tech-setup'
-  }
-])
+// Convert posts to updates format
+const updates = computed<Update[]>(() => 
+  posts.value.map(post => {
+    // Extract tag from category or first tag
+    let tag = post.category?.name || '';
+    if (post.tags && post.tags.length > 0) {
+      tag = post.tags[0].name + ':';
+    }
+    
+    // Format date
+    const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric'
+    });
+    
+    return {
+      date,
+      tag,
+      title: post.title,
+      description: post.excerpt || '',
+      link: `/blog/${post.slug}`
+    };
+  })
+)
 
 onMounted(async () => {
   try {
-    const response = await apiFetch('/posts?page=1&limit=4&status=PUBLISHED')
-    const data = await response.json()
-    blogPosts.value = data.posts || data
+    const data = await getPosts(1, 4, 'PUBLISHED')
+    posts.value = data.posts
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'An error occurred'
     console.error('Failed to fetch blog posts:', err)

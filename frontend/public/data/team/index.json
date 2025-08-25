@@ -1,0 +1,49 @@
+{
+  "members": [
+    {
+      "id": "1",
+      "name": "Alex Johnson",
+      "position": "Tech Committee Chair",
+      "bio": "Alex has been involved with APDA for 4 years and has a background in computer science.",
+      "email": "alex@apdadebate.org",
+      "imageUrl": "/images/team/alex-johnson.jpg",
+      "socialLinks": {
+        "twitter": "https://twitter.com/alexjohnson",
+        "github": "https://github.com/alexjohnson",
+        "linkedin": "https://linkedin.com/in/alexjohnson",
+        "website": "https://alexjohnson.dev"
+      }
+    },
+    {
+      "id": "2",
+      "name": "Maya Patel",
+      "position": "Tech Committee Webmaster",
+      "bio": "Maya specializes in web development and has been working on APDA's digital presence since 2024.",
+      "email": "maya@apdadebate.org",
+      "imageUrl": "/images/team/maya-patel.jpg",
+      "socialLinks": {
+        "github": "https://github.com/mayatech",
+        "linkedin": "https://linkedin.com/in/mayapatel"
+      }
+    },
+    {
+      "id": "3",
+      "name": "Jordan Smith",
+      "position": "Rules Committee Chair",
+      "bio": "Jordan has been debating in APDA for 3 years and previously served as a tournament director.",
+      "email": "jordan@apdadebate.org",
+      "imageUrl": "/images/team/jordan-smith.jpg"
+    },
+    {
+      "id": "4",
+      "name": "Taylor Wong",
+      "position": "Rules Committee Secretary",
+      "bio": "Taylor has been documenting APDA rules and procedures since 2023.",
+      "email": "taylor@apdadebate.org",
+      "imageUrl": "/images/team/taylor-wong.jpg",
+      "socialLinks": {
+        "linkedin": "https://linkedin.com/in/taylorwong"
+      }
+    }
+  ]
+}

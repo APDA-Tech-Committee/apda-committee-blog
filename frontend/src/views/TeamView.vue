@@ -1,33 +1,15 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { apiFetch } from '../utils/api'
+import { getTeamMembers, type TeamMember } from '../utils/staticData'
 
-interface Member {
-  id: string
-  name: string
-  role: string
-  position: string
-  bio?: string
-  email?: string
-  imageUrl?: string
-}
-
-interface TechTeam {
-  id: string
-  description: string
-  mission: string
-  contact: string
-  members: Member[]
-}
-
-const teamInfo = ref<TechTeam | null>(null)
+const teamMembers = ref<TeamMember[]>([])
 const loading = ref(true)
 const error = ref('')
 
 onMounted(async () => {
   try {
-    const response = await apiFetch('/tech-team')
-    teamInfo.value = await response.json()
+    const response = await getTeamMembers()
+    teamMembers.value = response.members
   } catch (err) {
     error.value = err instanceof Error ? err.message : 'An error occurred'
   } finally {
@@ -62,13 +44,13 @@ onMounted(async () => {
       <!-- Team Description -->
       <section class="mb-16">
         <p class="text-text-secondary mb-6 max-w-[70ch]">
-          {{ teamInfo?.description }}
+          The APDA Technology Committee is responsible for developing and maintaining the association's digital infrastructure.
         </p>
         
         <div class="border-l-2 border-blueprint-blue pl-6">
           <h2 class="font-mono text-blueprint-blue mb-3">Our Mission</h2>
           <p class="text-text-secondary max-w-[60ch]">
-            {{ teamInfo?.mission }}
+            Our mission is to leverage technology to make debate more accessible, efficient, and engaging for all APDA members.
           </p>
         </div>
       </section>
@@ -78,36 +60,35 @@ onMounted(async () => {
         <h2 class="text-xl font-bold mb-8">Team Members</h2>
         
         <div class="space-y-12">
-          <div v-for="member in teamInfo?.members" :key="member.id" class="border-b border-blueprint-blue/10 pb-8">
-        <div class="flex flex-row gap-6 items-start">
-          <!-- Member Image (if available) -->
-          <div v-if="member.imageUrl" class="w-20 h-20 shrink-0">
-        <div class="border border-blueprint-blue/20 p-1 w-full h-full rounded overflow-hidden">
-          <img :src="member.imageUrl" :alt="member.name" class="w-full h-full object-cover" />
-        </div>
-          </div>
-          <div v-else class="w-20 h-20 shrink-0 flex items-center justify-center border border-blueprint-blue/20 p-2 rounded">
-        <div class="font-mono text-xl text-blueprint-blue/60">
-          {{ member.name.charAt(0) }}{{ member.name.split(' ')[1]?.charAt(0) || '' }}
-        </div>
-          </div>
-          
-          <!-- Member Info -->
-          <div class="flex-1">
-        <div class="font-mono text-blueprint-blue mb-1">{{ member.role }}</div>
-        <h3 class="text-xl font-bold mb-3">{{ member.name }}</h3>
-        <p class="text-text-secondary mb-4 max-w-[60ch]">
-          {{ member.bio || `${member.name} is a member of the APDA Tech Committee.` }}
-        </p>
-        
-        <div class="font-mono text-sm">
-          <p>Position: {{ member.position }}</p>
-          <p v-if="member.email">
-        Email: <a :href="`mailto:${member.email}`" class="text-blueprint-blue hover:underline">{{ member.email }}</a>
-          </p>
-        </div>
-          </div>
-        </div>
+          <div v-for="member in teamMembers" :key="member.id" class="border-b border-blueprint-blue/10 pb-8">
+            <div class="flex flex-row gap-6 items-start">
+              <!-- Member Image (if available) -->
+              <div v-if="member.imageUrl" class="w-20 h-20 shrink-0">
+                <div class="border border-blueprint-blue/20 p-1 w-full h-full rounded overflow-hidden">
+                  <img :src="member.imageUrl" :alt="member.name" class="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div v-else class="w-20 h-20 shrink-0 flex items-center justify-center border border-blueprint-blue/20 p-2 rounded">
+                <div class="font-mono text-xl text-blueprint-blue/60">
+                  {{ member.name.charAt(0) }}{{ member.name.split(' ')[1]?.charAt(0) || '' }}
+                </div>
+              </div>
+              
+              <!-- Member Info -->
+              <div class="flex-1">
+                <div class="font-mono text-blueprint-blue mb-1">{{ member.position }}</div>
+                <h3 class="text-xl font-bold mb-3">{{ member.name }}</h3>
+                <p class="text-text-secondary mb-4 max-w-[60ch]">
+                  {{ member.bio || `${member.name} is a member of the APDA Tech Committee.` }}
+                </p>
+                
+                <div class="font-mono text-sm">
+                  <p v-if="member.email">
+                    Email: <a :href="`mailto:${member.email}`" class="text-blueprint-blue hover:underline">{{ member.email }}</a>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -118,7 +99,7 @@ onMounted(async () => {
           Contact the Tech Committee
         </div>
         <p class="text-text-secondary mb-4 max-w-[70ch]">
-          {{ teamInfo?.contact }}
+          If you have any questions, suggestions, or would like to contribute to APDA's technical projects, please reach out to us.
         </p>
         <a 
           href="mailto:tech@apda.online" 

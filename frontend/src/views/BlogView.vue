@@ -1,27 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { apiFetch } from '../utils/api'
-
-interface Post {
-  id: string
-  title: string
-  slug: string
-  excerpt?: string
-  publishedAt?: string
-  author: {
-    name: string
-    position?: string
-  }
-  category: {
-    name: string
-    color: string
-  }
-  projectUrl?: string
-  githubUrl?: string
-  _count: {
-    comments: number
-  }
-}
+import { getPosts, type Post } from '../utils/staticData'
 
 interface BlogResponse {
   posts: Post[]
@@ -41,8 +20,7 @@ const currentPage = ref(1)
 
 const fetchPosts = async (page: number = 1) => {
   try {
-    const response = await apiFetch(`/posts?page=${page}&limit=12&status=PUBLISHED`)
-    const data: BlogResponse = await response.json()
+    const data = await getPosts(page, 12, 'PUBLISHED')
     posts.value = data.posts
     pagination.value = data.pagination
     currentPage.value = page
@@ -130,7 +108,7 @@ onMounted(async () => {
               </div>
               
               <div class="font-mono text-xs text-text-secondary">
-                {{ post._count.comments }} comments
+                {{ post._count?.comments || 0 }} comments
               </div>
             </div>
           </div>

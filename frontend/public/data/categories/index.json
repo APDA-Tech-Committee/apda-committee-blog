@@ -1,0 +1,34 @@
+{
+  "categories": [
+    {
+      "id": "1",
+      "name": "Announcement",
+      "slug": "announcement",
+      "color": "blue"
+    },
+    {
+      "id": "2",
+      "name": "Guide",
+      "slug": "guide",
+      "color": "purple"
+    },
+    {
+      "id": "3",
+      "name": "Tech",
+      "slug": "tech",
+      "color": "green"
+    },
+    {
+      "id": "4",
+      "name": "Rules",
+      "slug": "rules",
+      "color": "yellow"
+    },
+    {
+      "id": "5",
+      "name": "Events",
+      "slug": "events",
+      "color": "red"
+    }
+  ]
+}

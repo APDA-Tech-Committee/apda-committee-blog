@@ -1,10 +1,20 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { apiFetch } from '../utils/api'
+import { getCommittees } from '../utils/staticData'
 import { RouterLink } from 'vue-router'
 import { Bars3Icon, XMarkIcon, ChevronDownIcon } from '@heroicons/vue/24/outline'
 
 const mobileMenuOpen = ref(false)
+const committees = ref<any[]>([])
+
+onMounted(async () => {
+  try {
+    const data = await getCommittees()
+    committees.value = data.committees
+  } catch (error) {
+    console.error('Failed to load committees:', error)
+  }
+})
 
 const navigation = [
   { name: 'Home', href: '/' },
