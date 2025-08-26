@@ -120,9 +120,6 @@ onMounted(async () => {
                 {{ post.category.name }}
               </div>
               
-              <div class="font-mono text-xs text-text-secondary">
-                {{ post._count?.comments || 0 }} comments
-              </div>
             </div>
           </div>
         </div>
