@@ -5,7 +5,7 @@
       "name": "Joey Rubas",
       "position": "Tech Committee Chair",
       "bio": "Joey is the chair and founder of the APDA tech committee",
-      "email": "joeymrubas@gmail/com",
+      "email": "joeymrubas@gmail.com",
       "imageUrl": "/assets/joey.png",
       "socialLinks": {
         "github": "https://github.com/JoeyRubas",
@@ -25,13 +25,12 @@
     },
     {
       "id": "3",
-      "name": "Ian McVann",
+      "name": "Jordan Day",
       "position": "Contributor",
-      "bio": "Ian has been one of Tech Committees most active members since 2024..",
-      "email": "taylor@apdadebate.org",
-      "imageUrl": "/images/team/taylor-wong.jpg",
+      "bio": "Jordan is new contributor from UMass Amherst studying Computer Science! she has some frontend and backend experience, and is excited to use that to improve the tech of APDA!.",
+      "imageUrl": "/assets/jordan.jpg",
       "socialLinks": {
-        "linkedin": "https://linkedin.com/in/taylorwong"
+        "linkedin" : "https://www.linkedin.com/in/jordanday/"
       }
     }
   ]

@@ -156,7 +156,7 @@ watch(() => route.params.slug, () => {
               </svg>
               <span>
                 {{ project.author.name }}
-                <span v-if="project.author.position" class="text-xs opacity-75">
+                <span v-if="project.author.position" >
                   ({{ project.author.position }})
                 </span>
               </span>

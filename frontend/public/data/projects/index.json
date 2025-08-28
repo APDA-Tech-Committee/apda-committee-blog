@@ -3,8 +3,8 @@
     {
       "id": "1",
       "title": "Mit-Tab Tournament Management System",
-      "slug": "mit-tab-project",
-      "excerpt": "APDA's flagship technology solution for running debate tournaments with automated pairings, judge allocation, and results management.",
+      "slug": "mit-tab",
+      "excerpt": "Tournament tabulation platform used at APDA tournaments across North America for team registration, pairings, and results management.",
       "publishedAt": "2025-08-25T00:00:00.000Z",
       "author": {
         "name": "Joey Rubas",
@@ -27,8 +27,8 @@
         }
       ],
       "committeeId": "tech-committee",
-      "projectUrl": "https://apda.org/mit-tab",
-      "githubUrl": "https://github.com/APDA-Tech-Committee/mit-tab"
+      "projectUrl": "https://nu-tab.com",
+      "githubUrl": "https://github.com/MIT-TAB/mit-tab"
     },
     {
       "id": "2",
@@ -39,7 +39,7 @@
       "author": {
         "name": "Maya Patel",
         "position": "Tech Committee Webmaster",
-        "email": "maya@apdadebate.org"
+        "email": "joeymrubas@gmail.com"
       },
       "category": {
         "id": "3",
@@ -61,15 +61,15 @@
       "githubUrl": "https://github.com/APDA-Tech-Committee/apda-website"
     },
     {
-      "id": "3",
-      "title": "APDA Tournament Calendar",
-      "slug": "tournament-calendar",
-      "excerpt": "A comprehensive calendar tool for tracking and managing debate tournament schedules across the league.",
-      "publishedAt": "2025-06-10T00:00:00.000Z",
+      "id": "4",
+      "title": "NU-TAB Deployer",
+      "slug": "nu-tab-deployer",
+      "excerpt": "One-click/GUI tournament setup tool for MIT-TAB instances, simplifying the deployment process for tournament organizers.",
+      "publishedAt": "2025-08-26T00:00:00.000Z",
       "author": {
-        "name": "Jordan Smith",
-        "position": "Rules Committee Chair",
-        "email": "jordan@apdadebate.org"
+        "name": "Joey Rubas",
+        "position": "Tech Committee Chair",
+        "email": "joeymrubas@gmail.com"
       },
       "category": {
         "id": "3",
@@ -78,17 +78,81 @@
       },
       "tags": [
         {
-          "id": "15",
-          "name": "Calendar"
+          "id": "10",
+          "name": "Mit-Tab"
         },
         {
           "id": "13",
           "name": "Project"
+        },
+        {
+          "id": "16",
+          "name": "Deployment"
         }
       ],
-      "committeeId": "rules-committee",
-      "projectUrl": "https://apda.org/calendar",
-      "githubUrl": "https://github.com/APDA-Tech-Committee/tournament-calendar"
+      "committeeId": "tech-committee",
+      "projectUrl": "https://nu-tab.com",
+      "githubUrl": "https://github.com/MIT-TAB/mittab-deploy"
+    },
+    {
+      "id": "5",
+      "title": "APDA Standings (Black Rod)",
+      "slug": "apda-standings",
+      "excerpt": "National rankings & results tracking platform for the league, aggregating tournament results to calculate team and speaker rankings.",
+      "publishedAt": "2025-08-27T00:00:00.000Z",
+      "author": {
+        "name": "Joey Rubas",
+        "position": "Tech Committee Chair",
+        "email": "joeymrubas@gmail.com"
+      },
+      "category": {
+        "id": "3",
+        "name": "Tech",
+        "color": "green"
+      },
+      "tags": [
+        {
+          "id": "13",
+          "name": "Project"
+        },
+        {
+          "id": "17",
+          "name": "Standings"
+        }
+      ],
+      "committeeId": "tech-committee",
+      "projectUrl": "https://results.apda.online",
+      "githubUrl": "https://github.com/apda-tech-committee/black-rod"
+    },
+    {
+      "id": "6",
+      "title": "Committees Blog",
+      "slug": "committees-blog",
+      "excerpt": "Platform for committee updates, announcements, and resources for the debate community.",
+      "publishedAt": "2025-08-28T00:00:00.000Z",
+      "author": {
+        "name": "Joey Rubas",
+        "position": "Tech Committee Chair",
+        "email": "joeymrubas@gmail.com"
+      },
+      "category": {
+        "id": "3",
+        "name": "Tech",
+        "color": "green"
+      },
+      "tags": [
+        {
+          "id": "13",
+          "name": "Project"
+        },
+        {
+          "id": "14",
+          "name": "Website"
+        }
+      ],
+      "committeeId": "tech-committee",
+      "projectUrl": "",
+      "githubUrl": "https://github.com/APDA-Tech-Committee/apda-committee-blog"
     }
   ]
 }

@@ -2,30 +2,68 @@
 
 The APDA Technology Committee is responsible for developing and maintaining the association's digital infrastructure. Our mission is to leverage technology to make debate more accessible, efficient, and engaging for all APDA members.
 
+## Our Mission
+
+The Tech Committee works to:
+
+1. Create and maintain high-quality software for the APDA community
+2. Provide technical solutions that streamline tournament operations
+3. Build open-source tools that can benefit the wider debate community
+4. Document and preserve technical knowledge
+5. Support tournament directors with technical expertise
+
 ## Our Responsibilities
 
-- Developing and maintaining the APDA website
-- Creating and managing software tools for tournament management
-- Providing technical support for tournament directors
-- Implementing digital solutions for APDA's administrative needs
-- Archiving and preserving APDA's historical data and records
+1. Developing and maintaining the APDA website
+2. Creating and supporting tournament tabulation software
+3. Managing APDA's digital standings and records systems
+4. Providing technical support for tournament directors
+5. Implementing digital solutions for APDA's administrative needs
 
 ## Current Projects
 
-### Committee Blog Platform
+### MIT-Tab
 
-We've launched this committee blog platform to provide a central location for all APDA committees to share updates, resources, and announcements with the debate community.
+Our flagship project is MIT-Tab, a tabulation software designed specifically for parliamentary debate tournaments. MIT-Tab handles pairings, judge assignments, room allocations, and results tabulation. We continually update and improve this software to meet the evolving needs of the debate community.
 
-### Tournament Management System
+### APDA Website
 
-We're developing a comprehensive tournament management system specifically designed for parliamentary debate tournaments. This system will handle registration, tabulation, judge allocation, and results publication.
+We maintain the official APDA website, which serves as the central hub for association information, tournament announcements, and resources for the debate community.
 
-### Digital Archives
+### APDA Standings
 
-We're working on digitizing and archiving historical APDA records, tournament results, and notable speeches to preserve the rich history of our organization.
+We develop and manage the standings system that tracks team and speaker points throughout the competitive season, ensuring accurate and transparent rankings.
+
+### Tech Committee Blog
+
+This blog serves as our platform for sharing updates on our projects, announcing new features, documenting our processes, and engaging with the wider APDA community about technical matters.
+
+### NU-Tab Deployer
+
+We've created a deployment tool that simplifies the process of setting up tabulation software for tournaments, reducing technical barriers for tournament directors.
+
+## Our Development Philosophy
+
+The Tech Committee believes in:
+
+1. **Open Source**: All our projects are open-source, encouraging community contributions and transparency
+2. **User-Centered Design**: We build tools with the needs of debaters, judges, and tournament directors in mind
+3. **Documentation**: We prioritize clear documentation to ensure our tools remain accessible and maintainable
+4. **Sustainability**: We design our systems to be sustainable and maintainable in the long term
+5. **Collaboration**: We work closely with the debate community to ensure our tools meet real-world needs
 
 ## Get Involved
 
 The Technology Committee is always looking for members with technical skills and interests. Whether you're a seasoned developer or just interested in learning, we welcome your contributions.
 
-To get involved, email us at tech@apdadebate.org or reach out to any of our committee members.
+### How You Can Contribute
+
+1. **Code Contributions**: Help develop new features or fix bugs in our existing projects
+2. **Documentation**: Improve our guides, READMEs, and other documentation
+3. **Testing**: Help test new features before they're released
+4. **Design**: Contribute to UI/UX improvements for our applications
+5. **Ideas**: Share your ideas for new features or improvements
+
+Our projects primarily use Python, TypeScript, and Vue.js, but contributors of all skill levels are welcome.
+
+To get involved, check out our GitHub repositories, email us at joeymrubas@gmail.com, or reach out to any of our committee members.

@@ -14,23 +14,23 @@
     <div class="px-12 py-10 max-w-4xl">
       <h2 class="text-xl font-bold mb-6 text-blueprint-blue">Our Mission</h2>
       <p class="mb-6 max-w-[70ch]">
-        The Tech Committee is committed to developing innovative digital tools and platforms that support the needs of the APDA community. Our projects range from tournament management systems and scoring applications to educational resources and communication platforms.
+        The Tech Committee works to create and maintain high-quality software for the APDA community. We provide technical solutions that streamline tournament operations and build open-source tools that can benefit the wider debate community.
       </p>
       <p class="mb-6 max-w-[70ch]">
-        We believe technology can enhance the debate experience, improve tournament operations, and make parliamentary debate more accessible to all participants.
+        We believe technology can enhance the debate experience, improve tournament operations, and make parliamentary debate more accessible to all participants while ensuring that technical knowledge is well-documented and preserved.
       </p>
     </div>
     
     <hr class="content-divider" />
     <div class="px-12 py-10 max-w-4xl">
-      <h2 class="text-xl font-bold mb-8 text-blueprint-blue">What We Do</h2>
+      <h2 class="text-xl font-bold mb-8 text-blueprint-blue">Our Projects</h2>
         <div>
           <div class="flex items-start border-b border-black py-6">
             <div class="w-24 font-mono">01</div>
             <div>
-              <h3 class="font-medium mb-2">Tournament Technology</h3>
+              <h3 class="font-medium mb-2">MIT-Tab</h3>
               <p class="text-text-secondary max-w-[60ch]">
-                Building and maintaining platforms for tournament registration, pairing, and tabulation.
+                Our flagship tabulation software designed specifically for parliamentary debate tournaments, handling pairings, judge assignments, and results tabulation.
               </p>
             </div>
           </div>
@@ -38,9 +38,9 @@
           <div class="flex items-start border-b border-black py-6">
             <div class="w-24 font-mono">02</div>
             <div>
-              <h3 class="font-medium mb-2">Web Development</h3>
+              <h3 class="font-medium mb-2">APDA Website</h3>
               <p class="text-text-secondary max-w-[60ch]">
-                Creating and maintaining websites for APDA and related debate organizations.
+                The official website for the American Parliamentary Debate Association, serving as a central hub for association information and resources.
               </p>
             </div>
           </div>
@@ -48,9 +48,9 @@
           <div class="flex items-start border-b border-black py-6">
             <div class="w-24 font-mono">03</div>
             <div>
-              <h3 class="font-medium mb-2">Mobile Applications</h3>
+              <h3 class="font-medium mb-2">APDA Standings</h3>
               <p class="text-text-secondary max-w-[60ch]">
-                Developing mobile tools to facilitate debate activities and access to resources.
+                A system for tracking team and speaker points throughout the competitive season, ensuring accurate and transparent rankings.
               </p>
             </div>
           </div>
@@ -58,9 +58,9 @@
           <div class="flex items-start border-b border-black py-6">
             <div class="w-24 font-mono">04</div>
             <div>
-              <h3 class="font-medium mb-2">Data Analysis</h3>
+              <h3 class="font-medium mb-2">NU-Tab Deployer</h3>
               <p class="text-text-secondary max-w-[60ch]">
-                Collecting and analyzing debate data to provide insights and improve the competitive experience.
+                A deployment tool that simplifies the process of setting up tabulation software for tournaments, reducing technical barriers for tournament directors.
               </p>
             </div>
           </div>
@@ -68,9 +68,65 @@
           <div class="flex items-start py-6">
             <div class="w-24 font-mono">05</div>
             <div>
-              <h3 class="font-medium mb-2">Technical Support</h3>
+              <h3 class="font-medium mb-2">Tech Committee Blog</h3>
               <p class="text-text-secondary max-w-[60ch]">
-                Providing technical assistance and solutions for APDA tournaments and events.
+                This platform for sharing project updates, documenting our processes, and engaging with the wider APDA community about technical matters.
+              </p>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <hr class="content-divider" />
+    <div class="px-12 py-10 max-w-4xl">
+      <h2 class="text-xl font-bold mb-8 text-blueprint-blue">Our Development Philosophy</h2>
+        <div>
+          <div class="flex items-start border-b border-black py-6">
+            <div class="w-24 font-mono">01</div>
+            <div>
+              <h3 class="font-medium mb-2">Open Source</h3>
+              <p class="text-text-secondary max-w-[60ch]">
+                All our projects are open-source, encouraging community contributions and transparency in our development process.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-start border-b border-black py-6">
+            <div class="w-24 font-mono">02</div>
+            <div>
+              <h3 class="font-medium mb-2">User-Centered Design</h3>
+              <p class="text-text-secondary max-w-[60ch]">
+                We build tools with the needs of debaters, judges, and tournament directors in mind, ensuring usability and effectiveness.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-start border-b border-black py-6">
+            <div class="w-24 font-mono">03</div>
+            <div>
+              <h3 class="font-medium mb-2">Documentation</h3>
+              <p class="text-text-secondary max-w-[60ch]">
+                We prioritize clear documentation to ensure our tools remain accessible and maintainable for future committee members and contributors.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-start border-b border-black py-6">
+            <div class="w-24 font-mono">04</div>
+            <div>
+              <h3 class="font-medium mb-2">Sustainability</h3>
+              <p class="text-text-secondary max-w-[60ch]">
+                We design our systems to be sustainable and maintainable in the long term, considering future needs and technical evolution.
+              </p>
+            </div>
+          </div>
+          
+          <div class="flex items-start py-6">
+            <div class="w-24 font-mono">05</div>
+            <div>
+              <h3 class="font-medium mb-2">Collaboration</h3>
+              <p class="text-text-secondary max-w-[60ch]">
+                We work closely with the debate community to ensure our tools meet real-world needs and solve actual problems faced by users.
               </p>
             </div>
           </div>
@@ -85,10 +141,29 @@
         The Tech Committee welcomes contributions from developers, designers, and anyone interested in leveraging technology for debate. Whether you're a seasoned programmer or just getting started, there are many ways to get involved.
       </p>
       
+      <div class="mb-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="border border-black p-6">
+          <h3 class="font-mono mb-3">Code Contributions</h3>
+          <p class="text-text-secondary text-sm">Help develop new features or fix bugs in our existing projects using Python, TypeScript, and Vue.js.</p>
+        </div>
+        <div class="border border-black p-6">
+          <h3 class="font-mono mb-3">Documentation</h3>
+          <p class="text-text-secondary text-sm">Improve our guides, READMEs, and other documentation to make our tools more accessible.</p>
+        </div>
+        <div class="border border-black p-6">
+          <h3 class="font-mono mb-3">Testing</h3>
+          <p class="text-text-secondary text-sm">Help test new features before they're released to ensure quality and reliability.</p>
+        </div>
+        <div class="border border-black p-6">
+          <h3 class="font-mono mb-3">Design</h3>
+          <p class="text-text-secondary text-sm">Contribute to UI/UX improvements for our applications and websites.</p>
+        </div>
+      </div>
+      
       <div class="border border-black p-8 mb-8">
         <h3 class="font-mono mb-4">Contact Information</h3>
         <div class="space-y-2 font-mono text-sm">
-          <p>Email: <a href="mailto:tech@apda.online" class="hover:text-blueprint-blue">tech@apda.online</a></p>
+          <p>Email: <a href="mailto:joeymrubas@gmail.com" class="hover:text-blueprint-blue">joeymrubas@gmail.com</a></p>
           <p>GitHub: <a href="https://github.com/APDA-Tech-Committee" target="_blank" class="hover:text-blueprint-blue">github.com/APDA-Tech-Committee</a></p>
           <p>APDA: <a href="https://apda.online" target="_blank" class="hover:text-blueprint-blue">apda.online</a></p>
         </div>

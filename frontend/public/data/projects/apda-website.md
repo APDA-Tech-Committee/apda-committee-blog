@@ -1,25 +1,24 @@
 # APDA Website
 
-The APDA website is the central hub for information about the American Parliamentary Debate Association. It provides resources for debaters, tournament directors, and coaches.
+The APDA website, is the central hub for information about the American Parliamentary Debate Association. It contains elements like blog posts, the bylaws, and the forum. Below is an outline of what the website does, how it works, and what the future looks like:
 
 ## Features
 
-- Tournament registration and information
-- Rankings and statistics
-- Resources for debaters and coaches
+- Tournament calender and information
+- Resources for debaters and teams
 - Member school directory
 - News and announcements
 
 ## Technology Stack
 
-- Frontend: React with TypeScript
-- Backend: Node.js with Express
-- Database: PostgreSQL
-- Hosting: AWS
+- CMS: Wordpress
+- Plugins: Asgaros Forum, Post SMTP, CAPTCHA 4WP, etc.
+- Hosting: Linonde on an Ubuntu 20 box
 
 ## Current Development
 
-We are currently working on improving the tournament registration system and adding more analytics for league-wide statistics.
+- The wordpress site themeing can be rigid, and not as modern as other platforms. We're working to re-tool to improve the visual layout of the site.
+- Wordpress is a ready to ship product, so most improvements are about stability, security and durability. We're working on reducing spam emails, and moving to more durable approaches for database backups to prevent data loss.
 
 ## Get Involved
 

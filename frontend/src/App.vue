@@ -92,7 +92,7 @@ watch(() => route.path, () => {
       
       <div class="p-8 mt-auto border-t border-black">
         <div class="flex justify-around">
-          <a href="mailto:tech@apda.online" class="text-text-secondary hover:text-black text-sm">
+          <a href="mailto:joeymrubas@gmail.com" class="text-text-secondary hover:text-black text-sm">
             Email
           </a>
           <a href="https://github.com/APDA-Tech-Committee" target="_blank" rel="noopener" class="text-text-secondary hover:text-black text-sm">
@@ -116,13 +116,7 @@ watch(() => route.path, () => {
       
       <!-- Navigation - Each item separated by full-width horizontal lines -->
       <nav class="flex flex-col">
-        <router-link 
-          to="/" 
-          class="px-8 py-5 border-b border-black text-text-primary hover:text-blueprint-blue transition-colors duration-150"
-          :class="{ 'text-blueprint-blue': $route.path === '/' }"
-        >
-          Home
-        </router-link>
+
         <router-link 
           to="/projects" 
           class="px-8 py-5 border-b border-black text-text-primary hover:text-blueprint-blue transition-colors duration-150"
@@ -163,7 +157,7 @@ watch(() => route.path, () => {
       <!-- Contact Links -->
       <div class="px-8 py-8 border-t border-black">
         <div class="flex flex-col space-y-3">
-          <a href="mailto:tech@apda.online" class="text-text-secondary hover:text-blueprint-blue text-sm transition-colors duration-150">
+          <a href="mailto:joeymrubas@gmail.com" class="text-text-secondary hover:text-blueprint-blue text-sm transition-colors duration-150">
             Email
           </a>
           <a href="https://github.com/APDA-Tech-Committee" target="_blank" rel="noopener" class="text-text-secondary hover:text-blueprint-blue text-sm transition-colors duration-150">
