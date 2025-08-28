@@ -7,7 +7,7 @@ We're excited to announce the members of the APDA Tech Committee for the 2025-20
 ### Leadership
 
 **Joey Rubas** - Tech Committee Chair  
-*Harvard University, Class of 2026*
+*UVA, Class of '25*
 
 Joey brings experience in full-stack web development and project management. Joey will oversee all tech projects, with a special focus APDA website CI/CD and DevOps infrastructure.
 
