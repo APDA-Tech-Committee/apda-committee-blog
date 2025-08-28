@@ -14,17 +14,13 @@ const posts = ref<Post[]>([])
 const loading = ref(true)
 const error = ref('')
 
-// Convert posts to updates format
 const updates = computed<Update[]>(() => 
   posts.value.map(post => {
-    // Extract tag from category or first tag
     let tag = post.category?.name || '';
     if (post.tags && post.tags.length > 0) {
-      // Format tag nicely without colon - we'll add styling instead
       tag = post.tags[0].name;
     }
     
-    // Format date as "August 24" format for display
     const date = new Date(post.publishedAt).toLocaleDateString('en-US', {
       month: 'long',
       day: 'numeric'
@@ -55,7 +51,6 @@ onMounted(async () => {
 
 <template>
   <div>
-    <!-- Page Title + Tagline with top divider -->
     <hr class="content-divider" />
     <div class="px-12 py-12">
       <h1 class="text-4xl font-bold mb-4 text-blueprint-blue">APDA Tech Committee</h1>
@@ -63,9 +58,8 @@ onMounted(async () => {
         Building technology solutions for the American Parliamentary Debate Association.
       </p>
       
-      <!-- Inline Stats Row -->
       <div class="font-mono text-text-secondary text-sm bg-gray-50 py-3 px-4 inline-block border-l-4 border-blueprint-blue">
-        Tools: 12  ·  Rounds Tabbed: 1.3k  ·  API P95: 38ms
+        Tools: 5  ·  Seasons Compiled: 21
       </div>
     </div>
     
