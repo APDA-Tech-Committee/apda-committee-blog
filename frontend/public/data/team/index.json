@@ -30,7 +30,8 @@
       "bio": "Jordan is new contributor from UMass Amherst studying Computer Science! she has some frontend and backend experience, and is excited to use that to improve the tech of APDA!.",
       "imageUrl": "/assets/jordan.jpg",
       "socialLinks": {
-        "linkedin" : "https://www.linkedin.com/in/jordanday/"
+        "linkedin" : "https://www.linkedin.com/in/jordanday/",
+        "website" : "jordane.day"
       }
     }
   ]

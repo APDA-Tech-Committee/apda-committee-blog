@@ -112,11 +112,11 @@ onMounted(async () => {
       
       <div class="flex flex-col md:flex-row gap-12 items-start">
         <div class="flex-1">
-          <h3 class="text-xl font-bold text-blueprint-blue mb-4">Mit-Tab Version 3.4</h3>
+          <h3 class="text-xl font-bold text-blueprint-blue mb-4">August Updates</h3>
           <p class="text-text-secondary mb-6 leading-relaxed">
-            Our flagship tournament management system has been updated with automatic judge assignments for outrounds.
+            See out post about what we completed this August.
           </p>
-          <router-link to="/projects/tabulator" class="text-blueprint-blue inline-flex items-center group font-medium">
+          <router-link to="/blog/tech-committee-august-update" class="text-blueprint-blue inline-flex items-center group font-medium">
             View the latest features and improvements 
             <span class="ml-1 transition-transform duration-200 group-hover:translate-x-1">→</span>
           </router-link>
