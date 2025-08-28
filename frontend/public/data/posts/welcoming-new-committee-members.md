@@ -1,4 +1,4 @@
-# Welcoming Our New Tech Committee Members
+# Welcoming Our Tech Committee Members
 
 We're excited to announce the members of the APDA Tech Committee for the 2025-2026 academic year. These dedicated individuals will be contributing their expertise and passion to help advance APDA's technical infrastructure and better serve our debate community.
 
