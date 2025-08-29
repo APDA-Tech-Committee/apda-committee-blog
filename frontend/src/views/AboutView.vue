@@ -1,17 +1,16 @@
 <template>
-  <div>
-    <!-- Page Title + Tagline with divider -->
-    <hr class="content-divider" />
-    <div class="px-12 py-10">
+  <div class="blueprint-grid">
+    <hr class="standard-divider" />
+    <div class="page-header">
       <h1 class="text-3xl font-bold mb-3 text-blueprint-blue">About</h1>
       <p class="max-w-[70ch] text-lg leading-relaxed">
         The APDA Tech Committee builds digital solutions for the American Parliamentary Debate Association.
       </p>
     </div>
     
-    <!-- Main Content with dividers -->
-    <hr class="content-divider" />
-    <div class="px-12 py-10 max-w-4xl">
+    <hr class="accent-divider" />
+    <hr class="standard-divider" />
+    <div class="page-header max-w-4xl">
       <h2 class="text-xl font-bold mb-6 text-blueprint-blue">Our Mission</h2>
       <p class="mb-6 max-w-[70ch]">
         The Tech Committee works to create and maintain high-quality software for the APDA community. We provide technical solutions that streamline tournament operations and build open-source tools that can benefit the wider debate community.
@@ -21,12 +20,12 @@
       </p>
     </div>
     
-    <hr class="content-divider" />
-    <div class="px-12 py-10 max-w-4xl">
+    <hr class="standard-divider" />
+    <div class="page-header max-w-4xl">
       <h2 class="text-xl font-bold mb-8 text-blueprint-blue">Our Projects</h2>
         <div>
           <div class="flex items-start border-b border-black py-6">
-            <div class="w-24 font-mono">01</div>
+            <div class="w-24 font-mono text-blueprint-orange font-bold">01</div>
             <div>
               <h3 class="font-medium mb-2">MIT-Tab</h3>
               <p class="text-text-secondary max-w-[60ch]">
@@ -36,7 +35,7 @@
           </div>
           
           <div class="flex items-start border-b border-black py-6">
-            <div class="w-24 font-mono">02</div>
+            <div class="w-24 font-mono text-blueprint-orange font-bold">02</div>
             <div>
               <h3 class="font-medium mb-2">APDA Website</h3>
               <p class="text-text-secondary max-w-[60ch]">
@@ -46,7 +45,7 @@
           </div>
           
           <div class="flex items-start border-b border-black py-6">
-            <div class="w-24 font-mono">03</div>
+            <div class="w-24 font-mono text-blueprint-orange font-bold">03</div>
             <div>
               <h3 class="font-medium mb-2">APDA Standings</h3>
               <p class="text-text-secondary max-w-[60ch]">
@@ -56,7 +55,7 @@
           </div>
           
           <div class="flex items-start border-b border-black py-6">
-            <div class="w-24 font-mono">04</div>
+            <div class="w-24 font-mono text-blueprint-orange font-bold">04</div>
             <div>
               <h3 class="font-medium mb-2">NU-Tab Deployer</h3>
               <p class="text-text-secondary max-w-[60ch]">
@@ -66,7 +65,7 @@
           </div>
           
           <div class="flex items-start py-6">
-            <div class="w-24 font-mono">05</div>
+            <div class="w-24 font-mono text-blueprint-orange font-bold">05</div>
             <div>
               <h3 class="font-medium mb-2">Tech Committee Blog</h3>
               <p class="text-text-secondary max-w-[60ch]">
@@ -77,12 +76,12 @@
         </div>
     </div>
     
-    <hr class="content-divider" />
-    <div class="px-12 py-10 max-w-4xl">
+    <hr class="standard-divider" />
+    <div class="page-header max-w-4xl">
       <h2 class="text-xl font-bold mb-8 text-blueprint-blue">Our Development Philosophy</h2>
         <div>
           <div class="flex items-start border-b border-black py-6">
-            <div class="w-24 font-mono">01</div>
+            <div class="w-24 font-mono text-blueprint-orange font-bold">01</div>
             <div>
               <h3 class="font-medium mb-2">Open Source</h3>
               <p class="text-text-secondary max-w-[60ch]">
@@ -92,7 +91,7 @@
           </div>
           
           <div class="flex items-start border-b border-black py-6">
-            <div class="w-24 font-mono">02</div>
+            <div class="w-24 font-mono text-blueprint-orange font-bold">02</div>
             <div>
               <h3 class="font-medium mb-2">User-Centered Design</h3>
               <p class="text-text-secondary max-w-[60ch]">
@@ -102,7 +101,7 @@
           </div>
           
           <div class="flex items-start border-b border-black py-6">
-            <div class="w-24 font-mono">03</div>
+            <div class="w-24 font-mono text-blueprint-orange font-bold">03</div>
             <div>
               <h3 class="font-medium mb-2">Documentation</h3>
               <p class="text-text-secondary max-w-[60ch]">
@@ -112,7 +111,7 @@
           </div>
           
           <div class="flex items-start border-b border-black py-6">
-            <div class="w-24 font-mono">04</div>
+            <div class="w-24 font-mono text-blueprint-orange font-bold">04</div>
             <div>
               <h3 class="font-medium mb-2">Sustainability</h3>
               <p class="text-text-secondary max-w-[60ch]">
@@ -122,7 +121,7 @@
           </div>
           
           <div class="flex items-start py-6">
-            <div class="w-24 font-mono">05</div>
+            <div class="w-24 font-mono text-blueprint-orange font-bold">05</div>
             <div>
               <h3 class="font-medium mb-2">Collaboration</h3>
               <p class="text-text-secondary max-w-[60ch]">
@@ -133,9 +132,8 @@
         </div>
     </div>
     
-    <!-- Join Us Section -->
-    <hr class="content-divider" />
-    <div class="px-12 py-10 max-w-4xl">
+    <hr class="standard-divider" />
+    <div class="page-header max-w-4xl">
       <h2 class="text-xl font-bold mb-6">Join Us</h2>
       <p class="text-text-secondary mb-8 max-w-[70ch]">
         The Tech Committee welcomes contributions from developers, designers, and anyone interested in leveraging technology for debate. Whether you're a seasoned programmer or just getting started, there are many ways to get involved.
@@ -163,9 +161,11 @@
       <div class="border border-black p-8 mb-8">
         <h3 class="font-mono mb-4">Contact Information</h3>
         <div class="space-y-2 font-mono text-sm">
-          <p>Email: <a href="mailto:joeymrubas@gmail.com" class="hover:text-blueprint-blue">joeymrubas@gmail.com</a></p>
-          <p>GitHub: <a href="https://github.com/APDA-Tech-Committee" target="_blank" class="hover:text-blueprint-blue">github.com/APDA-Tech-Committee</a></p>
-          <p>APDA: <a href="https://apda.online" target="_blank" class="hover:text-blueprint-blue">apda.online</a></p>
+          <div class="p-4 border-l-4 border-blueprint-orange bg-blueprint-orange/5">
+            <p>Email: <a href="mailto:joeymrubas@gmail.com" class="text-blueprint-orange font-medium hover:text-blueprint-orange/80 hover:no-underline">joeymrubas@gmail.com</a></p>
+            <p>GitHub: <a href="https://github.com/APDA-Tech-Committee" target="_blank" class="text-blueprint-orange font-medium hover:text-blueprint-orange/80 hover:no-underline">github.com/APDA-Tech-Committee</a></p>
+            <p>APDA: <a href="https://apda.online" target="_blank" class="text-blueprint-orange font-medium hover:text-blueprint-orange/80 hover:no-underline">apda.online</a></p>
+          </div>
         </div>
       </div>
       
@@ -177,7 +177,6 @@
       </div>
     </div>
     
-    <!-- Bottom divider -->
-    <hr class="content-divider" />
+    <hr class="standard-divider" />
   </div>
 </template>

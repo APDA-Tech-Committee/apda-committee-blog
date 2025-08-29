@@ -39,13 +39,17 @@ const formatDate = (dateString?: string): string => {
 <template>
   <div class="blueprint-grid">
     <!-- Page Title + Tagline with top divider -->
-    <hr class="content-divider" />
-    <div class="px-12 py-10">
-      <h1 class="text-3xl font-bold mb-3">Projects</h1>
-      <p class="text-text-secondary max-w-[70ch] text-lg font-light mb-6">
+    <hr class="standard-divider" />
+    <div class="page-header">
+      <h1 class="text-3xl font-bold mb-3 text-blueprint-blue">Projects</h1>
+      <p class="max-w-[70ch] text-lg leading-relaxed">
         Technology solutions developed by the APDA Tech Committee
       </p>
     </div>
+    
+    <!-- Orange accent divider -->
+    <hr class="accent-divider" />
+    <hr class="standard-divider" />
     
     <div v-if="loading" class="space-y-8">
       <div v-for="i in 3" :key="i" class="animate-pulse border-b border-blueprint-blue/10 pb-8">
@@ -70,8 +74,7 @@ const formatDate = (dateString?: string): string => {
 
     <div v-else>
       <!-- Projects Grid -->
-      <hr class="content-divider" />
-      <div class="px-12 py-10">
+      <div class="page-header">
         <h2 class="font-bold text-xl mb-8 text-blueprint-blue">All Projects</h2>
         <div class="space-y-16">
           <div v-for="project in projects" :key="project.id" class="border-b border-black pb-12">
@@ -81,7 +84,7 @@ const formatDate = (dateString?: string): string => {
             </div>
             
             <router-link :to="`/projects/${project.slug}`" class="group">
-              <h2 class="text-2xl font-bold mb-4 text-blueprint-blue group-hover:underline decoration-2">
+              <h2 class="text-2xl font-bold mb-4 text-blueprint-blue">
                 {{ project.title }}
               </h2>
             </router-link>
@@ -95,7 +98,7 @@ const formatDate = (dateString?: string): string => {
               <span 
                 v-for="tag in getTagList(project)" 
                 :key="tag"
-                class="text-xs px-2 py-1 border border-blueprint-blue/30 text-blueprint-blue font-mono bg-blueprint-blue/5"
+                class="text-xs px-2 py-1 border border-blueprint-orange/30 text-blueprint-orange font-mono bg-blueprint-orange/5"
               >
                 {{ tag }}
               </span>
@@ -106,7 +109,7 @@ const formatDate = (dateString?: string): string => {
                 v-if="project.githubUrl" 
                 :href="project.githubUrl" 
                 target="_blank"
-                class="border-2 border-blueprint-blue text-blueprint-blue px-4 py-2 text-sm font-medium inline-flex items-center gap-2 hover:bg-blueprint-blue/5 transition-colors"
+                class="btn-outline text-sm flex items-center gap-2"
               >
                 <span>GitHub</span>
               </a>
@@ -115,17 +118,17 @@ const formatDate = (dateString?: string): string => {
                 v-if="project.projectUrl" 
                 :href="project.projectUrl" 
                 target="_blank"
-                class="border-2 border-blueprint-blue text-blueprint-blue px-4 py-2 text-sm font-medium inline-flex items-center gap-2 hover:bg-blueprint-blue/5 transition-colors"
+                class="btn-outline text-sm flex items-center gap-2"
               >
                 <span>Live Demo</span>
               </a>
               
               <router-link 
                 :to="`/projects/${project.slug}`"
-                class="text-blueprint-blue font-medium inline-flex items-center group ml-auto"
+                class="text-white font-medium inline-flex items-center group ml-auto bg-blueprint-orange px-3 py-1 rounded-sm hover:bg-blueprint-orange/90 transition-colors duration-150 hover:no-underline"
               >
                 View Project
-                <span class="ml-1 text-blueprint-orange transition-transform duration-200 group-hover:translate-x-1">→</span>
+                <span class="ml-1 transition-transform duration-200 group-hover:translate-x-1">→</span>
               </router-link>
             </div>
           </div>
@@ -133,15 +136,15 @@ const formatDate = (dateString?: string): string => {
       </div>
       
       <!-- GitHub Link -->
-      <hr class="content-divider" />
-      <div class="px-12 py-10">
+      <hr class="standard-divider" />
+      <div class="page-header">
         <div class="font-mono text-sm text-text-secondary mb-4">
           More projects available on our GitHub
         </div>
         <a 
           href="https://github.com/APDA-Tech-Committee" 
           target="_blank"
-          class="inline-block border-2 border-blueprint-blue text-blueprint-blue px-6 py-3 font-medium hover:bg-blueprint-blue/5 transition-colors"
+          class="btn-outline"
         >
           Visit GitHub Organization
         </a>

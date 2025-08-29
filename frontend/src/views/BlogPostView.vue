@@ -126,9 +126,9 @@
             <p class="text-sm text-text-secondary mb-2">More tech content:</p>
             <router-link 
               to="/Projects"
-              class="inline-flex items-center border border-black px-4 py-2"
+              class="inline-flex items-center border border-black px-4 py-2 group"
             >
-              See our projects →
+              See our projects <span class="text-blueprint-orange transition-transform duration-200 group-hover:translate-x-1">→</span>
             </router-link>
           </div>
         </div>

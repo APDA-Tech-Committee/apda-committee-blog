@@ -8,8 +8,8 @@ export default {
     extend: {
       colors: {
         blueprint: {
-          blue: '#0057FF',
-          orange: '#FF7A45',
+          blue: '#0047CC',
+          orange: '#FF6A1A',
           grid: '#ECECEC',
         },
         text: {
@@ -36,7 +36,7 @@ export default {
             maxWidth: 'none',
             color: 'rgba(0, 0, 0, 0.9)',
             a: {
-              color: '#0057FF',
+              color: '#0047CC',
               textDecoration: 'none',
               '&:hover': {
                 textDecoration: 'underline',

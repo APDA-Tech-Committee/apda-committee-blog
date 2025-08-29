@@ -20,11 +20,19 @@
   a:hover {
     @apply underline decoration-2 decoration-blueprint-blue;
   }
+  
+  a.orange-link {
+    @apply text-blueprint-orange no-underline transition duration-150;
+  }
+  
+  a.orange-link:hover {
+    @apply underline decoration-2 decoration-blueprint-orange;
+  }
 }
 
 @layer components {
   .btn {
-    @apply inline-block px-5 py-2.5 font-sans font-bold tracking-tight transition duration-150;
+    @apply inline-block px-5 py-2.5 font-sans font-bold tracking-tight transition-all duration-150;
   }
   
   .btn-primary {
@@ -32,7 +40,11 @@
   }
   
   .btn-secondary {
-    @apply btn text-text-primary bg-transparent border-2 border-text-secondary/20 hover:border-text-secondary/40;
+    @apply btn text-text-primary bg-transparent border-2 border-text-secondary/20 hover:border-text-secondary/40 hover:bg-gray-50;
+  }
+  
+  .btn-outline {
+    @apply btn text-blueprint-blue border-2 border-blueprint-blue hover:bg-blueprint-blue hover:text-white;
   }
   
   .link {
@@ -81,4 +93,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 .clipped-24 {
   clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+}
+
+/* Page transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }

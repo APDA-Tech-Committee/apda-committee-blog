@@ -50,22 +50,23 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
-    <hr class="content-divider" />
-    <div class="px-12 py-12">
-      <h1 class="text-4xl font-bold mb-4 text-blueprint-blue">APDA Tech Committee</h1>
-      <p class="max-w-[70ch] text-lg leading-relaxed mb-8">
+  <div class="blueprint-grid">
+    <hr class="standard-divider" />
+    <div class="page-header">
+      <h1 class="text-3xl font-bold mb-3 text-blueprint-blue">APDA Tech Committee</h1>
+      <p class="max-w-[70ch] text-lg leading-relaxed">
         Building technology solutions for the American Parliamentary Debate Association.
       </p>
       
-      <div class="font-mono text-text-secondary text-sm bg-gray-50 py-3 px-4 inline-block border-l-4 border-blueprint-blue">
-        Tools: 5  ·  Seasons Compiled: 21
+      <div class="font-mono text-sm bg-gray-50 py-3 px-4 inline-block border-l-4 border-blueprint-orange">
+        <span class="text-blueprint-orange font-medium">Tools: 5 · Seasons Compiled: 21</span>
       </div>
     </div>
     
-    <!-- Latest Updates Section with divider -->
-    <hr class="content-divider" />
-    <div class="px-12 py-10">
+    <!-- Orange accent divider -->
+    <hr class="accent-divider" />
+    <hr class="standard-divider" />
+    <div class="page-header">
       <h2 class="font-bold text-xl mb-8">Latest Updates</h2>
       
       <div v-if="loading" class="animate-pulse space-y-8">
@@ -106,57 +107,57 @@ onMounted(async () => {
     </div>
     
     <!-- Featured Project Section with divider -->
-    <hr class="content-divider" />
-    <div class="px-12 py-10">
+    <hr class="standard-divider" />
+    <div class="page-header">
       <h2 class="font-bold text-xl mb-8">Featured Project</h2>
       
-      <div class="flex flex-col md:flex-row gap-12 items-start">
-        <div class="flex-1">
-          <h3 class="text-xl font-bold text-blueprint-blue mb-4">August Updates</h3>
-          <p class="text-text-secondary mb-6 leading-relaxed">
-            See out post about what we completed this August.
-          </p>
-          <router-link to="/blog/tech-committee-august-update" class="text-blueprint-blue inline-flex items-center group font-medium">
-            View the latest features and improvements 
-            <span class="ml-1 transition-transform duration-200 group-hover:translate-x-1">→</span>
-          </router-link>
+      <div class="flex flex-col md:flex-row gap-12 items-start w-full max-w-none">
+      <div class="flex-1 w-full">
+        <h3 class="text-xl font-bold text-blueprint-blue mb-4">August Updates</h3>
+        <p class="text-text-secondary mb-6 leading-relaxed">
+        See out post about what we completed this August.
+        </p>
+        <router-link to="/blog/tech-committee-august-update" class="inline-flex items-center group font-medium px-3 py-1 bg-blueprint-orange text-white rounded-sm hover:bg-blueprint-orange/90 transition-colors duration-150 hover:no-underline">
+        View the latest features and improvements 
+        <span class="ml-1 transition-transform duration-200 group-hover:translate-x-1">→</span>
+        </router-link>
+      </div>
+      
+      <div class="flex-1 w-full max-w-md md:max-w-md">
+        <!-- Line-centric wireframe illustration -->
+        <div class="border-2 border-black p-1 shadow-md bg-white">
+        <div class="border-b-2 border-black pb-2 px-2 flex items-center bg-blueprint-blue/5">
+          <div class="flex space-x-2 mr-3">
+          <div class="w-3 h-3 bg-blueprint-orange rounded-full"></div>
+          <div class="w-3 h-3 bg-blueprint-blue rounded-full"></div>
+          <div class="w-3 h-3 bg-black rounded-full"></div>
+          </div>
+          <div class="h-4 bg-gray-100 w-full"></div>
         </div>
-        
-        <div class="flex-1 max-w-md">
-          <!-- Line-centric wireframe illustration -->
-          <div class="border-2 border-black p-1 shadow-md bg-white">
-            <div class="border-b-2 border-black pb-2 px-2 flex items-center bg-blueprint-blue/5">
-              <div class="flex space-x-2 mr-3">
-                <div class="w-3 h-3 bg-blueprint-orange rounded-full"></div>
-                <div class="w-3 h-3 bg-blueprint-blue rounded-full"></div>
-                <div class="w-3 h-3 bg-black rounded-full"></div>
-              </div>
-              <div class="h-4 bg-gray-100 w-full"></div>
-            </div>
-            <div class="p-4 space-y-6">
-              <hr class="border-t-2 border-black" />
-              <div class="flex justify-between">
-                <div class="h-4 bg-gray-100 w-1/4"></div>
-                <div class="h-4 bg-gray-100 w-1/6"></div>
-              </div>
-              <hr class="border-t-2 border-black" />
-              <div class="h-24 bg-gray-50 w-full flex items-center justify-center">
-                <div class="text-blueprint-blue font-mono text-sm">mit-tab v3.4</div>
-              </div>
-              <hr class="border-t-2 border-black" />
-              <div class="h-6 bg-gray-100 w-3/4"></div>
-              <hr class="border-t-2 border-black" />
-              <div class="flex justify-around">
-                <div class="h-10 w-10 border-2 border-blueprint-blue"></div>
-                <div class="h-10 w-10 border-2 border-blueprint-orange"></div>
-                <div class="h-10 w-10 border-2 border-black"></div>
-              </div>
-            </div>
+        <div class="p-4 space-y-6">
+          <hr class="border-t-2 border-black" />
+          <div class="flex justify-between">
+          <div class="h-4 bg-gray-100 w-1/4"></div>
+          <div class="h-4 bg-gray-100 w-1/6"></div>
+          </div>
+          <hr class="border-t-2 border-black" />
+          <div class="h-24 bg-gray-50 w-full flex items-center justify-center">
+          <div class="text-blueprint-blue font-mono text-sm">mit-tab v3.4</div>
+          </div>
+          <hr class="border-t-2 border-black" />
+          <div class="h-6 bg-gray-100 w-3/4"></div>
+          <hr class="border-t-2 border-black" />
+          <div class="flex justify-around">
+          <div class="h-10 w-10 border-2 border-blueprint-blue"></div>
+          <div class="h-10 w-10 border-2 border-blueprint-orange"></div>
+          <div class="h-10 w-10 border-2 border-black"></div>
           </div>
         </div>
+        </div>
+      </div>
       </div>
     </div>
     <!-- Bottom divider -->
-    <hr class="content-divider" />
+    <hr class="standard-divider" />
   </div>
 </template>

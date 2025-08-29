@@ -19,32 +19,36 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="bg-bg-primary">
+  <div class="blueprint-grid">
     <!-- Page Title + Tagline with top divider -->
-    <hr class="content-divider" />
-    <div class="px-12 py-6">
-      <h1 class="text-4xl font-bold mb-2 text-blueprint-blue">Team</h1>
-      <p class="max-w-[70ch] text-lg leading-relaxed mb-4">
+    <hr class="standard-divider" />
+    <div class="page-header">
+      <h1 class="text-3xl font-bold mb-3 text-blueprint-blue">Team</h1>
+      <p class="max-w-[70ch] text-lg leading-relaxed">
         Meet the people behind the APDA Tech Committee
       </p>
     </div>
     
-    <div v-if="loading" class="space-y-8">
-      <div v-for="i in 3" :key="i" class="animate-pulse">
-        <div class="h-6 bg-gray-200 w-1/4 mb-3"></div>
-        <div class="h-4 bg-gray-100 w-1/2 mb-10"></div>
+    <!-- Orange accent divider -->
+    <hr class="accent-divider" />
+    <hr class="standard-divider" />
+    
+    <div class="page-header">
+      <div v-if="loading" class="space-y-8">
+        <div v-for="i in 3" :key="i" class="animate-pulse">
+          <div class="h-6 bg-gray-200 w-1/4 mb-3"></div>
+          <div class="h-4 bg-gray-100 w-1/2 mb-10"></div>
+        </div>
       </div>
-    </div>
 
-    <div v-else-if="error" class="text-red-500 mb-8">
-      {{ error }}
-      <p class="text-text-secondary mt-2">Unable to load team information.</p>
-    </div>
+      <div v-else-if="error" class="text-red-500 mb-8">
+        {{ error }}
+        <p class="text-text-secondary mt-2">Unable to load team information.</p>
+      </div>
 
-    <div v-else>
-      <!-- Team Description -->
-      <hr class="content-divider" />
-      <section class="px-12 py-5">
+      <div v-else>
+        <!-- Team Description -->
+      <section class="page-header">
         <p class="mb-4 max-w-[70ch] text-lg">
           The APDA Technology Committee is responsible for developing and maintaining the association's digital infrastructure.
         </p>
@@ -58,8 +62,8 @@ onMounted(async () => {
       </section>
       
       <!-- Team Members Grid -->
-      <hr class="content-divider" />
-      <section class="px-12 py-5">
+      <hr class="standard-divider" />
+      <section class="page-header">
         <h2 class="text-2xl font-bold mb-5 text-blueprint-blue">Team Members</h2>
         
         <div class="space-y-10">
@@ -86,15 +90,15 @@ onMounted(async () => {
                 </p>
                 
                 <div class="flex flex-wrap gap-4 items-center">
-                  <a v-if="member.email" :href="`mailto:${member.email}`" class="text-blueprint-blue font-medium inline-flex items-center">
-                    <span>{{ member.email }}</span>
+                  <a v-if="member.email" :href="`mailto:${member.email}`" class="bg-blueprint-orange/10 px-2 py-1 text-blueprint-orange font-medium rounded-sm hover:bg-blueprint-orange hover:text-white transition-all duration-150 hover:no-underline">
+                    {{ member.email }}
                   </a>
                   
                   <div v-if="member.socialLinks" class="flex gap-3">
-                    <a v-if="member.socialLinks.github" :href="member.socialLinks.github" target="_blank" rel="noopener" class="text-blueprint-blue hover:underline">GitHub</a>
-                    <a v-if="member.socialLinks.linkedin" :href="member.socialLinks.linkedin" target="_blank" rel="noopener" class="text-blueprint-blue hover:underline">LinkedIn</a>
-                    <a v-if="member.socialLinks.twitter" :href="member.socialLinks.twitter" target="_blank" rel="noopener" class="text-blueprint-blue hover:underline">Twitter</a>
-                    <a v-if="member.socialLinks.website" :href="member.socialLinks.website" target="_blank" rel="noopener" class="text-blueprint-blue hover:underline">Website</a>
+                    <a v-if="member.socialLinks.github" :href="member.socialLinks.github" target="_blank" rel="noopener" class="text-text-secondary border-b border-blueprint-orange hover:text-black">GitHub</a>
+                    <a v-if="member.socialLinks.linkedin" :href="member.socialLinks.linkedin" target="_blank" rel="noopener" class="text-text-secondary border-b border-blueprint-orange hover:text-black">LinkedIn</a>
+                    <a v-if="member.socialLinks.twitter" :href="member.socialLinks.twitter" target="_blank" rel="noopener" class="text-text-secondary border-b border-blueprint-orange hover:text-black">Twitter</a>
+                    <a v-if="member.socialLinks.website" :href="member.socialLinks.website" target="_blank" rel="noopener" class="text-text-secondary border-b border-blueprint-orange hover:text-black">Website</a>
                   </div>
                 </div>
               </div>
@@ -104,8 +108,8 @@ onMounted(async () => {
       </section>
       
       <!-- Contact Info -->
-      <hr class="content-divider" />
-      <section class="px-12 py-5">
+      <hr class="standard-divider" />
+      <section class="page-header">
         <h2 class="text-xl font-bold mb-3 text-blueprint-blue">Contact Us</h2>
         
         <p class="mb-4 max-w-[70ch]">
@@ -113,12 +117,13 @@ onMounted(async () => {
         </p>
         
         <a 
-          href="mailto:tech@apda.online" 
-          class="inline-block border-2 border-blueprint-blue text-blueprint-blue px-6 py-3 hover:bg-blueprint-blue/5 transition-colors font-medium"
+          href="mailto:joeymrubas@gmail.com" 
+          class="btn-outline"
         >
-          Email tech@apda.online
+          Email joeymrubas@gmail.com
         </a>
       </section>
+      </div>
     </div>
   </div>
 </template>

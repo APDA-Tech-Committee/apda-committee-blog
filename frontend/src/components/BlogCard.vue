@@ -53,7 +53,7 @@ const commentCount = computed(() => {
       </div>
       
       <RouterLink :to="postUrl" class="group">
-        <h2 class="text-xl font-bold mb-4 group-hover:text-blueprint-blue">
+        <h2 class="text-xl font-bold mb-4 group-hover:text-blueprint-blue flex items-center">
           {{ post.title }}
         </h2>
       </RouterLink>

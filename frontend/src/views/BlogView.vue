@@ -56,16 +56,19 @@ onMounted(async () => {
 <template>
   <div class="blueprint-grid">
     <!-- Page Title + Tagline with top divider -->
-    <hr class="content-divider" />
-    <div class="px-12 py-10">
+    <hr class="standard-divider" />
+    <div class="page-header">
       <h1 class="text-3xl font-bold mb-3 text-blueprint-blue">Blog</h1>
       <p class="max-w-[70ch] text-lg leading-relaxed">
         Updates and articles from the APDA Tech Committee
       </p>
     </div>
-    <hr class="content-divider" />
+    
+    <!-- Orange accent divider -->
+    <hr class="accent-divider" />
+    <hr class="standard-divider" />
 
-    <div v-if="loading" class="px-12 py-8">
+    <div v-if="loading" class="page-header">
       <div v-for="i in 3" :key="i" class="animate-pulse mb-12">
         <div class="h-6 bg-gray-200 w-1/4 mb-3"></div>
         <div class="h-4 bg-gray-100 w-3/4 mb-6"></div>
@@ -73,61 +76,44 @@ onMounted(async () => {
       </div>
     </div>
 
-    <div v-else-if="error" class="px-12 py-8">
-      <hr class="content-divider" />
-      <div class="py-8">
-        <p class="text-red-500 font-bold">{{ error }}</p>
-        <p class="text-text-secondary mt-2">Unable to load blog posts.</p>
-      </div>
-      <hr class="content-divider" />
+    <div v-else-if="error" class="page-header">
+      <div class="text-red-500 font-bold">{{ error }}</div>
+      <p class="text-text-secondary mt-2">Unable to load blog posts.</p>
     </div>
 
-    <div v-else-if="posts.length === 0" class="px-12 py-8">
-      <hr class="content-divider" />
-      <div class="py-8">
-        <p class="text-text-secondary">No posts available.</p>
-      </div>
-      <hr class="content-divider" />
+    <div v-else-if="posts.length === 0" class="page-header">
+      <p class="text-text-secondary">No posts available.</p>
     </div>
 
-    <div v-else>
-      <!-- Blog Posts with structured line dividers -->
-      <div>
-        <div v-for="post in posts" :key="post.id">
-          <!-- Each post has its own divider lines -->
-          <hr class="content-divider" />
-          <div class="px-12 py-8">
-            <div class="font-mono text-text-secondary text-sm mb-4">
-              {{ formatDate(post.publishedAt) }}
+    <div v-else class="page-header">
+      <!-- Blog Posts Section -->
+      <div v-for="post in posts" :key="post.id" class="border-b border-black pb-8 mb-8 last:border-b-0">
+        <div class="font-mono text-text-secondary text-sm mb-4">
+          {{ formatDate(post.publishedAt) }}
+        </div>
+        
+        <router-link :to="`/blog/${post.slug}`" class="group block">
+          <h2 class="text-2xl font-bold mb-4 group-hover:text-blueprint-blue">
+            {{ post.title }}
+          </h2>
+          
+          <p class="text-text-secondary mb-6 max-w-[70ch] leading-relaxed">
+            {{ post.excerpt || 'No excerpt available' }}
+          </p>
+          
+          <div class="flex items-center gap-4">
+            <div class="font-mono text-sm text-text-secondary">
+              By {{ post.author.name }}
             </div>
-            
-            <router-link :to="`/blog/${post.slug}`" class="group">
-              <h2 class="text-2xl font-bold mb-4 group-hover:text-blueprint-blue">
-                {{ post.title }}
-              </h2>
-            </router-link>
-            
-            <p class="text-text-secondary mb-6 max-w-[70ch]">
-              {{ post.excerpt || 'No excerpt available' }}
-            </p>
-            
-            <div class="flex items-center gap-6">
-              <div class="font-mono text-sm text-text-secondary">
-                By {{ post.author.name }}
-              </div>
-              
-              <div class="text-xs text-black">
-                {{ post.category.name }}
-              </div>
-              
+            <div class="text-xs text-black">
+              {{ post.category.name }}
             </div>
           </div>
-        </div>
+        </router-link>
       </div>
 
-      <!-- Pagination with horizontal rule above -->
-      <hr class="content-divider" />
-      <div v-if="pagination.pages > 1" class="px-12 py-8 flex justify-between items-center">
+      <!-- Pagination -->
+      <div v-if="pagination.pages > 1" class="mt-8 flex justify-between items-center">
         <div class="font-mono text-sm text-text-secondary">
           Page {{ currentPage }} of {{ pagination.pages }}
         </div>
@@ -136,19 +122,21 @@ onMounted(async () => {
           <button
             @click="loadPage(currentPage - 1)"
             :disabled="currentPage <= 1"
-            class="px-4 py-2 border border-black text-black disabled:opacity-50 disabled:border-gray-300 disabled:text-gray-300"
+            class="btn-outline disabled:opacity-50 disabled:border-gray-300 disabled:text-gray-300 disabled:hover:bg-transparent hover:bg-blueprint-orange/10 hover:border-blueprint-orange hover:no-underline"
           >
-            Previous
+            <span class="flex items-center">
+              <span class="mr-1">←</span> Previous
+            </span>
           </button>
           
           <button
             v-for="page in pagination.pages"
             :key="page"
             @click="loadPage(page)"
-            class="px-3 py-2 font-mono"
+            class="px-3 py-2 font-mono hover:no-underline"
             :class="page === currentPage ? 
-              'border-b-2 border-black text-black' : 
-              'text-text-secondary hover:text-black'"
+              'bg-blueprint-orange text-white' : 
+              'text-text-secondary hover:bg-blueprint-orange/10'"
           >
             {{ page }}
           </button>
@@ -156,15 +144,14 @@ onMounted(async () => {
           <button
             @click="loadPage(currentPage + 1)"
             :disabled="currentPage >= pagination.pages"
-            class="px-4 py-2 border border-black text-black disabled:opacity-50 disabled:border-gray-300 disabled:text-gray-300"
+            class="btn-outline disabled:opacity-50 disabled:border-gray-300 disabled:text-gray-300 disabled:hover:bg-transparent hover:bg-blueprint-orange/10 hover:border-blueprint-orange hover:no-underline"
           >
-            Next
+            <span class="flex items-center">
+              Next <span class="ml-1">→</span>
+            </span>
           </button>
         </div>
       </div>
-      
-      <!-- Bottom divider -->
-      <hr class="content-divider" />
     </div>
   </div>
 </template>

@@ -260,29 +260,24 @@ const panelClipShadow = computed(() => ({
 }))
 
 function buttonClass(btn: Button) {
-  const base = 'group relative px-8 py-4 text-base font-bold transition-all duration-500 overflow-hidden transform-gpu uppercase tracking-wider'
+  // Use our standardized button classes that match the rest of the site
   if (btn.variant === 'primary') {
     return [
-      base,
-      'text-white shadow-xl hover:shadow-blue-500/30',
-      'bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-600',
-      'before:absolute before:inset-0 before:bg-gradient-to-r before:from-indigo-600 before:via-blue-600 before:to-cyan-600 before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500'
-    ].concat(btn.class || '').join(' ')
+      'btn-primary uppercase tracking-wider',
+      btn.class || ''
+    ].join(' ')
   }
   if (btn.variant === 'link') {
     return [
-      base,
-      'text-gray-200 hover:text-white py-4 !px-0',
-      'relative overflow-hidden',
-      'before:absolute before:bottom-0 before:left-0 before:w-0 before:h-1',
-      'before:bg-gradient-to-r before:from-cyan-400 before:to-blue-400 hover:before:w-full before:transition-all before:duration-300'
-    ].concat(btn.class || '').join(' ')
+      'link uppercase tracking-wider',
+      btn.class || ''
+    ].join(' ')
   }
   // ghost / default
   return [
-    base,
-    'text-white/90 hover:text-white border border-white/20 bg-white/5 hover:bg-white/10'
-  ].concat(btn.class || '').join(' ')
+    'btn-outline uppercase tracking-wider',
+    btn.class || ''
+  ].join(' ')
 }
 </script>
 
