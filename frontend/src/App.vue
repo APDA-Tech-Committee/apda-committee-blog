@@ -56,7 +56,7 @@ watch(showDesktopSidebar, (newValue) => {
     <!-- Desktop Toggle Button (visible only on larger screens) -->
     <button 
       @click="showDesktopSidebar = !showDesktopSidebar" 
-      class="hidden md:flex fixed top-4 z-50 items-center justify-center w-8 h-8 bg-white border border-black shadow-sm hover:bg-blueprint-orange/10 transition-colors duration-150"
+      class="hidden md:flex fixed top-4 z-50 items-center justify-center w-8 h-8 bg-white border border-black shadow-sm transition-colors duration-150"
       :style="{ left: showDesktopSidebar ? 'calc(25% - 16px)' : '4px' }"
     >
       <span class="sr-only">Toggle Sidebar</span>
@@ -300,14 +300,14 @@ watch(showDesktopSidebar, (newValue) => {
 
 /* Utility classes for blueprint-specific styling */
 .text-mono {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Share Tech Mono', 'IBM Plex Mono', monospace;
 }
 
 /* Typography enhancements */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: 'Share Tech Mono', 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  letter-spacing: 0;
   line-height: 1.1;
 }
 
@@ -317,7 +317,13 @@ p {
 }
 
 .text-lg, .text-xl, .text-2xl, .text-3xl {
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   font-weight: 600;
+}
+
+/* Navigation specific font styling */
+nav a, .page-header h1, .page-header h2 {
+  font-family: 'Share Tech Mono', 'IBM Plex Mono', monospace;
+  letter-spacing: 0;
 }
 </style>
