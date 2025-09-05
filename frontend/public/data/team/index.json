@@ -33,6 +33,14 @@
         "linkedin" : "https://www.linkedin.com/in/jordanday/",
         "website" : "jordane.day"
       }
+    },
+    {
+      "id": "4",
+      "name": "Ian McVann",
+      "position": "Contributor",
+      "bio": "Ian is a contributor from George Washington University, starting his second year on the committee.",
+      "imageUrl": "",
+      "socialLinks": {}
     }
   ]
 }
