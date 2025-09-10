@@ -39,8 +39,11 @@
       "name": "Ian McVann",
       "position": "Contributor",
       "bio": "Ian is a contributor from George Washington University, starting his second year on the committee.",
-      "imageUrl": "",
-      "socialLinks": {}
+      "imageUrl": "/assets/ian.jpg",
+      "socialLinks": {
+        "github": "https://github.com/ianmcvann",
+        "linkedin": "https://www.linkedin.com/in/ianmcvann/"
+      }
     }
   ]
 }
