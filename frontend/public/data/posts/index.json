@@ -1,6 +1,36 @@
 {
   "posts": [
     {
+      "id": "4",
+      "title": "Tech Committee Monthly Update: September 2025",
+      "slug": "tech-committee-september-update",
+      "excerpt": "A summary of the Tech Committee's achievements and progress over the past month across all APDA tech projects.",
+      "publishedAt": "2025-09-28T00:00:00.000Z",
+      "author": {
+        "name": "Joey Rubas",
+        "position": "Tech Committee Chair"
+      },
+      "category": {
+        "id": "1",
+        "name": "Announcement",
+        "color": "blue"
+      },
+      "tags": [
+        {
+          "id": "9",
+          "name": "Update"
+        },
+        {
+          "id": "18",
+          "name": "Monthly Report"
+        }
+      ],
+      "committeeId": "tech-committee",
+      "_count": {
+        "comments": 0
+      }
+    },
+    {
       "id": "0",
       "title": "Tech Committee Monthly Update: August 2025",
       "slug": "tech-committee-august-update",

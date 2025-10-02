@@ -31,15 +31,6 @@ Behind the scenes, we're working on:
 - Enhanced security measures for all APDA digital assets
 - Performance optimizations across all our platforms
 
-## Timeline
-
-- **September 2025**: Release Mit-Tab v3.5 with mobile UI improvements
-- **October 2025**: Beta launch of new APDA website design
-- **December 2025**: Full rollout of tournament statistics dashboard
-- **January 2026**: Complete cloud migration
-- **March 2026**: Comprehensive security audit and improvements
-- **May 2026**: End-of-season review and planning for 2026-2027
-
 ## Get Involved
 
 We're always looking for tech-savvy debaters to join the committee! If you're interested in contributing, please reach out to joeymrubas@gmail.com
