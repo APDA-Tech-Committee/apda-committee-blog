@@ -47,6 +47,12 @@ const formatContent = (content: string) => {
     .replace(/^##### (.*$)/gm, '<h5 class="text-base font-bold mt-3 mb-1">$1</h5>')
     .replace(/^###### (.*$)/gm, '<h6 class="text-sm font-bold mt-2 mb-1">$1</h6>');
   
+  // Process images before links (images use ![alt](url) syntax)
+  formatted = formatted.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="max-w-full h-auto my-6 rounded-lg shadow-md" />');
+  
+  // Process links
+  formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blueprint-blue hover:underline" target="_blank" rel="noopener">$1</a>');
+  
   // Process bold and italic text
   formatted = formatted
     .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')

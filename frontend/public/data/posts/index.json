@@ -1,6 +1,70 @@
 {
   "posts": [
     {
+      "id": "9",
+      "title": "100x Faster: How We Supercharged MIT-Tab with a CDN",
+      "slug": "cdn-performance-improvement",
+      "excerpt": "A technical deep dive into how integrating a Content Delivery Network improved MIT-Tab's performance by up to 100x for static assets.",
+      "publishedAt": "2025-11-01T00:00:00.000Z",
+      "author": {
+        "name": "Joey Rubas",
+        "position": "Tech Committee Chair"
+      },
+      "category": {
+        "id": "3",
+        "name": "Tech",
+        "color": "green"
+      },
+      "tags": [
+        {
+          "id": "10",
+          "name": "Mit-Tab"
+        },
+        {
+          "id": "20",
+          "name": "Performance"
+        },
+        {
+          "id": "21",
+          "name": "Infrastructure"
+        }
+      ],
+      "committeeId": "tech-committee",
+      "_count": {
+        "comments": 0
+      }
+    },
+    {
+      "id": "8",
+      "title": "Tech Committee Monthly Update: October 2025",
+      "slug": "tech-committee-october-update",
+      "excerpt": "A summary of the Tech Committee's achievements and progress over the past month across all APDA tech projects.",
+      "publishedAt": "2025-10-28T00:00:00.000Z",
+      "author": {
+        "name": "Joey Rubas",
+        "position": "Tech Committee Chair"
+      },
+      "category": {
+        "id": "1",
+        "name": "Announcement",
+        "color": "blue"
+      },
+      "tags": [
+        {
+          "id": "9",
+          "name": "Update"
+        },
+        {
+          "id": "18",
+          "name": "Monthly Report"
+        }
+      ],
+      "committeeId": "tech-committee",
+      "_count": {
+        "comments": 0
+      }
+    },
+    {
       "id": "7",
       "title": "Tech Committee Monthly Update: September 2025",
       "slug": "tech-committee-september-update",

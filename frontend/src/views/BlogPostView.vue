@@ -188,6 +188,10 @@ const formatContent = (content: string) => {
     .replace(/^##### (.*$)/gm, '<h5 class="text-base font-bold mt-3 mb-1">$1</h5>')
     .replace(/^###### (.*$)/gm, '<h6 class="text-sm font-bold mt-2 mb-1">$1</h6>');
   
+  // Process images before links (images use ![alt](url) syntax)
+  formatted = formatted.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" class="max-w-full h-auto my-6 rounded-lg shadow-md" />');
+  
+  // Process links
   formatted = formatted.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blueprint-blue hover:underline" target="_blank" rel="noopener">$1</a>');
   
   formatted = formatted
@@ -219,12 +223,16 @@ const formatContent = (content: string) => {
   
   return paragraphs
     .map(paragraph => {
-      if (paragraph.trim().startsWith('<')) {
-        return paragraph;
+      const trimmed = paragraph.trim();
+      if (!trimmed) return '';
+      // If already HTML, return as-is
+      if (trimmed.startsWith('<')) {
+        return trimmed;
       }
-      return `<p class="mb-4">${paragraph.replace(/\n/g, '<br>')}</p>`;
+      // Otherwise wrap in paragraph tag
+      return `<p class="mb-4">${trimmed}</p>`;
     })
-    .join('');
+    .join('\n');
 }
 
 onMounted(() => {
